@@ -1,0 +1,190 @@
+"use client";
+import React from "react";
+
+import Image from "next/image";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+
+import {
+  Avatar,
+  Button,
+  Dropdown,
+  DropdownItem,
+  DropdownMenu,
+  DropdownTrigger,
+  Navbar,
+  NavbarBrand,
+  NavbarContent,
+  NavbarItem,
+} from "@heroui/react";
+import { useSelector } from "react-redux";
+
+import { clearAuth } from "@/redux/slices";
+import { RootState, store } from "@/redux/store";
+
+import { ThemeToggle } from "@/components/modules/SwithTheme/theme-toggle";
+
+import LabMS_Logo from "../../../../public/images/InjectionLogo.svg";
+import DefaultLogo from "../../../../public/images/gct.png";
+
+export const Header = () => {
+  const router = useRouter();
+  const authState = useSelector((state: RootState) => state.auth);
+  const isLoggedIn = !!(
+    authState.data?.accessToken || authState.data?.refreshToken
+  );
+  const email = authState.data?.user?.email;
+  const fullName = authState.data?.user?.fullName;
+  const avatarUrl = authState.data?.user?.avatarUrl;
+
+  const handleLogout = () => {
+    store.dispatch(clearAuth());
+    router.push("/signin");
+  };
+
+  return (
+    <Navbar className="bg-white dark:bg-slate-900 border-b border-gray-200 dark:border-gray-700 text-gray-800 dark:text-white">
+      <NavbarBrand className="flex items-center gap-2">
+        <Link href="/" className="flex items-center gap-2  text-black-500">
+          <Image src={LabMS_Logo} alt="Auth Image" width={50} quality={100} />
+          <p className="font-bold text-inherit">LabMS</p>
+        </Link>
+      </NavbarBrand>
+
+      <NavbarContent className="hidden sm:flex gap-5" justify="center">
+        <NavbarItem className="relative">
+          <Link
+            href="/service"
+            prefetch={true}
+            onMouseEnter={() => router.prefetch("/service")}
+            className="font-[600] text-lg text-foreground hover:text-[var(--coral-600)] hover:font-bold transition-colors after:absolute after:-bottom-1 after:left-0 after:h-[2px] hover:after:scale-x-100 after:scale-x-0 after:w-full after:bg-red-200 after:transition-all after:duration-300"
+          >
+            Dịch vụ
+          </Link>
+        </NavbarItem>
+        <NavbarItem className="relative">
+          <Link
+            href="/customers"
+            prefetch={true}
+            onMouseEnter={() => router.prefetch("/customers")}
+            className="font-[600] text-lg text-foreground hover:text-[var(--coral-600)] hover:font-bold transition-colors after:absolute after:-bottom-1 after:left-0 after:h-[2px] hover:after:scale-x-100 after:scale-x-0 after:w-full after:bg-red-200 after:transition-all after:duration-300"
+          >
+            Khách hàng
+          </Link>
+        </NavbarItem>
+        <NavbarItem className="relative">
+          <Link
+            href="/integrations"
+            prefetch={true}
+            onMouseEnter={() => router.prefetch("/integrations")}
+            className="font-[600] text-lg text-foreground hover:text-[var(--coral-600)] hover:font-bold transition-colors after:absolute after:-bottom-1 after:left-0 after:h-[2px] hover:after:scale-x-100 after:scale-x-0 after:w-full after:bg-red-200 after:transition-all after:duration-300"
+          >
+            Tích hợp
+          </Link>
+        </NavbarItem>
+      </NavbarContent>
+
+      <NavbarContent as="div" className="items-center gap-3" justify="end">
+        {isLoggedIn ? (
+          <>
+            <NavbarItem className="flex-shrink-0">
+              <ThemeToggle />
+            </NavbarItem>
+            <Dropdown placement="bottom-end">
+              <DropdownTrigger>
+                <Avatar
+                  isBordered
+                  as="button"
+                  className="transition-transform object-cover object-center overflow-hidden round hover:scale-105"
+                  color="danger"
+                  name="Jason Hughes"
+                  size="sm"
+                  src={avatarUrl || DefaultLogo.src}
+                />
+              </DropdownTrigger>
+              <DropdownMenu aria-label="Profile Actions" variant="flat">
+                <DropdownItem key="profile" className="h-14 gap-2">
+                  <p className="font-semibold">Đăng nhập với</p>
+                  <p className="font-semibold">
+                    {email == null ? fullName : email}
+                  </p>
+                </DropdownItem>
+                <DropdownItem key="my_profile">
+                  <Link
+                    href="/profile"
+                    prefetch={true}
+                    onMouseEnter={() => router.prefetch("/profile")}
+                  >
+                    Hồ sơ của tôi
+                  </Link>
+                </DropdownItem>
+                <DropdownItem key="help_and_feedback">
+                  <Link
+                    href="/support"
+                    prefetch={true}
+                    onMouseEnter={() => router.prefetch("/support")}
+                  >
+                    Trợ giúp & phản hồi
+                  </Link>
+                </DropdownItem>
+                <DropdownItem
+                  key="logout"
+                  color="danger"
+                  onPress={handleLogout}
+                >
+                  <p className="font-bold">Log Out</p>
+                </DropdownItem>
+              </DropdownMenu>
+            </Dropdown>
+          </>
+        ) : (
+          <>
+            <NavbarItem className="flex-shrink-0 w-auto">
+              <ThemeToggle />
+            </NavbarItem>
+            <NavbarItem>
+              <Link
+                href="/signin"
+                prefetch={true}
+                onMouseEnter={() => router.prefetch("/signin")}
+              >
+                <Button
+                  className="text-xs opacity-100"
+                  style={{
+                    background:
+                      "linear-gradient(90deg, var(--coral-500), var(--coral-600))",
+                    color: "#ffffff",
+                    borderRadius: 8,
+                  }}
+                >
+                  Đăng nhập
+                </Button>
+              </Link>
+            </NavbarItem>
+            <NavbarItem>
+              <Link
+                href="/signup"
+                prefetch={true}
+                onMouseEnter={() => router.prefetch("/signup")}
+              >
+                <Button
+                  className="text-xs opacity-100"
+                  variant="bordered"
+                  style={{
+                    borderColor: "var(--coral-500)",
+                    color: "var(--coral-500)",
+                    background: "transparent",
+                    borderRadius: 8,
+                  }}
+                  onPress={() => router.push("/signup")}
+                >
+                  Đăng ký
+                </Button>
+              </Link>
+            </NavbarItem>
+          </>
+        )}
+      </NavbarContent>
+    </Navbar>
+  );
+};
