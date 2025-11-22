@@ -1,4 +1,4 @@
-name: FE Auto Build & Push
+name: FE Build & Push
 
 on:
   push:
@@ -6,41 +6,42 @@ on:
     paths:
       - "frontend-user/**"
       - "frontend-admin/**"
-      - ".github/workflows/fe-deploy.yml"
+      - ".github/workflows/fe-deloy.yml"
+  workflow_dispatch:
 
 jobs:
-  build-and-push:
+  build:
     runs-on: ubuntu-latest
+    environment: docker
 
     steps:
-      - name: Checkout code
+      - name: Checkout Code
         uses: actions/checkout@v3
 
-      # =============================
-      # LOGIN DOCKER HUB (BẮT BUỘC)
-      # =============================
-      - name: Login to DockerHub
+      - name: Login to Docker Hub
         uses: docker/login-action@v2
         with:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
 
       # =============================
-      # Build & Push FE USER
+      # Build & Push Frontend User
       # =============================
-      - name: Build & Push FE User
+      - name: Build FE User
         uses: docker/build-push-action@v4
         with:
           context: ./frontend-user
+          file: ./frontend-user/Dockerfile
           push: true
           tags: datdevv/frontend-user:latest
 
       # =============================
-      # Build & Push FE ADMIN
+      # Build & Push Frontend Admin
       # =============================
-      - name: Build & Push FE Admin
+      - name: Build FE Admin
         uses: docker/build-push-action@v4
         with:
           context: ./frontend-admin
+          file: ./frontend-admin/Dockerfile
           push: true
           tags: datdevv/admin-frontend:latest
