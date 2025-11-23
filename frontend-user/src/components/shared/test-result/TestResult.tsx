@@ -148,7 +148,7 @@ const TestResult: React.FC<TestResultProps> = ({
   console.log("Testorder:", testOrder);
 
   return (
-    <div className="relative min-h-screen h-full overflow-y-auto scrollbar-none">
+    <div className="relative min-h-screen h-full overflow-y-auto scrollbar-thin">
       <div className="max-w-5xl mx-auto px-4 pb-40">
         {/* Toggle Button - Always visible */}
         <div className="fixed top-25 right-10 z-50 no-print">
