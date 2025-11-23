@@ -12,6 +12,7 @@ import { useFetchDeleteReagentSwrCore } from "./instrument/useFetchDeleteReagent
 import { useFetchGetAllReagentSwrCore } from "./instrument/useFetchGetAllReagentSwr";
 import { useFetchRecieveResultFromInstrumentSwrCore } from "./instrument/useFetchRecieveResultFromInstrumentSwr";
 import { useFetchUpdateStatusReagentsSwrCore } from "./instrument/useFetchUpdateStatusReagentsSwr";
+import { useFetchGetAllMonitoringSwrCore } from "./monitoring/useFetchGetAllMonitoringSwr";
 import { useFetchAllPatientSwrCore } from "./patient/useFetchAllPatientSwr";
 import { useFetchCreatePatientSwrCore } from "./patient/useFetchCreatePatientSwr";
 import { useFetchDeletePatientSwrCore } from "./patient/useFetchDeletePatientSwr";
@@ -32,7 +33,6 @@ import { useFetchUpdateUserSwrCore } from "./user/useFetchUpdateUserSwr";
 import { useFetchCreateInstrumentSwrCore } from "./warehouse/useFetchCreateWareHouseIntrustmentSwr";
 import { useFetchGetAllInstrumentSwrCore } from "./warehouse/useFetchGetAllInstrumentSwr";
 import { useFetchUpdateInstrumentSwrCore } from "./warehouse/useFetchUpdateWareHouseIntrustmentSwr";
-import { useFetchGetAllMonitoringSwrCore } from "./monitoring/useFetchGetAllMonitoringSwr";
 
 export interface SwrContextType {
   useFetchRegisterSwr: ReturnType<typeof useFetchRegisterSwrCore>;

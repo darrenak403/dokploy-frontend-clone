@@ -284,7 +284,7 @@ const TestResultDetail: React.FC<TestResultProps> = ({
         </CardHeader>
         <CardBody className="px-4 py-2 gap-4 overflow-hidden flex flex-col h-full justify-between">
           {/* Comments List - Scrollable */}
-          <div className="flex flex-col gap-2 space-y-2 overflow-y-auto scrollbar-none pr-2">
+          <div className="flex flex-col gap-2 space-y-2 overflow-y-auto scrollbar-thin pr-2">
             {doctorComments && doctorComments.length > 0 ? (
               doctorComments.map((comment, index) => (
                 <div

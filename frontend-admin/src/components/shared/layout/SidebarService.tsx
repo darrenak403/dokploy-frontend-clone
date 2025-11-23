@@ -76,8 +76,8 @@ const SidebarService = () => {
     },
     {
       key: "/service/monitoring",
-      icon: "solar:shield-user-bold",
-      label: "Nhật kí theo dõi",
+      icon: "solar:chart-bold",
+      label: "Quản lí hệ thống",
       href: "/service/monitoring",
       roles: ["ROLE_ADMIN"],
     },

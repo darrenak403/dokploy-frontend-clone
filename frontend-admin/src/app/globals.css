@@ -149,6 +149,26 @@ body {
   display: none; /* Safari and Chrome */
 }
 
+.scrollbar-thin {
+  scrollbar-width: thin; /* Firefox */
+  scrollbar-color: rgba(255, 97, 97, 0.9) transparent; /* Firefox: thumb track */
+}
+
+.scrollbar-thin::-webkit-scrollbar {
+  width: 8px; /* Chrome, Safari, Opera */
+  height: 8px;
+}
+.scrollbar-thin::-webkit-scrollbar-thumb {
+  background: var(--primary-400); /* Màu đỏ từ theme */
+  border-radius: 999px;
+}
+.scrollbar-thin::-webkit-scrollbar-thumb:hover {
+  background: var(--primary-600); /* Đậm hơn khi hover */
+}
+.scrollbar-thin::-webkit-scrollbar-track {
+  background: transparent; /* Nền trong suốt */
+}
+
 /* Hide horizontal scrollbar but allow horizontal scrolling.
    WebKit supports hiding horizontal scrollbar only; Firefox cannot target per-axis,
    so we include a Firefox rule that may hide both scrollbars (see comment). */

@@ -41,3 +41,6 @@ export * from "./warehouse/useFetchUpdateWareHouseIntrustmentSwr";
 export * from "./instrument/useFetchCreateRegentSwr";
 export * from "./instrument/useFetchUpdateStatusReagentsSwr";
 export * from "./instrument/useFetchDeleteReagentsSwr";
+
+//monitoring
+export * from "./monitoring/useFetchGetAllMonitoringSwr";

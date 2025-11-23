@@ -184,7 +184,7 @@ const BloodTestReportContent: React.FC<BloodTestReportContentProps> = ({
           </h3>
         </div>
 
-        <div className="h-[calc(100%-3rem)] overflow-y-auto scrollbar-none">
+        <div className="h-[calc(100%-3rem)] overflow-y-auto scrollbar-thin">
           {doctorComments && doctorComments.length > 0 ? (
             <div className="space-y-3">
               {doctorComments.map((comment, index) => (
