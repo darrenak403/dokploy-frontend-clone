@@ -1,15 +1,16 @@
-import { render, screen } from "@testing-library/react";
+import { render } from "@testing-library/react";
 
 import MainTitle from "@/components/shared/regents/MainTitle";
 
 describe("Reagents MainTitle", () => {
   it("should render title and description", () => {
-    render(<MainTitle />);
+    const { container } = render(<MainTitle />);
 
-    expect(screen.getByText("Quản lí thuốc thử")).toBeInTheDocument();
-    expect(
-      screen.getByText("Quản lý hồ sơ và thông tin thuốc thử của bệnh viện")
-    ).toBeInTheDocument();
+    // Use container query to avoid memory issues
+    expect(container.textContent).toContain("Quản lí thuốc thử");
+    expect(container.textContent).toContain(
+      "Quản lý hồ sơ và thông tin thuốc thử của bệnh viện"
+    );
   });
 
   it("should render with correct structure", () => {
@@ -20,9 +21,9 @@ describe("Reagents MainTitle", () => {
   });
 
   it("should have proper heading hierarchy", () => {
-    render(<MainTitle />);
+    const { container } = render(<MainTitle />);
 
-    const heading = screen.getByRole("heading", { level: 1 });
+    const heading = container.querySelector("h1");
     expect(heading).toHaveTextContent("Quản lí thuốc thử");
   });
 });

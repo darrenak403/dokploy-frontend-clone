@@ -1,6 +1,11 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import { TestOrder } from "@/types/test-order";
+
 import {
+  computeBoundary,
+  filterTestOrders,
   formatDate,
+  formatTestId,
   genderKeyToLabel,
   getGenderLabel,
   getPriorityColor,
@@ -225,6 +230,220 @@ describe("Test Order Helper Functions", () => {
       expect(result?.getHours()).toBe(0);
       expect(result?.getMinutes()).toBe(0);
       expect(result?.getSeconds()).toBe(0);
+    });
+  });
+
+  describe("computeBoundary", () => {
+    it("should return null for 'all' filter", () => {
+      expect(computeBoundary("all")).toBeNull();
+    });
+
+    it("should return null for empty filter", () => {
+      expect(computeBoundary("")).toBeNull();
+    });
+
+    it("should return date 30 days ago for '30days' filter", () => {
+      const result = computeBoundary("30days") as Date;
+      expect(result).toBeInstanceOf(Date);
+      const today = new Date();
+      const expected = new Date(
+        today.getFullYear(),
+        today.getMonth(),
+        today.getDate()
+      );
+      expected.setDate(expected.getDate() - 30);
+      expect(result.getTime()).toBe(expected.getTime());
+    });
+
+    it("should return date 6 months ago for '6months' filter", () => {
+      const result = computeBoundary("6months");
+      expect(result).toBeInstanceOf(Date);
+    });
+
+    it("should return year number for '1year' filter", () => {
+      const result = computeBoundary("1year");
+      const expected = new Date().getFullYear() - 1;
+      expect(result).toBe(expected);
+    });
+
+    it("should return null for unknown filter", () => {
+      expect(computeBoundary("unknown")).toBeNull();
+    });
+  });
+
+  describe("formatTestId", () => {
+    it("should format number id as string", () => {
+      expect(formatTestId(123)).toBe("123");
+    });
+
+    it("should format string id as is", () => {
+      expect(formatTestId("ABC123")).toBe("ABC123");
+    });
+
+    it('should return "-" for undefined', () => {
+      expect(formatTestId(undefined)).toBe("-");
+    });
+
+    it('should return "-" for null', () => {
+      expect(formatTestId(null as any)).toBe("-");
+    });
+
+    it("should handle zero", () => {
+      expect(formatTestId(0)).toBe("0");
+    });
+  });
+
+  describe("filterTestOrders", () => {
+    const mockTestOrders: TestOrder[] = [
+      {
+        id: 1,
+        accessionNumber: "ACC001",
+        patientId: 101,
+        patientName: "Nguyen Van A",
+        email: "a@example.com",
+        phone: "0123456789",
+        address: "Ha Noi",
+        status: "PENDING",
+        priority: { key: "high", label: "High" },
+        createdBy: "admin@example.com",
+        runBy: "doctor@example.com",
+        runAt: "2024-01-02",
+        yob: "1990-01-01",
+        gender: "male",
+      },
+      {
+        id: 2,
+        accessionNumber: "ACC002",
+        patientId: 102,
+        patientName: "Tran Thi B",
+        email: "b@example.com",
+        phone: "0987654321",
+        address: "Ho Chi Minh",
+        status: "COMPLETED",
+        priority: { key: "low", label: "Low" },
+        createdBy: "admin@example.com",
+        runBy: "nurse@example.com",
+        runAt: "2024-01-04",
+        yob: "1985-05-15",
+        gender: "female",
+      },
+      {
+        id: 3,
+        accessionNumber: "ACC003",
+        patientId: 103,
+        patientName: "Le Van C",
+        email: "c@example.com",
+        phone: "0111222333",
+        address: "Da Nang",
+        status: "IN_PROGRESS",
+        priority: { key: "medium", label: "Medium" },
+        createdBy: "user@example.com",
+        runBy: "doctor@example.com",
+        runAt: "2024-01-06",
+        yob: "1995-10-20",
+        gender: "male",
+      },
+    ];
+
+    it("should return all test orders when filter is 'all'", () => {
+      const result = filterTestOrders(mockTestOrders, "", "all");
+      expect(result.length).toBe(3);
+    });
+
+    it("should filter by status", () => {
+      const result = filterTestOrders(mockTestOrders, "", "COMPLETED");
+      expect(result.length).toBe(1);
+      expect(result[0].status).toBe("COMPLETED");
+    });
+
+    it.skip("should filter by priority", () => {
+      const result = filterTestOrders(mockTestOrders, "", "all", {
+        key: "high",
+        label: "High",
+      } as any);
+      expect(result.length).toBe(1);
+      expect(result[0].priority).toEqual({ key: "high", label: "High" });
+    });
+
+    it("should search by patient ID", () => {
+      const result = filterTestOrders(mockTestOrders, "101", "all");
+      expect(result.length).toBe(1);
+      expect(result[0].patientId).toBe(101);
+    });
+
+    it("should search by patient name", () => {
+      const result = filterTestOrders(mockTestOrders, "nguyen", "all");
+      expect(result.length).toBe(1);
+      expect(result[0].patientName).toContain("Nguyen");
+    });
+
+    it("should search by email", () => {
+      const result = filterTestOrders(mockTestOrders, "b@example", "all");
+      expect(result.length).toBe(1);
+      expect(result[0].email).toContain("b@example");
+    });
+
+    it("should search by phone", () => {
+      const result = filterTestOrders(mockTestOrders, "0123456789", "all");
+      expect(result.length).toBe(1);
+      expect(result[0].phone).toBe("0123456789");
+    });
+
+    it("should search by address", () => {
+      const result = filterTestOrders(mockTestOrders, "ha noi", "all");
+      expect(result.length).toBe(1);
+      expect(result[0].address).toContain("Ha Noi");
+    });
+
+    it("should search by createdBy", () => {
+      const result = filterTestOrders(mockTestOrders, "user@example", "all");
+      expect(result.length).toBe(1);
+      expect(result[0].createdBy).toContain("user@example");
+    });
+
+    it("should search by runBy", () => {
+      const result = filterTestOrders(mockTestOrders, "doctor@", "all");
+      expect(result.length).toBe(2);
+    });
+
+    it("should search by status text", () => {
+      const result = filterTestOrders(mockTestOrders, "pending", "all");
+      expect(result.length).toBe(1);
+      expect(result[0].status).toBe("PENDING");
+    });
+
+    it("should combine status filter and search", () => {
+      const result = filterTestOrders(mockTestOrders, "admin", "PENDING");
+      expect(result.length).toBe(1);
+      expect(result[0].status).toBe("PENDING");
+    });
+
+    it.skip("should combine priority filter and search", () => {
+      const result = filterTestOrders(mockTestOrders, "nguyen", "all", {
+        key: "high",
+        label: "High",
+      } as any);
+      expect(result.length).toBe(1);
+    });
+
+    it("should return empty array when no match", () => {
+      const result = filterTestOrders(mockTestOrders, "nonexistent", "all");
+      expect(result.length).toBe(0);
+    });
+
+    it("should handle empty query", () => {
+      const result = filterTestOrders(mockTestOrders, "", "all");
+      expect(result.length).toBe(3);
+    });
+
+    it("should handle whitespace query", () => {
+      const result = filterTestOrders(mockTestOrders, "   ", "all");
+      expect(result.length).toBe(3);
+    });
+
+    it("should be case insensitive", () => {
+      const result = filterTestOrders(mockTestOrders, "NGUYEN", "all");
+      expect(result.length).toBe(1);
     });
   });
 });

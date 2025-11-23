@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import {
   decryptFromURL,
   decryptValue,
@@ -84,14 +83,9 @@ describe("Encryption Utility Functions", () => {
       process.env.NEXT_PUBLIC_SECRET = "";
 
       // Empty string key should fail during decryption
-      try {
-        decryptValue("somevalue", "");
-        fail("Should have thrown error");
-      } catch (error: any) {
-        expect(error.message).toMatch(
-          /Decryption key is not configured|Failed to decrypt value/
-        );
-      }
+      expect(() => decryptValue("somevalue", "")).toThrow(
+        "Failed to decrypt value"
+      );
 
       process.env.NEXT_PUBLIC_SECRET = originalEnv;
     });
