@@ -4,7 +4,6 @@ import React, { useMemo } from "react";
 import { Icon } from "@iconify/react";
 
 import { useFetchGetAllMonitoringSwrSingleton } from "@/hook/singleton/swrs/monitoring/useFetchGetAllMonitoringSwr";
-
 import { getMonitoringStats } from "@/modules/monitoring/getAllMonitoringHelpers";
 
 const MonitoringStat: React.FC = () => {
@@ -71,7 +70,8 @@ const MonitoringStat: React.FC = () => {
       value: isLoading ? "…" : String(stats.uniqueServices),
       subtitle: "Số dịch vụ khác nhau",
       icon: "mdi:server-network",
-      accent: "bg-teal-50 dark:bg-teal-950/20 text-teal-600 dark:text-teal-400",
+      accent:
+        "bg-teal-50 dark:bg-teal-950/20 text-teal-600 dark:text-teal-400",
       bgCard: "bg-white dark:bg-gray-800",
     },
     {

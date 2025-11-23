@@ -1,8 +1,8 @@
 import React from "react";
 
 import MainTitle from "@/components/shared/monitoring/MainTitle";
-import MonitoringList from "@/components/shared/monitoring/MonitoringList";
 import MonitoringStat from "@/components/shared/monitoring/MonitoringStat";
+import MonitoringList from "@/components/shared/monitoring/MonitoringList";
 
 const MonitoringPage = () => {
   return (
