@@ -1,8 +1,9 @@
 "use client";
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React from "react";
+import React, { useState } from "react";
 
 import {
+  Alert,
   Avatar,
   Button,
   Input,
@@ -17,6 +18,7 @@ import {
 } from "@heroui/react";
 import { Icon } from "@iconify/react";
 import { useFormik } from "formik";
+import { AnimatePresence, motion } from "framer-motion";
 import { useSWRConfig } from "swr";
 
 import { UpdateProfilePayload } from "@/types/profile";
@@ -33,6 +35,9 @@ import { validationUpdateUserSchema } from "@/modules/profile/updateProfileHelpe
 import { genderRoleLabel } from "@/modules/user/createUserHelper";
 
 export default function UpdateUserModal() {
+  const [alertMessage, setAlertMessage] = useState<string | null>(null);
+  const [alertColor, setAlertColor] = useState<"success" | "danger">("success");
+  const [showAlert, setShowAlert] = useState(false);
   const disclosure = useUpdateUserDiscloresureSingleton();
   const { mutate } = useSWRConfig();
   const user = disclosure?.user ?? null;
@@ -102,16 +107,27 @@ export default function UpdateUserModal() {
         const res = await updater?.updateUserProfile({ id, payload });
 
         if (res && (res.statusCode === 200 || res.statusCode === 201)) {
+          setAlertMessage("Cập nhật người dùng thành công!");
+          setAlertColor("success");
+          setShowAlert(true);
+          setTimeout(() => setShowAlert(false), 3000);
           try {
             await mutate(`/iam/users`);
             await mutate(`/iam/users/${id}`);
           } catch {}
           disclosure?.onClose();
         } else {
-          disclosure?.onClose();
+          setAlertMessage("Cập nhật người dùng thất bại!");
+          setAlertColor("danger");
+          setShowAlert(true);
+          setTimeout(() => setShowAlert(false), 3000);
         }
       } catch (err) {
         console.error("Update user failed", err);
+        setAlertMessage("Có lỗi xảy ra khi cập nhật người dùng!");
+        setAlertColor("danger");
+        setShowAlert(true);
+        setTimeout(() => setShowAlert(false), 3000);
       } finally {
         setSubmitting(false);
       }
@@ -138,6 +154,25 @@ export default function UpdateUserModal() {
         wrapper: "items-center justify-center",
       }}
     >
+      <AnimatePresence>
+        {showAlert && alertMessage && (
+          <motion.div
+            initial={{ opacity: 0, y: 20, scale: 0.95 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: -20, scale: 0.95 }}
+            transition={{ duration: 0.4 }}
+            className="fixed top-18 right-4 z-[999] w-auto max-w-[90vw] sm:max-w-sm"
+          >
+            <Alert
+              color={alertColor}
+              title={alertMessage}
+              variant="flat"
+              className="shadow-lg bg-background border border-gray-200 dark:border-gray-700"
+              onClose={() => setShowAlert(false)}
+            />
+          </motion.div>
+        )}
+      </AnimatePresence>
       <ModalContent className="bg-background text-foreground">
         <>
           <ModalHeader className="flex items-center gap-2 bg-background text-foreground">
