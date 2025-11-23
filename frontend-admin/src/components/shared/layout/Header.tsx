@@ -33,22 +33,42 @@ export const Header = () => {
   const isLoggedIn = !!(
     authState.data?.accessToken || authState.data?.refreshToken
   );
-  const email = authState.data?.user?.email;
-  const fullName = authState.data?.user?.fullName;
-  const avatarUrl = authState.data?.user?.avatarUrl;
+  const user = authState.data?.user;
+  const email = user?.email;
+  const fullName = user?.fullName;
+  const avatarUrl = user?.avatarUrl;
+
+  const isProfileIncomplete = !user || !user.email || !user.phone || !user.address || !user.gender;
 
   const handleLogout = () => {
     store.dispatch(clearAuth());
     router.push("/signin");
   };
 
+  const handleLinkClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    if (isProfileIncomplete) {
+      e.preventDefault();
+      router.push("/profile");
+    }
+  };
+
   return (
     <Navbar className="bg-white dark:bg-slate-900 border-b border-gray-200 dark:border-gray-700 text-gray-800 dark:text-white">
       <NavbarBrand className="flex items-center gap-2">
-        <Link href="/" className="flex items-center gap-2  text-black-500">
-          <Image src={LabMS_Logo} alt="Auth Image" width={50} quality={100} />
-          <p className="font-bold text-inherit">LabMS</p>
-        </Link>
+        {isLoggedIn && isProfileIncomplete ? (
+          <div 
+            className="flex items-center gap-2 text-black-500 opacity-50 cursor-not-allowed"
+            onClick={() => router.push("/profile")}
+          >
+            <Image src={LabMS_Logo} alt="Auth Image" width={50} quality={100} />
+            <p className="font-bold text-inherit">LabMS</p>
+          </div>
+        ) : (
+          <Link href="/" className="flex items-center gap-2 text-black-500">
+            <Image src={LabMS_Logo} alt="Auth Image" width={50} quality={100} />
+            <p className="font-bold text-inherit">LabMS</p>
+          </Link>
+        )}
       </NavbarBrand>
 
       <NavbarContent className="hidden sm:flex gap-5" justify="center">
@@ -57,7 +77,11 @@ export const Header = () => {
             href="/service"
             prefetch={true}
             onMouseEnter={() => router.prefetch("/service")}
-            className="font-[600] text-lg text-foreground hover:text-[var(--coral-600)] hover:font-bold transition-colors after:absolute after:-bottom-1 after:left-0 after:h-[2px] hover:after:scale-x-100 after:scale-x-0 after:w-full after:bg-red-200 after:transition-all after:duration-300"
+            onClick={(e) => handleLinkClick(e)}
+            className={`font-[600] text-lg text-foreground hover:text-[var(--coral-600)] hover:font-bold transition-colors after:absolute after:-bottom-1 after:left-0 after:h-[2px] hover:after:scale-x-100 after:scale-x-0 after:w-full after:bg-red-200 after:transition-all after:duration-300 ${
+              isProfileIncomplete ? "opacity-50 cursor-not-allowed pointer-events-none" : ""
+            }`}
+            aria-disabled={isProfileIncomplete}
           >
             Dịch vụ
           </Link>
@@ -67,7 +91,11 @@ export const Header = () => {
             href="/customers"
             prefetch={true}
             onMouseEnter={() => router.prefetch("/customers")}
-            className="font-[600] text-lg text-foreground hover:text-[var(--coral-600)] hover:font-bold transition-colors after:absolute after:-bottom-1 after:left-0 after:h-[2px] hover:after:scale-x-100 after:scale-x-0 after:w-full after:bg-red-200 after:transition-all after:duration-300"
+            onClick={(e) => handleLinkClick(e)}
+            className={`font-[600] text-lg text-foreground hover:text-[var(--coral-600)] hover:font-bold transition-colors after:absolute after:-bottom-1 after:left-0 after:h-[2px] hover:after:scale-x-100 after:scale-x-0 after:w-full after:bg-red-200 after:transition-all after:duration-300 ${
+              isProfileIncomplete ? "opacity-50 cursor-not-allowed pointer-events-none" : ""
+            }`}
+            aria-disabled={isProfileIncomplete}
           >
             Khách hàng
           </Link>
@@ -77,7 +105,11 @@ export const Header = () => {
             href="/integrations"
             prefetch={true}
             onMouseEnter={() => router.prefetch("/integrations")}
-            className="font-[600] text-lg text-foreground hover:text-[var(--coral-600)] hover:font-bold transition-colors after:absolute after:-bottom-1 after:left-0 after:h-[2px] hover:after:scale-x-100 after:scale-x-0 after:w-full after:bg-red-200 after:transition-all after:duration-300"
+            onClick={(e) => handleLinkClick(e)}
+            className={`font-[600] text-lg text-foreground hover:text-[var(--coral-600)] hover:font-bold transition-colors after:absolute after:-bottom-1 after:left-0 after:h-[2px] hover:after:scale-x-100 after:scale-x-0 after:w-full after:bg-red-200 after:transition-all after:duration-300 ${
+              isProfileIncomplete ? "opacity-50 cursor-not-allowed pointer-events-none" : ""
+            }`}
+            aria-disabled={isProfileIncomplete}
           >
             Tích hợp
           </Link>
