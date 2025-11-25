@@ -9,6 +9,9 @@ import { Providers } from "./providers";
 export const metadata: Metadata = {
   title: "Laboratory",
   description: "A system for managing laboratory operations and data.",
+  icons: {
+    icon: [{ url: "/images/LogoPDF2.png", sizes: "32x32", type: "image/png" }],
+  },
 };
 
 const geistSans = Geist({

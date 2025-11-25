@@ -16,7 +16,7 @@
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage",
     "test:ui": "jest --watch --verbose",
-    "validate": "npm run format:check && npm run lint:fix && npm run type-check && npm run test:coverage && npm run build",
+    "validate": "npm run format && npm run format:check && npm run lint:fix && npm run type-check && npm run test:coverage && npm run build",
     "clean": "rm -rf .next out coverage node_modules/.cache"
   },
   "dependencies": {

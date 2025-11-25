@@ -6,7 +6,7 @@ import MonitoringStat from "@/components/shared/monitoring/MonitoringStat";
 
 const MonitoringPage = () => {
   return (
-    <div className="max-w-screen mx-auto h-full min-h-0 flex flex-col p-6">
+    <div className="max-w-screen mx-auto h-full min-h-0 flex flex-col">
       <div className="mb-8">
         <MainTitle />
       </div>

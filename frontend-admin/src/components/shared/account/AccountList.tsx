@@ -29,6 +29,8 @@ import {
   getGenderLabel,
 } from "@/modules/user/getAllUserHelper";
 
+import { ExpandableText } from "@/components/modules/ExpandString/ExpandableText";
+
 const AccountList: React.FC = () => {
   const { openWithUserId } = useGetUserByIdDiscloresureSingleton();
   const { openWithUser } = useUpdateUserDiscloresureSingleton();
@@ -90,10 +92,10 @@ const AccountList: React.FC = () => {
   }
 
   return (
-    <Card className="w-full shadow-none border border-gray-200 flex flex-col min-h-[460px]">
-      <CardBody className="p-0">
+    <Card className="w-full shadow-none border border-gray-200 flex flex-col h-full">
+      <CardBody className="p-0 flex flex-col h-full">
         {/* Header with Search and Filters */}
-        <div className="p-4 border-b border-divider">
+        <div className="p-4 border-b border-divider flex-shrink-0">
           <div className="flex flex-col sm:flex-row gap-4">
             {/* Search Input */}
             <Input
@@ -146,9 +148,9 @@ const AccountList: React.FC = () => {
           </div>
         </div>
 
-        <div className="max-h-[400px] overflow-auto">
+        <div className="flex-1 overflow-auto">
           <Table
-            aria-label="Patient records table"
+            aria-label="User records table"
             classNames={{
               wrapper: "shadow-none",
               table: "h-full",
@@ -248,7 +250,14 @@ const AccountList: React.FC = () => {
                       case "email":
                         return <TableCell>{item.email || "-"}</TableCell>;
                       case "address":
-                        return <TableCell>{item.address || "-"}</TableCell>;
+                        return (
+                          <TableCell className="w-[200px]">
+                            <ExpandableText
+                              text={item.address}
+                              maxLength={30}
+                            />
+                          </TableCell>
+                        );
                       case "status": {
                         const isInactive =
                           item.banned === 1 || item.banned === true;

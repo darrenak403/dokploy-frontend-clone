@@ -42,7 +42,7 @@ const SidebarService = () => {
     },
     {
       key: "/service/my-medical-records",
-      icon: "solar:shield-user-bold",
+      icon: "solar:heart-pulse-bold-duotone",
       label: "Hồ sơ y tế của tôi",
       href: "/service/my-medical-records",
     },

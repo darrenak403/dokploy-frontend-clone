@@ -50,6 +50,8 @@ import {
 } from "@/modules/patient/getAllPatientHelper";
 import { getGenderLabel } from "@/modules/patient/getAllPatientHelper";
 
+import { ExpandableText } from "@/components/modules/ExpandString/ExpandableText";
+
 const PatientList: React.FC = () => {
   const { mutate } = useSWRConfig();
   const { openWithPatient: onOpenUpdateModal } =
@@ -170,10 +172,10 @@ const PatientList: React.FC = () => {
   };
 
   return (
-    <Card className="w-full shadow-none border border-gray-200 flex flex-col min-h-[450px]">
-      <CardBody className="p-0">
+    <Card className="w-full shadow-none border border-gray-200 flex flex-col h-full">
+      <CardBody className="p-0 flex flex-col h-full">
         {/* Header with Search and Filters */}
-        <div className="p-4 border-b border-divider">
+        <div className="p-4 border-b border-divider flex-shrink-0">
           <div className="flex flex-col sm:flex-row gap-4">
             {/* Search Input */}
             <Input
@@ -232,11 +234,11 @@ const PatientList: React.FC = () => {
           </div>
         </div>
 
-        <div className="flex-1 overflow-y-auto overflow-x-hidden hide-scrollbar-x scrollbar-none">
+        <div className="flex-1 overflow-auto">
           <Table
             aria-label="Patient records table"
             classNames={{
-              wrapper: "shadow-none h-full overflow-x-auto scrollbar-none",
+              wrapper: "shadow-none",
               table: "h-full",
               tbody: "h-full",
             }}
@@ -313,8 +315,8 @@ const PatientList: React.FC = () => {
                     <span className="text-sm">{patient.email || "-"}</span>
                   </TableCell>
                   {/* Address */}
-                  <TableCell>
-                    <span className="text-sm">{patient.address || "N/A"}</span>
+                  <TableCell className="w-[200px]">
+                    <ExpandableText text={patient.address} maxLength={20} />
                   </TableCell>
                   {/* Created By */}
                   <TableCell className="w-[80px]">

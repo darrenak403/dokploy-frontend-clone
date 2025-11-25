@@ -175,7 +175,7 @@ const TestOrderHistoryList: React.FC<TestOrderHistoryListProps> = ({
   ]);
 
   return (
-    <div className="w-full bg-white rounded-lg border border-gray-200 flex flex-col min-h-[460px]">
+    <div className="w-full bg-white rounded-lg border border-gray-200 flex flex-col h-full">
       {/* Header */}
       <div className="p-4 border-b border-divider flex-shrink-0">
         <div className="flex flex-col sm:flex-row gap-4">

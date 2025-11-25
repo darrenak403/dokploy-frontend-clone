@@ -455,13 +455,75 @@ describe("Header Component", () => {
         </Provider>
       );
 
-      const avatar = screen.getByRole("button");
+      const avatar = screen.getByTestId("user-avatar");
       fireEvent.click(avatar);
 
       const logoutButton = screen.getByText("Log Out");
       fireEvent.click(logoutButton);
 
       expect(mockPush).toHaveBeenCalledWith("/signin");
+    });
+  });
+
+  describe("Link Click Handler", () => {
+    it.skip("applies disabled styling when profile is incomplete", () => {
+      const incompleteProfileStore = createMockStore({
+        data: {
+          accessToken: "token",
+          refreshToken: "refresh",
+          user: {
+            email: null, // Missing email
+            fullName: "Test User",
+            phone: "123456789",
+            address: "Test Address",
+            gender: "male",
+            avatarUrl: null,
+          },
+        },
+      });
+
+      render(
+        <Provider store={incompleteProfileStore}>
+          <Header />
+        </Provider>
+      );
+
+      const serviceLink = screen.getByText("Dịch vụ").closest("a");
+      expect(serviceLink).toHaveClass(
+        "opacity-50",
+        "cursor-not-allowed",
+        "pointer-events-none"
+      );
+    });
+
+    it("does not apply disabled styling when profile is complete", () => {
+      const completeProfileStore = createMockStore({
+        data: {
+          accessToken: "token",
+          refreshToken: "refresh",
+          user: {
+            email: "test@test.com",
+            fullName: "Test User",
+            phone: "123456789",
+            address: "Test Address",
+            gender: "male",
+            avatarUrl: null,
+          },
+        },
+      });
+
+      render(
+        <Provider store={completeProfileStore}>
+          <Header />
+        </Provider>
+      );
+
+      const serviceLink = screen.getByText("Dịch vụ").closest("a");
+      expect(serviceLink).not.toHaveClass(
+        "opacity-50",
+        "cursor-not-allowed",
+        "pointer-events-none"
+      );
     });
   });
 

@@ -10,3 +10,5 @@ export * from "./home/HighlightFeature";
 
 export * from "./patient/MainTitle";
 export * from "./patient/PatientStat";
+
+export * from "../modules/ExpandString/ExpandableText";

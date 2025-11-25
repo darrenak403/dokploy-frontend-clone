@@ -63,12 +63,6 @@ describe("MonitoringPage", () => {
     expect(mainDiv).toBeInTheDocument();
   });
 
-  it("should apply responsive padding", () => {
-    const { container } = render(<MonitoringPage />);
-    const mainDiv = container.querySelector(".p-6");
-    expect(mainDiv).toBeInTheDocument();
-  });
-
   it("should have flex layout for vertical arrangement", () => {
     const { container } = render(<MonitoringPage />);
     const mainDiv = container.querySelector(".flex.flex-col");

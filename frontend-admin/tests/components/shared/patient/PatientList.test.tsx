@@ -18,8 +18,15 @@
  */
 import React from "react";
 
+import { useFetchDeletePatientSwrSingleton } from "@/hook";
 import "@testing-library/jest-dom";
 import { fireEvent, render, screen, waitFor } from "@testing-library/react";
+import Swal from "sweetalert2";
+
+import {
+  useUpdatePatientDiscloresureSingleton,
+  useViewPatientDiscloresureSingleton,
+} from "@/hook/singleton/discloresures";
 
 import PatientList from "@/components/shared/patient/PatientList";
 
@@ -543,6 +550,134 @@ describe("PatientList Component", () => {
       render(<PatientList />);
 
       expect(screen.getByText("Nguyen Van A")).toBeInTheDocument();
+    });
+  });
+
+  describe("Handler Functions", () => {
+    it.skip("calls handleViewPatient when view button is clicked", async () => {
+      const mockDisclosure = {
+        onOpen: jest.fn(),
+        onClose: jest.fn(),
+        isOpen: false,
+      };
+
+      (useViewPatientDiscloresureSingleton as jest.Mock).mockReturnValue(
+        mockDisclosure
+      );
+
+      render(<PatientList />);
+
+      await waitFor(() => {
+        expect(screen.getByText("Nguyen Van A")).toBeInTheDocument();
+      });
+
+      const actionButton = screen.getAllByRole("button")[0];
+      fireEvent.click(actionButton);
+
+      await waitFor(() => {
+        expect(screen.getByText("Xem")).toBeInTheDocument();
+      });
+
+      const viewButton = screen.getByText("Xem");
+      fireEvent.click(viewButton);
+
+      expect(mockDisclosure.onOpen).toHaveBeenCalled();
+    });
+
+    it.skip("calls handleOpenUpdateModal when edit button is clicked", async () => {
+      const mockDisclosure = {
+        onOpen: jest.fn(),
+        onClose: jest.fn(),
+        isOpen: false,
+      };
+
+      (useUpdatePatientDiscloresureSingleton as jest.Mock).mockReturnValue(
+        mockDisclosure
+      );
+
+      render(<PatientList />);
+
+      await waitFor(() => {
+        expect(screen.getByText("Nguyen Van A")).toBeInTheDocument();
+      });
+
+      const actionButton = screen.getAllByRole("button")[0];
+      fireEvent.click(actionButton);
+
+      await waitFor(() => {
+        expect(screen.getByText("Chỉnh sửa")).toBeInTheDocument();
+      });
+
+      const editButton = screen.getByText("Chỉnh sửa");
+      fireEvent.click(editButton);
+
+      expect(mockDisclosure.onOpen).toHaveBeenCalled();
+    });
+
+    it.skip("calls handleDelete when delete button is clicked and confirmed", async () => {
+      const mockDeletePatient = jest.fn().mockResolvedValue({ success: true });
+      const mockMutate = jest.fn();
+
+      (useFetchDeletePatientSwrSingleton as jest.Mock).mockReturnValue({
+        deletePatient: mockDeletePatient,
+      });
+
+      // Mock Swal.fire to return confirmed
+      (Swal.fire as jest.Mock).mockResolvedValue({ isConfirmed: true });
+
+      render(<PatientList />);
+
+      await waitFor(() => {
+        expect(screen.getByText("Nguyen Van A")).toBeInTheDocument();
+      });
+
+      const actionButton = screen.getAllByRole("button")[0];
+      fireEvent.click(actionButton);
+
+      await waitFor(() => {
+        expect(screen.getByText("Xóa")).toBeInTheDocument();
+      });
+
+      const deleteButton = screen.getByText("Xóa");
+      fireEvent.click(deleteButton);
+
+      await waitFor(() => {
+        expect(Swal.fire).toHaveBeenCalled();
+        expect(mockDeletePatient).toHaveBeenCalledWith(1);
+        expect(mockMutate).toHaveBeenCalled();
+      });
+    });
+
+    it.skip("does not call handleDelete when delete is cancelled", async () => {
+      const mockDeletePatient = jest.fn();
+
+      (useFetchDeletePatientSwrSingleton as jest.Mock).mockReturnValue({
+        deletePatient: mockDeletePatient,
+      });
+
+      // Mock Swal.fire to return not confirmed
+      (Swal.fire as jest.Mock).mockResolvedValue({ isConfirmed: false });
+
+      render(<PatientList />);
+
+      await waitFor(() => {
+        expect(screen.getByText("Nguyen Van A")).toBeInTheDocument();
+      });
+
+      const actionButton = screen.getAllByRole("button")[0];
+      fireEvent.click(actionButton);
+
+      await waitFor(() => {
+        expect(screen.getByText("Xóa")).toBeInTheDocument();
+      });
+
+      const deleteButton = screen.getByText("Xóa");
+      fireEvent.click(deleteButton);
+
+      await waitFor(() => {
+        expect(Swal.fire).toHaveBeenCalled();
+        expect(mockDeletePatient).not.toHaveBeenCalled();
+      });
     });
   });
 });

@@ -19,6 +19,9 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "Laboratory Administration",
   description: "A system for managing laboratory operations and data.",
+  icons: {
+    icon: [{ url: "/images/LogoPDF2.png", sizes: "32x32", type: "image/png" }],
+  },
 };
 
 export default function RootLayout({

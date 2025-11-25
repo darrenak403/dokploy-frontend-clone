@@ -49,6 +49,12 @@ const MonitoringList = () => {
 
     filtered = filterByTimeRange(filtered, timeFilter);
 
+    // Sort by timestamp descending (newest first)
+    filtered.sort(
+      (a, b) =>
+        new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime()
+    );
+
     return filtered;
   }, [monitoringData, searchText, statusFilter, timeFilter]);
 
@@ -83,10 +89,10 @@ const MonitoringList = () => {
   }
 
   return (
-    <Card className="w-full shadow-none border border-gray-200 flex flex-col min-h-[450px]">
-      <CardBody className="p-0">
+    <Card className="w-full shadow-none border border-gray-200 flex flex-col h-full">
+      <CardBody className="p-0 flex flex-col h-full">
         {/* Header with Search and Filters */}
-        <div className="p-4 border-b border-divider">
+        <div className="p-4 border-b border-divider flex-shrink-0">
           <div className="flex flex-col sm:flex-row gap-4">
             <div className="text-sm flex justify-center items-center text-gray-600 dark:text-gray-400">
               Hiển thị {filteredData.length} / {monitoringData.length} hoạt động
@@ -146,11 +152,13 @@ const MonitoringList = () => {
         </div>
 
         {/* Table */}
-        <div className="overflow-x-auto">
+        <div className="flex-1 overflow-auto">
           <Table
             aria-label="Monitoring table"
             classNames={{
               wrapper: "shadow-none",
+              table: "h-full",
+              tbody: "h-full",
             }}
           >
             <TableHeader columns={columns}>
@@ -179,15 +187,15 @@ const MonitoringList = () => {
                     </div>
                   </TableCell>
                   <TableCell>{item.performedBy}</TableCell>
-                  <TableCell>
+                  <TableCell className="">
                     <span
-                      className={`px-2 py-1 text-xs font-semibold rounded-full ${getStatusColorClass(item.status)}`}
+                      className={`px-2 py-1 text-xs max-w-xl font-semibold rounded-full ${getStatusColorClass(item.status)}`}
                     >
                       {getStatusText(item.status)}
                     </span>
                   </TableCell>
-                  <TableCell>
-                    <div className="max-w-md truncate">{item.message}</div>
+                  <TableCell className="">
+                    <div className="max-w-sm truncate">{item.message}</div>
                   </TableCell>
                 </TableRow>
               )}
