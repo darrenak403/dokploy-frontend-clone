@@ -34,6 +34,21 @@ body {
     color 0.3s ease;
 }
 
+/* Chrome, Safari */
+::-webkit-scrollbar {
+  display: none;
+}
+
+/* Firefox */
+* {
+  scrollbar-width: none;
+}
+
+/* Edge */
+* {
+  -ms-overflow-style: none;
+}
+
 .gravitas-one-regular {
   font-family: "Gravitas One", serif;
   font-weight: 700;

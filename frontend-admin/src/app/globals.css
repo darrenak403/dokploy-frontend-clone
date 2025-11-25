@@ -81,6 +81,21 @@ body {
   font-style: normal;
 }
 
+/* Chrome, Safari */
+::-webkit-scrollbar {
+  display: none;
+}
+
+/* Firefox */
+* {
+  scrollbar-width: none;
+}
+
+/* Edge */
+* {
+  -ms-overflow-style: none;
+}
+
 /* ...existing code... */
 
 /* Ensure both header and body tables use fixed layout and matching column widths */
