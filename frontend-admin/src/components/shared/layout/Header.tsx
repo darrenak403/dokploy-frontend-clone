@@ -17,6 +17,7 @@ import {
   NavbarContent,
   NavbarItem,
 } from "@heroui/react";
+import Cookies from "js-cookie";
 import { useSelector } from "react-redux";
 
 import { clearAuth } from "@/redux/slices";
@@ -42,6 +43,7 @@ export const Header = () => {
     !user || !user.email || !user.phone || !user.address || !user.gender;
 
   const handleLogout = () => {
+    Cookies.remove("auth-token", { path: "/" });
     store.dispatch(clearAuth());
     router.push("/signin");
   };

@@ -16,6 +16,7 @@ import {
   DropdownTrigger,
 } from "@heroui/react";
 import { Icon } from "@iconify/react";
+import Cookies from "js-cookie";
 import { useSelector } from "react-redux";
 
 import { clearAuth } from "@/redux/slices";
@@ -49,6 +50,7 @@ const SidebarService = () => {
   ];
 
   const handleLogout = () => {
+    Cookies.remove("auth-token");
     store.dispatch(clearAuth());
     router.push("/signin");
   };

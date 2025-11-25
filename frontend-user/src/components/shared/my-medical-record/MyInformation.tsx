@@ -20,26 +20,23 @@ const MyInformation: React.FC<MyInformationProps & { editHref?: string }> = ({
   if (!patientRecord) {
     return (
       <div
-        className="w-full rounded-lg border p-4 flex items-center justify-between gap-4 shadow-sm"
+        className="w-full rounded-lg border p-4 flex items-center justify-center gap-4 shadow-sm"
         style={{
           borderColor: "var(--coral-400, #ffdede)",
           background: "var(--bg-pale, #f6d9d9)",
         }}
       >
-        <div className="flex items-center gap-4 min-w-0">
-          <div className="rounded-full w-12 h-12 bg-zinc-200 animate-pulse" />
-          <div className="min-w-0 flex-1">
-            <div className="h-4 w-48 bg-zinc-200 rounded animate-pulse mb-3" />
-            <div className="flex items-center gap-2">
-              <div className="h-6 w-20 bg-zinc-200 rounded animate-pulse" />
-              <div className="h-6 w-12 bg-zinc-200 rounded animate-pulse" />
-              <div className="h-6 w-12 bg-zinc-200 rounded animate-pulse" />
-            </div>
-          </div>
-        </div>
-
-        <div className="flex items-center gap-3">
-          <div className="h-8 w-20 bg-zinc-200 rounded animate-pulse" />
+        <div className="text-center">
+          <Icon
+            icon="mdi:information-outline"
+            className="w-8 h-8 mx-auto mb-2 text-zinc-500"
+          />
+          <p className="text-lg font-medium text-zinc-700 dark:text-zinc-300">
+            Chưa có thông tin
+          </p>
+          <p className="text-sm text-zinc-500 dark:text-zinc-400">
+            Vui lòng cập nhật thông tin cá nhân của bạn
+          </p>
         </div>
       </div>
     );
