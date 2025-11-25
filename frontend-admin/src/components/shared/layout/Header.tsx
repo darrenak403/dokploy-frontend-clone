@@ -38,7 +38,8 @@ export const Header = () => {
   const fullName = user?.fullName;
   const avatarUrl = user?.avatarUrl;
 
-  const isProfileIncomplete = !user || !user.email || !user.phone || !user.address || !user.gender;
+  const isProfileIncomplete =
+    !user || !user.email || !user.phone || !user.address || !user.gender;
 
   const handleLogout = () => {
     store.dispatch(clearAuth());
@@ -56,7 +57,7 @@ export const Header = () => {
     <Navbar className="bg-white dark:bg-slate-900 border-b border-gray-200 dark:border-gray-700 text-gray-800 dark:text-white">
       <NavbarBrand className="flex items-center gap-2">
         {isLoggedIn && isProfileIncomplete ? (
-          <div 
+          <div
             className="flex items-center gap-2 text-black-500 opacity-50 cursor-not-allowed"
             onClick={() => router.push("/profile")}
           >
@@ -79,7 +80,9 @@ export const Header = () => {
             onMouseEnter={() => router.prefetch("/service")}
             onClick={(e) => handleLinkClick(e)}
             className={`font-[600] text-lg text-foreground hover:text-[var(--coral-600)] hover:font-bold transition-colors after:absolute after:-bottom-1 after:left-0 after:h-[2px] hover:after:scale-x-100 after:scale-x-0 after:w-full after:bg-red-200 after:transition-all after:duration-300 ${
-              isProfileIncomplete ? "opacity-50 cursor-not-allowed pointer-events-none" : ""
+              isProfileIncomplete
+                ? "opacity-50 cursor-not-allowed pointer-events-none"
+                : ""
             }`}
             aria-disabled={isProfileIncomplete}
           >
@@ -93,7 +96,9 @@ export const Header = () => {
             onMouseEnter={() => router.prefetch("/customers")}
             onClick={(e) => handleLinkClick(e)}
             className={`font-[600] text-lg text-foreground hover:text-[var(--coral-600)] hover:font-bold transition-colors after:absolute after:-bottom-1 after:left-0 after:h-[2px] hover:after:scale-x-100 after:scale-x-0 after:w-full after:bg-red-200 after:transition-all after:duration-300 ${
-              isProfileIncomplete ? "opacity-50 cursor-not-allowed pointer-events-none" : ""
+              isProfileIncomplete
+                ? "opacity-50 cursor-not-allowed pointer-events-none"
+                : ""
             }`}
             aria-disabled={isProfileIncomplete}
           >
@@ -107,7 +112,9 @@ export const Header = () => {
             onMouseEnter={() => router.prefetch("/integrations")}
             onClick={(e) => handleLinkClick(e)}
             className={`font-[600] text-lg text-foreground hover:text-[var(--coral-600)] hover:font-bold transition-colors after:absolute after:-bottom-1 after:left-0 after:h-[2px] hover:after:scale-x-100 after:scale-x-0 after:w-full after:bg-red-200 after:transition-all after:duration-300 ${
-              isProfileIncomplete ? "opacity-50 cursor-not-allowed pointer-events-none" : ""
+              isProfileIncomplete
+                ? "opacity-50 cursor-not-allowed pointer-events-none"
+                : ""
             }`}
             aria-disabled={isProfileIncomplete}
           >

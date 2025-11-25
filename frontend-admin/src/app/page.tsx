@@ -1,13 +1,13 @@
 "use client";
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
+
 import { useRouter } from "next/navigation";
 
+import { HighlightFeature, MainTitle, TitleAnimation } from "@/components";
 import { Button } from "@heroui/react";
 import { useSelector } from "react-redux";
 
 import { RootState } from "@/redux/store";
-
-import { HighlightFeature, MainTitle, TitleAnimation } from "@/components";
 
 export default function Home() {
   const router = useRouter();
