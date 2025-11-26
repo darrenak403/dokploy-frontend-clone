@@ -17,7 +17,7 @@ import {
 import { Icon } from "@iconify/react";
 import { useFormik } from "formik";
 
-import { hashPasswordSHA256 } from "@/types/hashPassword";
+import { encryptValue } from "@/modules/encrypt";
 
 import { useCreateUserDiscloresureSingleton } from "@/hook/singleton/discloresures/account/useCreateUserDisclosure";
 import { useFetchGetAllRoleSwrSingleton } from "@/hook/singleton/swrs/roles/useFetchGetAllRoleSwr";
@@ -69,10 +69,10 @@ export default function CreateUserModal() {
     onSubmit: async (values, { setSubmitting, resetForm, setFieldError }) => {
       try {
         setSubmitting(true);
-        const hashedPassword = await hashPasswordSHA256(values.password ?? "");
+        const encryptedPassword = encryptValue(values.password ?? "");
         const payload: CreateUserPayload = {
           email: values.email,
-          password: hashedPassword,
+          password: encryptedPassword,
           fullName: values.fullName,
           phone: values.phone,
           address: values.address,

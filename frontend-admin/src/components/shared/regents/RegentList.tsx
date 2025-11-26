@@ -37,6 +37,12 @@ const RegentList = () => {
   const [showAlert, setShowAlert] = useState(false);
   const [isUpdating, setIsUpdating] = useState<string | null>(null);
   const [deletingId, setDeletingId] = useState<string | number | null>(null);
+  
+  // Thêm state để track quantity đang edit
+  const [editingQuantity, setEditingQuantity] = useState<{
+    id: string | number;
+    value: string;
+  } | null>(null);
 
   const updateTimerRef = useRef<NodeJS.Timeout | null>(null);
   const lastUpdateTimeRef = useRef<{ [key: string]: number }>({});
@@ -53,6 +59,7 @@ const RegentList = () => {
   const updateReagentStatusSwr = useFetchUpdateStatusReagentsSwrSingleton();
   const deleteReagentSwr = useFetchDeleteReagentSwrSingleton();
 
+  // Handler để update status
   const handleStatusChange = async (
     reagentId: string | number,
     currentQuantity: number,
@@ -124,6 +131,66 @@ const RegentList = () => {
       setAlertColor("danger");
       setShowAlert(true);
       updateTimerRef.current = setTimeout(() => setShowAlert(false), 5000);
+    } finally {
+      setIsUpdating(null);
+    }
+  };
+
+  const handleQuantityChange = async (
+    reagentId: string | number,
+    newQuantity: string,
+    currentQuantity: number,
+    currentStatus: "AVAILABLE" | "OUT_OF_STOCK" | "EXPIRED"
+  ) => {
+    const quantity = parseFloat(newQuantity);
+    
+    if (isNaN(quantity) || quantity < 0) {
+      setEditingQuantity(null);
+      return;
+    }
+
+    if (quantity === currentQuantity) {
+      setEditingQuantity(null);
+      return;
+    }
+
+    try {
+      setIsUpdating(String(reagentId));
+
+      const result = await updateReagentStatusSwr?.updateReagentStatus?.({
+        reagentId: reagentId,
+        payload: {
+          reagentStatus: currentStatus, 
+          quantity: quantity, 
+        },
+      });
+
+      if (result?.data) {
+        setAlertMessage("Cập nhật số lượng thành công!");
+        setAlertColor("success");
+        setShowAlert(true);
+        updateTimerRef.current = setTimeout(() => setShowAlert(false), 3000);
+
+        mutate?.();
+        setEditingQuantity(null);
+      } else {
+        setAlertMessage(result?.message || "Có lỗi xảy ra khi cập nhật số lượng");
+        setAlertColor("danger");
+        setShowAlert(true);
+        updateTimerRef.current = setTimeout(() => setShowAlert(false), 5000);
+        // Reset về giá trị cũ nếu lỗi
+        setEditingQuantity(null);
+      }
+    } catch (error: any) {
+      console.error("Update quantity error:", error);
+      setAlertMessage(
+        error?.response?.data?.message ||
+          "Không thể kết nối đến máy chủ. Vui lòng thử lại."
+      );
+      setAlertColor("danger");
+      setShowAlert(true);
+      updateTimerRef.current = setTimeout(() => setShowAlert(false), 5000);
+      setEditingQuantity(null);
     } finally {
       setIsUpdating(null);
     }
@@ -337,6 +404,7 @@ const RegentList = () => {
               const updateKey = String(equipment.id);
               const isThisItemUpdating = isUpdating === updateKey;
               const isAnyItemUpdating = isUpdating !== null;
+              const isEditingQuantity = editingQuantity?.id === equipment.id;
 
               return (
                 <div
@@ -488,9 +556,70 @@ const RegentList = () => {
                       <p className="text-gray-500 dark:text-gray-400">
                         Số lượng:
                       </p>
-                      <p className="font-medium">
-                        {equipment.quantity} {equipment.unit}
-                      </p>
+                      {isEditingQuantity && editingQuantity ? (
+                        <Input
+                          type="number"
+                          min="0"
+                          step="0.01"
+                          value={editingQuantity.value}
+                          onValueChange={(value) =>
+                            setEditingQuantity({
+                              id: equipment.id,
+                              value: value,
+                            })
+                          }
+                          onBlur={() => {
+                            handleQuantityChange(
+                              equipment.id,
+                              editingQuantity.value,
+                              equipment.quantity,
+                              equipment.status
+                            );
+                          }}
+                          onKeyDown={(e) => {
+                            if (e.key === "Enter") {
+                              handleQuantityChange(
+                                equipment.id,
+                                editingQuantity.value,
+                                equipment.quantity,
+                                equipment.status
+                              );
+                            } else if (e.key === "Escape") {
+                              setEditingQuantity(null);
+                            }
+                          }}
+                          endContent={
+                            <span className="text-gray-500 text-xs">
+                              {equipment.unit}
+                            </span>
+                          }
+                          size="sm"
+                          variant="bordered"
+                          autoFocus
+                          className="mt-1"
+                          isDisabled={isThisItemUpdating}
+                        />
+                      ) : (
+                        <p
+                          className="font-medium cursor-pointer hover:text-blue-600 dark:hover:text-blue-400 transition-colors inline-flex items-center gap-2"
+                          onClick={() => {
+                            if (!isAnyItemUpdating && deletingId !== equipment.id) {
+                              setEditingQuantity({
+                                id: equipment.id,
+                                value: String(equipment.quantity),
+                              });
+                            }
+                          }}
+                          title="Click để chỉnh sửa số lượng"
+                        >
+                          <span>
+                            {equipment.quantity} {equipment.unit}
+                          </span>
+                          {isThisItemUpdating && (
+                            <Spinner size="sm" />
+                          )}
+                        </p>
+                      )}
                     </div>
                     <div>
                       <p className="text-gray-500 dark:text-gray-400">HSD:</p>
