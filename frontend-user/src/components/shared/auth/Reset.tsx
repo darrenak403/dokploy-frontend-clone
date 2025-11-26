@@ -12,9 +12,9 @@ import { useFormik } from "formik";
 import { AnimatePresence, motion } from "framer-motion";
 import * as Yup from "yup";
 
-import { hashPasswordSHA256 } from "@/types/hashPassword";
-
 import { postFetcher } from "@/libs/fetcher";
+
+import { encryptValue } from "@/modules/encrypt";
 
 // Types
 interface ResetPasswordRequest {
@@ -76,7 +76,7 @@ const Reset = () => {
     onSubmit: async (values) => {
       try {
         setLoading(true);
-        const hashedPassword = await hashPasswordSHA256(values.newPassword);
+        const encryptedPassword = encryptValue(values.newPassword ?? "");
 
         const response = await postFetcher<
           ResetPasswordResponse,
@@ -85,7 +85,7 @@ const Reset = () => {
           arg: {
             email: email,
             otp: values.otp,
-            newPassword: hashedPassword,
+            newPassword: encryptedPassword,
           },
         });
 

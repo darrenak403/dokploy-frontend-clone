@@ -12,7 +12,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import * as Yup from "yup";
 
 import { SignUpFormValues } from "@/types/auth";
-import { hashPasswordSHA256 } from "@/types/hashPassword";
+import { encryptValue } from "@/modules/encrypt";
 
 import { useFetchRegisterSwrSingleton } from "@/hook/singleton/swrs/auth/useFetchRegisterSwr";
 
@@ -53,10 +53,10 @@ export const SignUp = () => {
     validationSchema,
     onSubmit: async (values) => {
       try {
-        const hashedPassword = await hashPasswordSHA256(values.password);
+        const encryptedPassword = encryptValue(values.password ?? "");
         const result = await register({
           email: values.email,
-          password: hashedPassword,
+          password: encryptedPassword,
           fullName: values.fullName,
         });
         if (result.status === 201 || result.status === 200) {

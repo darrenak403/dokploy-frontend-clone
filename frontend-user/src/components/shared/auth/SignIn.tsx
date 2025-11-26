@@ -14,11 +14,12 @@ import Cookies from "js-cookie";
 import * as Yup from "yup";
 
 import { SignInFormValues } from "@/types/auth";
-import { hashPasswordSHA256 } from "@/types/hashPassword";
 
 import { axiosNoAuth } from "@/libs/fetcher";
 
-import AuthLogo from "../../../../public/images/AuthLogo.svg";
+import { encryptValue } from "@/modules/encrypt";
+
+import AuthLogo from "../../../../../public/images/AuthLogo.svg";
 
 const validationSchema = Yup.object({
   email: Yup.string()
@@ -57,10 +58,10 @@ export const SignIn = () => {
     validationSchema,
     onSubmit: async (values) => {
       try {
-        const hashedPassword = await hashPasswordSHA256(values.password);
+        const encryptedPassword = encryptValue(values.password ?? "");
         const result = await login({
           email: values.email,
-          password: hashedPassword,
+          password: encryptedPassword,
         });
         if (result.status === 201 || result.status === 200) {
           // Lưu token vào Cookie
