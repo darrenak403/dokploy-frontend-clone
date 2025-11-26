@@ -37,7 +37,7 @@ const RegentList = () => {
   const [showAlert, setShowAlert] = useState(false);
   const [isUpdating, setIsUpdating] = useState<string | null>(null);
   const [deletingId, setDeletingId] = useState<string | number | null>(null);
-  
+
   // Thêm state để track quantity đang edit
   const [editingQuantity, setEditingQuantity] = useState<{
     id: string | number;
@@ -143,7 +143,7 @@ const RegentList = () => {
     currentStatus: "AVAILABLE" | "OUT_OF_STOCK" | "EXPIRED"
   ) => {
     const quantity = parseFloat(newQuantity);
-    
+
     if (isNaN(quantity) || quantity < 0) {
       setEditingQuantity(null);
       return;
@@ -160,8 +160,8 @@ const RegentList = () => {
       const result = await updateReagentStatusSwr?.updateReagentStatus?.({
         reagentId: reagentId,
         payload: {
-          reagentStatus: currentStatus, 
-          quantity: quantity, 
+          reagentStatus: currentStatus,
+          quantity: quantity,
         },
       });
 
@@ -174,7 +174,9 @@ const RegentList = () => {
         mutate?.();
         setEditingQuantity(null);
       } else {
-        setAlertMessage(result?.message || "Có lỗi xảy ra khi cập nhật số lượng");
+        setAlertMessage(
+          result?.message || "Có lỗi xảy ra khi cập nhật số lượng"
+        );
         setAlertColor("danger");
         setShowAlert(true);
         updateTimerRef.current = setTimeout(() => setShowAlert(false), 5000);
@@ -603,7 +605,10 @@ const RegentList = () => {
                         <p
                           className="font-medium cursor-pointer hover:text-blue-600 dark:hover:text-blue-400 transition-colors inline-flex items-center gap-2"
                           onClick={() => {
-                            if (!isAnyItemUpdating && deletingId !== equipment.id) {
+                            if (
+                              !isAnyItemUpdating &&
+                              deletingId !== equipment.id
+                            ) {
                               setEditingQuantity({
                                 id: equipment.id,
                                 value: String(equipment.quantity),
@@ -615,9 +620,7 @@ const RegentList = () => {
                           <span>
                             {equipment.quantity} {equipment.unit}
                           </span>
-                          {isThisItemUpdating && (
-                            <Spinner size="sm" />
-                          )}
+                          {isThisItemUpdating && <Spinner size="sm" />}
                         </p>
                       )}
                     </div>
