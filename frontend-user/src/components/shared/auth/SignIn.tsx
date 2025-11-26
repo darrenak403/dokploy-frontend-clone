@@ -19,7 +19,7 @@ import { axiosNoAuth } from "@/libs/fetcher";
 
 import { encryptValue } from "@/modules/encrypt";
 
-import AuthLogo from "../../../../../public/images/AuthLogo.svg";
+import AuthLogo from "../../../../public/images/AuthLogo.svg";
 
 const validationSchema = Yup.object({
   email: Yup.string()
@@ -211,7 +211,7 @@ export const SignIn = () => {
         <div className="image mb-2 flex items-center gap-2 w-full max-w-[300px] sm:max-w-[350px] md:max-w-[400px]">
           <Image
             src={AuthLogo}
-            alt="Sign Up"
+            alt="Sign In"
             width={400}
             height={400}
             quality={100}
