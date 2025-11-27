@@ -35,10 +35,10 @@ const RegentList = () => {
   const [alertMessage, setAlertMessage] = useState<string | null>(null);
   const [alertColor, setAlertColor] = useState<"success" | "danger">("success");
   const [showAlert, setShowAlert] = useState(false);
-  const [isUpdating, setIsUpdating] = useState<string | null>(null);
+  const [isUpdatingStatus, setIsUpdatingStatus] = useState<string | null>(null);
+  const [isUpdatingQuantity, setIsUpdatingQuantity] = useState<string | null>(null);
   const [deletingId, setDeletingId] = useState<string | number | null>(null);
 
-  // Thêm state để track quantity đang edit
   const [editingQuantity, setEditingQuantity] = useState<{
     id: string | number;
     value: string;
@@ -59,13 +59,12 @@ const RegentList = () => {
   const updateReagentStatusSwr = useFetchUpdateStatusReagentsSwrSingleton();
   const deleteReagentSwr = useFetchDeleteReagentSwrSingleton();
 
-  // Handler để update status
   const handleStatusChange = async (
     reagentId: string | number,
     currentQuantity: number,
     newStatus: string
   ) => {
-    if (isUpdating !== null) {
+    if (isUpdatingStatus !== null || isUpdatingQuantity !== null) {
       setAlertMessage("Vui lòng đợi cập nhật hiện tại hoàn tất!");
       setAlertColor("danger");
       setShowAlert(true);
@@ -92,7 +91,7 @@ const RegentList = () => {
     }
 
     try {
-      setIsUpdating(updateKey);
+      setIsUpdatingStatus(updateKey);
 
       if (updateTimerRef.current) {
         clearTimeout(updateTimerRef.current);
@@ -132,7 +131,7 @@ const RegentList = () => {
       setShowAlert(true);
       updateTimerRef.current = setTimeout(() => setShowAlert(false), 5000);
     } finally {
-      setIsUpdating(null);
+      setIsUpdatingStatus(null);
     }
   };
 
@@ -155,7 +154,7 @@ const RegentList = () => {
     }
 
     try {
-      setIsUpdating(String(reagentId));
+      setIsUpdatingQuantity(String(reagentId));
 
       const result = await updateReagentStatusSwr?.updateReagentStatus?.({
         reagentId: reagentId,
@@ -194,11 +193,10 @@ const RegentList = () => {
       updateTimerRef.current = setTimeout(() => setShowAlert(false), 5000);
       setEditingQuantity(null);
     } finally {
-      setIsUpdating(null);
+      setIsUpdatingQuantity(null);
     }
   };
 
-  // Cleanup timers on unmount
   useEffect(() => {
     return () => {
       if (updateTimerRef.current) {
@@ -237,7 +235,6 @@ const RegentList = () => {
         setShowAlert(true);
         updateTimerRef.current = setTimeout(() => setShowAlert(false), 3000);
 
-        // Refresh data
         mutate?.();
       } else {
         setAlertMessage(deleteResult?.message || "Có lỗi xảy ra khi xóa");
@@ -290,8 +287,6 @@ const RegentList = () => {
     statusFilter === "all"
       ? filteredBySearch
       : filteredBySearch.filter((eq) => eq.status === statusFilter);
-
-  // no side effects needed
 
   return (
     <div className="h-full flex flex-col">
@@ -404,8 +399,9 @@ const RegentList = () => {
             {filteredEquipments.map((equipment: any, idx: number) => {
               const statusDisplay = getStatusDisplay(equipment.status);
               const updateKey = String(equipment.id);
-              const isThisItemUpdating = isUpdating === updateKey;
-              const isAnyItemUpdating = isUpdating !== null;
+              const isThisItemUpdatingStatus = isUpdatingStatus === updateKey;
+              const isThisItemUpdatingQuantity = isUpdatingQuantity === updateKey;
+              const isAnyItemUpdating = isUpdatingStatus !== null || isUpdatingQuantity !== null;
               const isEditingQuantity = editingQuantity?.id === equipment.id;
 
               return (
@@ -438,7 +434,7 @@ const RegentList = () => {
                             }
                           `}
                             startContent={
-                              isThisItemUpdating ? (
+                              isThisItemUpdatingStatus ? (
                                 <Spinner size="sm" />
                               ) : (
                                 <Icon
@@ -599,11 +595,11 @@ const RegentList = () => {
                           variant="bordered"
                           autoFocus
                           className="mt-1"
-                          isDisabled={isThisItemUpdating}
+                          isDisabled={isThisItemUpdatingQuantity}
                         />
                       ) : (
-                        <p
-                          className="font-medium cursor-pointer hover:text-blue-600 dark:hover:text-blue-400 transition-colors inline-flex items-center gap-2"
+                        <div
+                          className="font-medium cursor-pointer hover:text-gray-600 dark:hover:text-gray-400 transition-colors inline-flex items-center gap-2"
                           onClick={() => {
                             if (
                               !isAnyItemUpdating &&
@@ -620,8 +616,8 @@ const RegentList = () => {
                           <span>
                             {equipment.quantity} {equipment.unit}
                           </span>
-                          {isThisItemUpdating && <Spinner size="sm" />}
-                        </p>
+                          {isThisItemUpdatingQuantity && <Spinner size="sm" />}
+                        </div>
                       )}
                     </div>
                     <div>

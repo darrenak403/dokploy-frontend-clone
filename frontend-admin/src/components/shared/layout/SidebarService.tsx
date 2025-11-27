@@ -40,13 +40,19 @@ const SidebarService = () => {
       label: "Báo cáo & Thống kê",
       href: "/service",
     },
-
     {
       key: "/service/account",
       icon: "solar:users-group-two-rounded-bold-duotone",
       label: "Quản lí tài khoản",
       href: "/service/account",
       roles: ["ROLE_ADMIN", "ROLE_MANAGER"],
+    },
+    {
+      key: "/service/permission",
+      icon: "solar:key-bold-duotone",
+      label: "Quản lí quyền truy cập",
+      href: "/service/permission",
+      roles: ["ROLE_ADMIN"],
     },
     {
       key: "/service/warehouse",

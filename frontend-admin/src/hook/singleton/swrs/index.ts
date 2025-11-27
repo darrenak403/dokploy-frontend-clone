@@ -33,6 +33,11 @@ export * from "./user/useFetchUpdateUserSwr";
 //roles
 export * from "./roles/useFetchGetAllRoleSwr";
 
+//permission
+export * from "./permission/useFetchGetAllPermissionSwr";
+export * from "./permission/useFetchGetAllRoleSwr";
+export * from "./permission/useFetchUpdatePermissionSwr";
+
 //warehouse
 export * from "./warehouse/useFetchCreateWareHouseIntrustmentSwr";
 export * from "./warehouse/useFetchUpdateWareHouseIntrustmentSwr";

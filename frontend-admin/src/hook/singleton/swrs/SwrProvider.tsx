@@ -20,6 +20,9 @@ import { useFetchUpdatePatientSwrCore } from "./patient/useFetchUpdatePatientSwr
 import { useFetchUpdateAvatarUrlSwrCore } from "./profile/useFetchUpdateAvatarUrlSwr";
 import { useFetchUpdateProfileSwrCore } from "./profile/useFetchUpdateProfile";
 import { useFetchGetAllRoleSwrCore } from "./roles/useFetchGetAllRoleSwr";
+import { useFetchGetAllRoleCore } from "./permission/useFetchGetAllRoleSwr";
+import { useFetchGetAllPermissionSwrCore } from "./permission/useFetchGetAllPermissionSwr";
+import { useFetchUpdatePermissionSwrCore } from "./permission/useFetchUpdatePermissionSwr";
 import { useFetchAllTestOrderSwrCore } from "./test-order/useFetchAllTestOrderSwr";
 import { useFetchCreateTestOrderSwrCore } from "./test-order/useFetchCreateTestOrder";
 import { useFetchDeleteTestOrderSwrCore } from "./test-order/useFetchDeleteTestOrderSwr";
@@ -78,6 +81,13 @@ export interface SwrContextType {
   useFetchUpdateUserSwr?: ReturnType<typeof useFetchUpdateUserSwrCore>;
   //roles
   useFetchGetAllRoleSwr?: ReturnType<typeof useFetchGetAllRoleSwrCore>;
+  //permission
+  useFetchGetAllPermissionSwr?: ReturnType<
+    typeof useFetchGetAllPermissionSwrCore
+  >;
+  useFetchUpdatePermissionSwr?: ReturnType<
+    typeof useFetchUpdatePermissionSwrCore
+  >;
   //warehouse
   useFetchGetAllInstrumentSwr?: ReturnType<
     typeof useFetchGetAllInstrumentSwrCore
@@ -143,6 +153,9 @@ export const SwrProvider = ({ children }: PropsWithChildren) => {
   const useFetchUpdateUserSwr = useFetchUpdateUserSwrCore(null);
   //roles
   const useFetchGetAllRoleSwr = useFetchGetAllRoleSwrCore();
+  //permission
+  const useFetchGetAllPermissionSwr = useFetchGetAllPermissionSwrCore();
+  const useFetchUpdatePermissionSwr = useFetchUpdatePermissionSwrCore(null);
   //warehouse
   const useFetchGetAllInstrumentSwr = useFetchGetAllInstrumentSwrCore();
   //instrument
@@ -195,6 +208,9 @@ export const SwrProvider = ({ children }: PropsWithChildren) => {
           useFetchUpdateUserSwr,
           //roles
           useFetchGetAllRoleSwr,
+          //permission
+          useFetchGetAllPermissionSwr,
+          useFetchUpdatePermissionSwr,
           //warehouse
           useFetchGetAllInstrumentSwr,
           //instrument
