@@ -60,10 +60,8 @@ jest.mock("@/hook/singleton/swrs/auth/useFetchRegisterSwr", () => ({
   useFetchRegisterSwrSingleton: jest.fn(),
 }));
 
-jest.mock("@/types/hashPassword", () => ({
-  hashPasswordSHA256: jest.fn((password: string) =>
-    Promise.resolve(`hashed_${password}`)
-  ),
+jest.mock("@/modules/encrypt", () => ({
+  encryptValue: jest.fn((password: string) => `hashed_${password}`),
 }));
 
 const mockPush = jest.fn();
