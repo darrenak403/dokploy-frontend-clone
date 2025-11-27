@@ -12,9 +12,10 @@ import { AnimatePresence, motion } from "framer-motion";
 import * as Yup from "yup";
 
 import { SignUpFormValues } from "@/types/auth";
-import { encryptValue } from "@/modules/encrypt";
 
 import { useFetchRegisterSwrSingleton } from "@/hook/singleton/swrs/auth/useFetchRegisterSwr";
+
+import { encryptValue } from "@/modules/encrypt";
 
 import AuthLogo from "../../../../public/images/AuthLogo.svg";
 

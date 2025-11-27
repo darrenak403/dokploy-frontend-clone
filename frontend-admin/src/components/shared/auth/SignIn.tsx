@@ -13,9 +13,10 @@ import Cookies from "js-cookie";
 import * as Yup from "yup";
 
 import { SignInFormValues } from "@/types/auth";
-import { encryptValue } from "@/modules/encrypt";
 
 import { axiosNoAuth } from "@/libs/fetcher";
+
+import { encryptValue } from "@/modules/encrypt";
 
 import AuthLogo from "../../../../public/images/AuthLogo.svg";
 

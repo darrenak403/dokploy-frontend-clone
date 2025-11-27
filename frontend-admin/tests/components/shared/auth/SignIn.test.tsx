@@ -55,10 +55,8 @@ jest.mock("@/libs/fetcher", () => ({
   },
 }));
 
-jest.mock("@/types/hashPassword", () => ({
-  hashPasswordSHA256: jest.fn((password: string) =>
-    Promise.resolve(`hashed_${password}`)
-  ),
+jest.mock("@/modules/encrypt", () => ({
+  encryptValue: jest.fn((password: string) => `hashed_${password}`),
 }));
 
 jest.mock("js-cookie", () => ({
