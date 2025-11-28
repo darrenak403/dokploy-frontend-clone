@@ -1,0 +1,28 @@
+services:
+  frontend-user:
+    build:
+      context: ./frontend-user
+      dockerfile: Dockerfile
+    image: datdevv/frontend-user:1.0.0
+    container_name: lab-frontend-user
+    ports:
+      - "3000:3000"        # User FE chạy tại http://localhost:3000
+    restart: unless-stopped
+    networks:
+      - app-network
+
+  frontend-admin:
+    build:
+      context: ./frontend-admin
+      dockerfile: Dockerfile
+    image: datdevv/frontend-admin:1.0.0
+    container_name: lab-frontend-admin
+    ports:
+      - "5173:5173"        # Admin FE chạy tại http://localhost:5173
+    restart: unless-stopped
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
