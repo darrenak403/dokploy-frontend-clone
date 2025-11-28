@@ -3,7 +3,7 @@ services:
     image: datdevv/frontend-user:latest
     container_name: frontend-user
     ports:
-      - "3000:80"               # FE User chạy tại http://localhost:3000
+      - "3000:3000"               # FE User chạy tại http://localhost:3000
     restart: unless-stopped
     networks:
       - app-network
@@ -12,7 +12,7 @@ services:
     image: datdevv/admin-frontend:latest
     container_name: admin-frontend
     ports:
-      - "5173:80"               # FE Admin chạy tại http://localhost:5173
+      - "5173:5173"               # FE Admin chạy tại http://localhost:5173
     restart: unless-stopped
     networks:
       - app-network
@@ -20,3 +20,4 @@ services:
 networks:
   app-network:
     driver: bridge
+
