@@ -19,8 +19,8 @@ WORKDIR /app
 
 COPY --from=builder /app ./
 
-EXPOSE 3000
-ENV PORT=3000
+EXPOSE 5174
+ENV PORT=5174
 ENV NODE_ENV=production
 
 CMD ["npm", "run", "start"]
