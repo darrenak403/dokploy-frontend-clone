@@ -3,10 +3,10 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev --turbopack",
+    "dev": "next dev -p 5174 --turbopack",
     "build": "next build --turbopack",
     "build:analyze": "cross-env ANALYZE=true next build --turbopack",
-    "start": "next start",
+    "start": "next start -p 5174",
     "lint": "eslint",
     "lint:fix": "eslint . --fix --max-warnings=0",
     "format": "prettier --write \"**/*.{js,jsx,ts,tsx,json,css,md}\"",
