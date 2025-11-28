@@ -10,4 +10,3 @@ export interface RoleWithPermissions {
   roleName: string;
   permissions: Permission[];
 }
-

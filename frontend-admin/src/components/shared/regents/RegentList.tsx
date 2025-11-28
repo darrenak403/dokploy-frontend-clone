@@ -36,7 +36,9 @@ const RegentList = () => {
   const [alertColor, setAlertColor] = useState<"success" | "danger">("success");
   const [showAlert, setShowAlert] = useState(false);
   const [isUpdatingStatus, setIsUpdatingStatus] = useState<string | null>(null);
-  const [isUpdatingQuantity, setIsUpdatingQuantity] = useState<string | null>(null);
+  const [isUpdatingQuantity, setIsUpdatingQuantity] = useState<string | null>(
+    null
+  );
   const [deletingId, setDeletingId] = useState<string | number | null>(null);
 
   const [editingQuantity, setEditingQuantity] = useState<{
@@ -400,8 +402,10 @@ const RegentList = () => {
               const statusDisplay = getStatusDisplay(equipment.status);
               const updateKey = String(equipment.id);
               const isThisItemUpdatingStatus = isUpdatingStatus === updateKey;
-              const isThisItemUpdatingQuantity = isUpdatingQuantity === updateKey;
-              const isAnyItemUpdating = isUpdatingStatus !== null || isUpdatingQuantity !== null;
+              const isThisItemUpdatingQuantity =
+                isUpdatingQuantity === updateKey;
+              const isAnyItemUpdating =
+                isUpdatingStatus !== null || isUpdatingQuantity !== null;
               const isEditingQuantity = editingQuantity?.id === equipment.id;
 
               return (

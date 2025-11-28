@@ -3,6 +3,14 @@ import { render, screen } from "@testing-library/react";
 
 import ModalRoot from "@/components/modules/Modal/ModalRoot";
 
+// Mock CreatePermissionModal to avoid accessing DiscloresuresContext during tests
+jest.mock("@/components/modules/Modal/CreatePermisionModal", () => ({
+  __esModule: true,
+  default: jest.fn(() => (
+    <div data-testid="create-permission-modal">CreatePermissionModal</div>
+  )),
+}));
+
 // Mock all modals in a single jest.mock call to reduce overhead
 jest.mock("@/components/modules/Modal/CreateCommentModal", () => ({
   __esModule: true,
@@ -116,6 +124,6 @@ describe("ModalRoot", () => {
     const { container } = render(<ModalRoot />);
 
     // Fragment doesn't create a DOM element, so we check children count
-    expect(container.children.length).toBe(11); // Exactly 11 modal components
+    expect(container.children.length).toBe(12); // Exactly 12 modal components (including CreatePermissionModal)
   });
 });

@@ -115,5 +115,29 @@ describe("Encrypt Module", () => {
       expect(encrypted1).toBeDefined();
       expect(encrypted2).toBeDefined();
     });
+
+    it("should handle decryption of invalid encrypted string", () => {
+      const consoleSpy = jest
+        .spyOn(console, "error")
+        .mockImplementation(() => {});
+
+      expect(() => decryptValue("invalid-encrypted-string")).toThrow(
+        "Failed to decrypt value"
+      );
+
+      consoleSpy.mockRestore();
+    });
+
+    it("should handle decryption that returns empty string", () => {
+      const consoleSpy = jest
+        .spyOn(console, "error")
+        .mockImplementation(() => {});
+
+      expect(() => decryptValue("some-encrypted")).toThrow(
+        "Failed to decrypt value"
+      );
+
+      consoleSpy.mockRestore();
+    });
   });
 });

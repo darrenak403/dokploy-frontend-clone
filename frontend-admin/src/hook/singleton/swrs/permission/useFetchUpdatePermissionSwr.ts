@@ -24,7 +24,7 @@ export const useFetchUpdatePermissionSwrCore = (
   initialId: string | number | null,
   options?: any
 ) => {
-  const key = "/iam/roles/{id}";
+  const key = "/roles/{id}";
 
   const mutationFn = async (
     _key: string,
@@ -63,4 +63,3 @@ export const useFetchUpdatePermissionSwrSingleton = () => {
   const { useFetchUpdatePermissionSwr } = useContext(SwrContext)!;
   return useFetchUpdatePermissionSwr;
 };
-

@@ -14,16 +14,16 @@ module.exports = {
       colors: {
         // Custom color palette that works well with dark/light themes
         primary: {
-          50: "#eff6ff",
-          100: "#dbeafe",
-          200: "#bfdbfe",
-          300: "#93c5fd",
-          400: "#60a5fa",
-          500: "#3b82f6",
-          600: "#2563eb",
-          700: "#1d4ed8",
-          800: "#1e40af",
-          900: "#1e3a8a",
+          50: "#fef2f2",
+          100: "#fee2e2",
+          200: "#fecaca",
+          300: "#fca5a5",
+          400: "#f87171",
+          500: "#e31937",
+          600: "#c4162f",
+          700: "#a01329",
+          800: "#7d0f23",
+          900: "#590b1d",
         },
         // Background colors
         background: {

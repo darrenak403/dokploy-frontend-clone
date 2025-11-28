@@ -16,6 +16,7 @@ const RESULT_BASE = `${BASE_URL}`;
 const COMMENT_BASE = `${BASE_URL}`;
 const INSTRUMENT_BASE = `${BASE_URL}`;
 const WAREHOSE_BASE = `${BASE_URL}`;
+const ROLE_BASE = `${BASE_URL}/iam`;
 
 const SERVICE_ROUTES: Record<string, string> = {
   "/auth": AUTH_BASE,
@@ -24,6 +25,7 @@ const SERVICE_ROUTES: Record<string, string> = {
   "/comments": COMMENT_BASE,
   "/instrument": INSTRUMENT_BASE,
   "/warehouse": WAREHOSE_BASE,
+  "/roles": ROLE_BASE,
 };
 
 const getServiceURL = (url: string): string => {

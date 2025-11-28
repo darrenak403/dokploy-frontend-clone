@@ -13,11 +13,17 @@ export const getStatusText = (status: string) => {
 // Helper function: get status color classes
 export const getStatusColorClass = (status: string) => {
   const colorMap: Record<string, string> = {
+<<<<<<< HEAD
+    SUCCESS: "bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200",
+    FAILURE: "bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200",
+    ERROR: "bg-orange-100 text-orange-800 dark:bg-orange-900 dark:text-orange-200",
+=======
     SUCCESS:
       "bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200",
     FAILURE: "bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200",
     ERROR:
       "bg-orange-100 text-orange-800 dark:bg-orange-900 dark:text-orange-200",
+>>>>>>> 706ea9b95546c6814000ecbbd6afdf4667f0da2f
   };
   return colorMap[status] || "bg-gray-100 text-gray-800";
 };
@@ -100,8 +106,12 @@ export const getMonitoringStats = (data: Monitoring[]) => {
   const successCount = data.filter((m) => m.status === "SUCCESS").length;
   const failureCount = data.filter((m) => m.status === "FAILURE").length;
   const errorCount = data.filter((m) => m.status === "ERROR").length;
+<<<<<<< HEAD
+  const successRate = total > 0 ? ((successCount / total) * 100).toFixed(1) : "0";
+=======
   const successRate =
     total > 0 ? ((successCount / total) * 100).toFixed(1) : "0";
+>>>>>>> 706ea9b95546c6814000ecbbd6afdf4667f0da2f
 
   const uniqueServices = new Set(data.map((m) => m.service)).size;
   const uniquePerformers = new Set(data.map((m) => m.performedBy)).size;
@@ -123,4 +133,8 @@ export const getMonitoringStats = (data: Monitoring[]) => {
     uniquePerformers,
     recentActivities,
   };
+<<<<<<< HEAD
 };
+=======
+};
+>>>>>>> 706ea9b95546c6814000ecbbd6afdf4667f0da2f

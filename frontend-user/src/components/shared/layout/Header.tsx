@@ -63,22 +63,6 @@ export const Header = () => {
       <NavbarContent className="hidden sm:flex gap-5" justify="center">
         <NavbarItem className="relative">
           <Link
-            href="/"
-            prefetch={true}
-            onMouseEnter={() => router.prefetch("/")}
-            onClick={(e: React.MouseEvent<HTMLAnchorElement>) => {
-              if (isProfileIncomplete) {
-                e.preventDefault();
-                router.push("/profile");
-              }
-            }}
-            className="font-[600] text-lg text-foreground hover:text-[var(--coral-600)] hover:font-bold transition-colors after:absolute after:-bottom-1 after:left-0 after:h-[2px] hover:after:scale-x-100 after:scale-x-0 after:w-full after:bg-red-200 after:transition-all after:duration-300"
-          >
-            Trang chủ
-          </Link>
-        </NavbarItem>
-        <NavbarItem className="relative">
-          <Link
             href="/service"
             prefetch={true}
             onMouseEnter={() => router.prefetch("/service")}

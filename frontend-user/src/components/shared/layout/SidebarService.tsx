@@ -37,7 +37,7 @@ const SidebarService = () => {
   const menuItems = [
     {
       key: "/service",
-      icon: "solar:home-2-bold-duotone",
+      icon: "solar:home-bold-duotone",
       label: "Trang chủ",
       href: "/service",
     },

@@ -3,19 +3,22 @@ import React, { useMemo } from "react";
 
 import { Icon } from "@iconify/react";
 
-import { useFetchGetAllRoleCore } from "@/hook/singleton/swrs/permission/useFetchGetAllRoleSwr";
 import { useFetchGetAllPermissionSwrSingleton } from "@/hook/singleton/swrs/permission/useFetchGetAllPermissionSwr";
+import { useFetchGetAllRoleCore } from "@/hook/singleton/swrs/permission/useFetchGetAllRoleSwr";
 
 const PermissionStats = () => {
   const rolesSwr = useFetchGetAllRoleCore();
   const permissionsSwr = useFetchGetAllPermissionSwrSingleton();
-  
+
   const { data: rolesData, isLoading: isLoadingRoles } = rolesSwr || {};
-  const { data: permissionsData, isLoading: isLoadingPermissions } = permissionsSwr || {};
+  const { data: permissionsData, isLoading: isLoadingPermissions } =
+    permissionsSwr || {};
 
   const stats = useMemo(() => {
     const roles = Array.isArray(rolesData?.data) ? rolesData?.data : [];
-    const permissions = Array.isArray(permissionsData?.data) ? permissionsData?.data : [];
+    const permissions = Array.isArray(permissionsData?.data)
+      ? permissionsData?.data
+      : [];
 
     const totalRoles = roles.length;
     const totalPermissions = permissions.length;
@@ -125,4 +128,3 @@ const PermissionStats = () => {
 };
 
 export default PermissionStats;
-

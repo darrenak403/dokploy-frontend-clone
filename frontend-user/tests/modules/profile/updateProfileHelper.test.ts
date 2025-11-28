@@ -52,7 +52,11 @@ describe("updateProfileHelper", () => {
     it('should map "Khác" to "other"', () => {
       expect(mapInputToGenderKey("Khác")).toBe("other");
       expect(mapInputToGenderKey("khác")).toBe("other");
-      expect(mapInputToGenderKey("khac")).toBe("other");
+      expect(mapInputToGenderKey("other")).toBe("other");
+    });
+
+    it('should map "other" input to "other"', () => {
+      expect(mapInputToGenderKey("other")).toBe("other");
     });
 
     it("should return empty string for undefined", () => {

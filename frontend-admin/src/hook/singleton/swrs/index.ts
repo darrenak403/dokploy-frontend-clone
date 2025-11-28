@@ -35,7 +35,6 @@ export * from "./roles/useFetchGetAllRoleSwr";
 
 //permission
 export * from "./permission/useFetchGetAllPermissionSwr";
-export * from "./permission/useFetchGetAllRoleSwr";
 export * from "./permission/useFetchUpdatePermissionSwr";
 
 //warehouse

@@ -1,19 +1,21 @@
 "use client";
-import React, { useState, useCallback, useMemo, useRef, useEffect } from "react";
+import React, {
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 
-import {
-  Card,
-  CardBody,
-  Button,
-  Spinner,
-  Alert,
-} from "@heroui/react";
+import { Alert, Card, CardBody, Spinner } from "@heroui/react";
 import { Icon } from "@iconify/react";
 import { AnimatePresence, motion } from "framer-motion";
+import Swal from "sweetalert2";
 
 import { Permission } from "@/types/permission";
 
 import { useFetchGetAllRoleCore } from "@/hook/singleton/swrs/permission/useFetchGetAllRoleSwr";
+import { useFetchRemovePermissionFromRoleSwrSingleton } from "@/hook/singleton/swrs/permission/useFetchRemovePermissionFromRoleSwr";
 import { useFetchUpdatePermissionSwrCore } from "@/hook/singleton/swrs/permission/useFetchUpdatePermissionSwr";
 
 interface RoleListProps {
@@ -24,15 +26,18 @@ interface RoleListProps {
 const RoleList: React.FC<RoleListProps> = () => {
   const rolesSwr = useFetchGetAllRoleCore();
   const updatePermissionSwr = useFetchUpdatePermissionSwrCore(null);
-  
+  const removePermissionSwr = useFetchRemovePermissionFromRoleSwrSingleton();
+
   const { data: rolesData, isLoading, mutate } = rolesSwr || {};
   const { updateRolePermissions, isMutating } = updatePermissionSwr || {};
 
   const roles = useMemo(
-    () => Array.isArray(rolesData?.data) ? rolesData?.data : [],
+    () => (Array.isArray(rolesData?.data) ? rolesData?.data : []),
     [rolesData?.data]
   );
-  const [draggedOverRoleId, setDraggedOverRoleId] = useState<number | null>(null);
+  const [draggedOverRoleId, setDraggedOverRoleId] = useState<number | null>(
+    null
+  );
   const [alertMessage, setAlertMessage] = useState<string | null>(null);
   const [alertColor, setAlertColor] = useState<"success" | "danger">("success");
   const [showAlert, setShowAlert] = useState(false);
@@ -60,7 +65,7 @@ const RoleList: React.FC<RoleListProps> = () => {
       try {
         const permission: Permission = JSON.parse(permissionData);
         const role = roles.find((r) => r.id === roleId);
-        
+
         if (!role) return;
 
         // Kiểm tra xem permission đã có trong role chưa
@@ -69,7 +74,9 @@ const RoleList: React.FC<RoleListProps> = () => {
         );
 
         if (hasPermission) {
-          setAlertMessage(`Quyền "${permission.name}" đã có trong vai trò này.`);
+          setAlertMessage(
+            `Quyền "${permission.name}" đã có trong vai trò này.`
+          );
           setAlertColor("danger");
           setShowAlert(true);
           if (alertTimerRef.current) clearTimeout(alertTimerRef.current);
@@ -91,7 +98,9 @@ const RoleList: React.FC<RoleListProps> = () => {
           if (result && result.statusCode === 200) {
             // Refresh data
             mutate?.();
-            setAlertMessage(`Đã thêm quyền "${permission.name}" vào vai trò "${role.roleName}".`);
+            setAlertMessage(
+              `Đã thêm quyền "${permission.name}" vào vai trò "${role.roleName}".`
+            );
             setAlertColor("success");
             setShowAlert(true);
             if (alertTimerRef.current) clearTimeout(alertTimerRef.current);
@@ -112,49 +121,44 @@ const RoleList: React.FC<RoleListProps> = () => {
     [roles, updateRolePermissions, mutate]
   );
 
-  const handleRemovePermission = useCallback(
-    async (roleId: number, permissionId: number) => {
-      const role = roles.find((r) => r.id === roleId);
-      if (!role) return;
+  const handleRemovePermission = async (
+    roleId: number,
+    permissionId: number
+  ) => {
+    const result = await Swal.fire({
+      title: "Bạn có chắc chắn?",
+      text: "Bạn sẽ xóa quyền này khỏi vai trò!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#d33",
+      cancelButtonColor: "#3085d6",
+      confirmButtonText: "Xóa",
+      cancelButtonText: "Hủy",
+    });
 
-      // Xác nhận xóa - có thể giữ Swal cho confirmation hoặc dùng Alert
-      // Nếu muốn dùng Alert cho confirmation, cần thêm state riêng
-      // Ở đây tôi giữ Swal cho confirmation dialog, chỉ thay success/error messages
+    if (!result.isConfirmed) return;
+    if (!removePermissionSwr) return;
 
-      try {
-        const currentPermissionIds = role.permissions?.map((p) => p.id) || [];
-        const newPermissionIds = currentPermissionIds.filter(
-          (id) => id !== permissionId
-        );
-
-        if (updateRolePermissions) {
-          const updateResult = await updateRolePermissions({
-            id: roleId,
-            payload: { permissionIds: newPermissionIds },
-          });
-
-          if (updateResult && updateResult.statusCode === 200) {
-            mutate?.();
-            setAlertMessage("Đã xóa quyền khỏi vai trò.");
-            setAlertColor("success");
-            setShowAlert(true);
-            if (alertTimerRef.current) clearTimeout(alertTimerRef.current);
-            alertTimerRef.current = setTimeout(() => setShowAlert(false), 3000);
-          } else {
-            throw new Error("Cập nhật thất bại");
-          }
-        }
-      } catch (error) {
-        console.error("Error removing permission:", error);
-        setAlertMessage("Không thể xóa quyền. Vui lòng thử lại.");
-        setAlertColor("danger");
-        setShowAlert(true);
-        if (alertTimerRef.current) clearTimeout(alertTimerRef.current);
-        alertTimerRef.current = setTimeout(() => setShowAlert(false), 5000);
-      }
-    },
-    [roles, updateRolePermissions, mutate]
-  );
+    try {
+      await removePermissionSwr.removePermissionFromRole({
+        roleId,
+        permissionId,
+      });
+      mutate?.();
+      setAlertMessage("Đã xóa quyền khỏi vai trò thành công");
+      setAlertColor("success");
+      setShowAlert(true);
+      if (alertTimerRef.current) clearTimeout(alertTimerRef.current);
+      alertTimerRef.current = setTimeout(() => setShowAlert(false), 3000);
+    } catch (error) {
+      console.error("Lỗi xóa quyền:", error);
+      setAlertMessage("Có lỗi xảy ra khi xóa quyền");
+      setAlertColor("danger");
+      setShowAlert(true);
+      if (alertTimerRef.current) clearTimeout(alertTimerRef.current);
+      alertTimerRef.current = setTimeout(() => setShowAlert(false), 5000);
+    }
+  };
 
   useEffect(() => {
     return () => {
@@ -195,7 +199,10 @@ const RoleList: React.FC<RoleListProps> = () => {
       </AnimatePresence>
 
       <div className="flex items-center gap-2 mb-4">
-        <Icon icon="mdi:account-group" className="w-6 h-6 text-gray-600 dark:text-gray-400" />
+        <Icon
+          icon="mdi:account-group"
+          className="w-6 h-6 text-gray-600 dark:text-gray-400"
+        />
         <h2 className="text-xl font-bold text-gray-900 dark:text-white">
           Danh sách vai trò
         </h2>
@@ -205,7 +212,7 @@ const RoleList: React.FC<RoleListProps> = () => {
         {roles.map((role) => (
           <Card
             key={role.id}
-            className={`border-2 transition-all ${
+            className={`border-2 transition-all shadow-md ${
               draggedOverRoleId === role.id
                 ? "border-blue-500 bg-blue-50 dark:bg-blue-950/20"
                 : "border-gray-200 dark:border-gray-700"
@@ -225,7 +232,7 @@ const RoleList: React.FC<RoleListProps> = () => {
                   </p>
                 </div>
               </div>
-              
+
               <div className="space-y-2">
                 {role.permissions && role.permissions.length > 0 ? (
                   <div className="flex flex-wrap gap-2">

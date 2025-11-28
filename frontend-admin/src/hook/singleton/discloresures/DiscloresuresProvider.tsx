@@ -8,6 +8,7 @@ import { useCreateCommentDiscloresureCore } from "./comment/useCreateCommentDisc
 import { useCreatePatientDiscloresureCore } from "./patient/useCreatePatientDiscloresure";
 import { useUpdatePatientDiscloresureCore } from "./patient/useUpdatePatientDiscloresure";
 import { useViewPatientDiscloresureCore } from "./patient/useViewPatientDiscloresure";
+import { useCreatePermissionDisclosureCore } from "./permission/useCreatePermissionDiscloresure";
 import { useUpdateAvatarDisclosureCore } from "./profile/useUpdateAvatarDisclosure";
 import { useCreateTestOrderDiscloresureCore } from "./test-order/useCreateTestOrderDiscloresure";
 import { useUpdateTestOrderDiscloresureCore } from "./test-order/useUpdateTestOrderDiscloresure";
@@ -37,6 +38,9 @@ export interface DiscloresuresContextType {
   useGetUserByIdDisclosure: ReturnType<typeof useGetUserByIdDiscloresureCore>;
   useUpdateUserDiscloresure: ReturnType<typeof useUpdateUserDiscloresureCore>;
   useUpdateAvatarDisclosure: ReturnType<typeof useUpdateAvatarDisclosureCore>;
+  useCreatePermissionDisclosure: ReturnType<
+    typeof useCreatePermissionDisclosureCore
+  >;
 }
 
 export const DiscloresuresContext =
@@ -54,6 +58,7 @@ export const DiscloresuresProvider = ({ children }: PropsWithChildren) => {
   const useGetUserByIdDisclosure = useGetUserByIdDiscloresureCore();
   const useUpdateUserDiscloresure = useUpdateUserDiscloresureCore();
   const useUpdateAvatarDisclosure = useUpdateAvatarDisclosureCore();
+  const useCreatePermissionDisclosure = useCreatePermissionDisclosureCore();
   return (
     <>
       <DiscloresuresContext.Provider
@@ -69,6 +74,7 @@ export const DiscloresuresProvider = ({ children }: PropsWithChildren) => {
           useGetUserByIdDisclosure,
           useUpdateUserDiscloresure,
           useUpdateAvatarDisclosure,
+          useCreatePermissionDisclosure,
         }}
       >
         {children}

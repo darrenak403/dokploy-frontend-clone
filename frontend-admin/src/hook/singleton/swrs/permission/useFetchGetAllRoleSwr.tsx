@@ -16,7 +16,7 @@ export interface GetAllRolesResponse {
 }
 
 export const useFetchGetAllRoleCore = (
-  url: string = "/iam/roles",
+  url: string = "/roles",
   options?: SWRConfiguration
 ) => {
   const { data, error, isLoading, mutate, isValidating } =
@@ -30,7 +30,6 @@ export const useFetchGetAllRoleCore = (
 };
 
 export const useFetchGetAllRoleSingleton = () => {
-  const { useFetchGetAllRole } = useContext(SwrContext)!;
-  return useFetchGetAllRole;
+  const { useFetchGetAllRoleSwr } = useContext(SwrContext)!;
+  return useFetchGetAllRoleSwr;
 };
-

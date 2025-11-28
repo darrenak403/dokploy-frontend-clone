@@ -17,12 +17,14 @@ import { useFetchAllPatientSwrCore } from "./patient/useFetchAllPatientSwr";
 import { useFetchCreatePatientSwrCore } from "./patient/useFetchCreatePatientSwr";
 import { useFetchDeletePatientSwrCore } from "./patient/useFetchDeletePatientSwr";
 import { useFetchUpdatePatientSwrCore } from "./patient/useFetchUpdatePatientSwr";
+import { useFetchCreatePermissionSwrCore } from "./permission/useFetchCreatePermissionSwr";
+import { useFetchDeletePermissionSwrCore } from "./permission/useFetchDeletePermissionSwr";
+import { useFetchGetAllPermissionSwrCore } from "./permission/useFetchGetAllPermissionSwr";
+import { useFetchRemovePermissionFromRoleSwrCore } from "./permission/useFetchRemovePermissionFromRoleSwr";
+import { useFetchUpdatePermissionSwrCore } from "./permission/useFetchUpdatePermissionSwr";
 import { useFetchUpdateAvatarUrlSwrCore } from "./profile/useFetchUpdateAvatarUrlSwr";
 import { useFetchUpdateProfileSwrCore } from "./profile/useFetchUpdateProfile";
 import { useFetchGetAllRoleSwrCore } from "./roles/useFetchGetAllRoleSwr";
-import { useFetchGetAllRoleCore } from "./permission/useFetchGetAllRoleSwr";
-import { useFetchGetAllPermissionSwrCore } from "./permission/useFetchGetAllPermissionSwr";
-import { useFetchUpdatePermissionSwrCore } from "./permission/useFetchUpdatePermissionSwr";
 import { useFetchAllTestOrderSwrCore } from "./test-order/useFetchAllTestOrderSwr";
 import { useFetchCreateTestOrderSwrCore } from "./test-order/useFetchCreateTestOrder";
 import { useFetchDeleteTestOrderSwrCore } from "./test-order/useFetchDeleteTestOrderSwr";
@@ -36,6 +38,7 @@ import { useFetchUpdateUserSwrCore } from "./user/useFetchUpdateUserSwr";
 import { useFetchCreateInstrumentSwrCore } from "./warehouse/useFetchCreateWareHouseIntrustmentSwr";
 import { useFetchGetAllInstrumentSwrCore } from "./warehouse/useFetchGetAllInstrumentSwr";
 import { useFetchUpdateInstrumentSwrCore } from "./warehouse/useFetchUpdateWareHouseIntrustmentSwr";
+import { useFetchGetAllMonitoringSwrCore } from "./monitoring/useFetchGetAllMonitoringSwr";
 
 export interface SwrContextType {
   useFetchRegisterSwr: ReturnType<typeof useFetchRegisterSwrCore>;
@@ -87,6 +90,15 @@ export interface SwrContextType {
   >;
   useFetchUpdatePermissionSwr?: ReturnType<
     typeof useFetchUpdatePermissionSwrCore
+  >;
+  useFetchCreatePermissionSwr?: ReturnType<
+    typeof useFetchCreatePermissionSwrCore
+  >;
+  useFetchDeletePermissionSwr?: ReturnType<
+    typeof useFetchDeletePermissionSwrCore
+  >;
+  useFetchRemovePermissionFromRoleSwr?: ReturnType<
+    typeof useFetchRemovePermissionFromRoleSwrCore
   >;
   //warehouse
   useFetchGetAllInstrumentSwr?: ReturnType<
@@ -156,6 +168,10 @@ export const SwrProvider = ({ children }: PropsWithChildren) => {
   //permission
   const useFetchGetAllPermissionSwr = useFetchGetAllPermissionSwrCore();
   const useFetchUpdatePermissionSwr = useFetchUpdatePermissionSwrCore(null);
+  const useFetchCreatePermissionSwr = useFetchCreatePermissionSwrCore();
+  const useFetchDeletePermissionSwr = useFetchDeletePermissionSwrCore();
+  const useFetchRemovePermissionFromRoleSwr =
+    useFetchRemovePermissionFromRoleSwrCore();
   //warehouse
   const useFetchGetAllInstrumentSwr = useFetchGetAllInstrumentSwrCore();
   //instrument
@@ -211,6 +227,9 @@ export const SwrProvider = ({ children }: PropsWithChildren) => {
           //permission
           useFetchGetAllPermissionSwr,
           useFetchUpdatePermissionSwr,
+          useFetchCreatePermissionSwr,
+          useFetchDeletePermissionSwr,
+          useFetchRemovePermissionFromRoleSwr,
           //warehouse
           useFetchGetAllInstrumentSwr,
           //instrument

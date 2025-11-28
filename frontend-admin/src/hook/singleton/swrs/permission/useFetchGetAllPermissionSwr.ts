@@ -16,19 +16,15 @@ export interface GetAllPermissionsResponse {
 }
 
 export const useFetchGetAllPermissionSwrCore = (
-  url: string = "/iam/roles/permissions",
+  url: string = "/roles/permissions",
   options?: SWRConfiguration
 ) => {
   const { data, error, isLoading, mutate, isValidating } =
-    useSWR<GetAllPermissionsResponse>(
-      url,
-      fetcher<GetAllPermissionsResponse>,
-      {
-        revalidateOnFocus: true,
-        revalidateOnReconnect: true,
-        ...options,
-      }
-    );
+    useSWR<GetAllPermissionsResponse>(url, fetcher<GetAllPermissionsResponse>, {
+      revalidateOnFocus: true,
+      revalidateOnReconnect: true,
+      ...options,
+    });
 
   return { data, error, isLoading, mutate, isValidating };
 };
@@ -37,4 +33,3 @@ export const useFetchGetAllPermissionSwrSingleton = () => {
   const { useFetchGetAllPermissionSwr } = useContext(SwrContext)!;
   return useFetchGetAllPermissionSwr;
 };
-

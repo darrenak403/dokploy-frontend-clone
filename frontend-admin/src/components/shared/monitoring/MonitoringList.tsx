@@ -49,12 +49,15 @@ const MonitoringList = () => {
 
     filtered = filterByTimeRange(filtered, timeFilter);
 
+<<<<<<< HEAD
+=======
     // Sort by timestamp descending (newest first)
     filtered.sort(
       (a, b) =>
         new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime()
     );
 
+>>>>>>> 706ea9b95546c6814000ecbbd6afdf4667f0da2f
     return filtered;
   }, [monitoringData, searchText, statusFilter, timeFilter]);
 
@@ -89,10 +92,17 @@ const MonitoringList = () => {
   }
 
   return (
+<<<<<<< HEAD
+    <Card className="w-full shadow-none border border-gray-200 flex flex-col min-h-[450px]">
+      <CardBody className="p-0">
+        {/* Header with Search and Filters */}
+        <div className="p-4 border-b border-divider">
+=======
     <Card className="w-full shadow-none border border-gray-200 flex flex-col h-full">
       <CardBody className="p-0 flex flex-col h-full">
         {/* Header with Search and Filters */}
         <div className="p-4 border-b border-divider flex-shrink-0">
+>>>>>>> 706ea9b95546c6814000ecbbd6afdf4667f0da2f
           <div className="flex flex-col sm:flex-row gap-4">
             <div className="text-sm flex justify-center items-center text-gray-600 dark:text-gray-400">
               Hiển thị {filteredData.length} / {monitoringData.length} hoạt động
@@ -152,13 +162,20 @@ const MonitoringList = () => {
         </div>
 
         {/* Table */}
+<<<<<<< HEAD
+        <div className="overflow-x-auto">
+=======
         <div className="flex-1 overflow-auto">
+>>>>>>> 706ea9b95546c6814000ecbbd6afdf4667f0da2f
           <Table
             aria-label="Monitoring table"
             classNames={{
               wrapper: "shadow-none",
+<<<<<<< HEAD
+=======
               table: "h-full",
               tbody: "h-full",
+>>>>>>> 706ea9b95546c6814000ecbbd6afdf4667f0da2f
             }}
           >
             <TableHeader columns={columns}>
@@ -187,15 +204,26 @@ const MonitoringList = () => {
                     </div>
                   </TableCell>
                   <TableCell>{item.performedBy}</TableCell>
+<<<<<<< HEAD
+                  <TableCell>
+                    <span
+                      className={`px-2 py-1 text-xs font-semibold rounded-full ${getStatusColorClass(item.status)}`}
+=======
                   <TableCell className="">
                     <span
                       className={`px-2 py-1 text-xs max-w-xl font-semibold rounded-full ${getStatusColorClass(item.status)}`}
+>>>>>>> 706ea9b95546c6814000ecbbd6afdf4667f0da2f
                     >
                       {getStatusText(item.status)}
                     </span>
                   </TableCell>
+<<<<<<< HEAD
+                  <TableCell>
+                    <div className="max-w-md truncate">{item.message}</div>
+=======
                   <TableCell className="">
                     <div className="max-w-sm truncate">{item.message}</div>
+>>>>>>> 706ea9b95546c6814000ecbbd6afdf4667f0da2f
                   </TableCell>
                 </TableRow>
               )}

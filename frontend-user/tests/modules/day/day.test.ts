@@ -201,6 +201,27 @@ describe("Day Module", () => {
 
       expect(result === null || result instanceof Date).toBe(true);
     });
+
+    it("should handle date strings that trigger fallback parser", () => {
+      // Test date string that doesn't match dd/MM/YYYY or YYYY-MM-DD patterns
+      const dateString = "Dec 25 2023";
+      const result = parseDateOnly(dateString);
+
+      expect(result).toBeInstanceOf(Date);
+      expect(result?.getFullYear()).toBe(2023);
+      expect(result?.getMonth()).toBe(11); // December
+      expect(result?.getDate()).toBe(25);
+    });
+
+    it("should parse valid dd/MM/yyyy format with different dates", () => {
+      const input = "01/01/2020";
+      const result = parseDateOnly(input);
+
+      expect(result).toBeInstanceOf(Date);
+      expect(result?.getFullYear()).toBe(2020);
+      expect(result?.getMonth()).toBe(0); // January
+      expect(result?.getDate()).toBe(1);
+    });
   });
 
   describe("calcAgeFromDate", () => {

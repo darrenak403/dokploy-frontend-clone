@@ -1,5 +1,6 @@
 "use client";
 import CreateCommentModal from "./CreateCommentModal";
+import CreatePermissionModal from "./CreatePermisionModal";
 import CreatePatientModal from "./PatientModal/CreatePatientModal";
 import UpdatePatientModal from "./PatientModal/UpdatePatientModal";
 import ViewPatientModal from "./PatientModal/ViewPatientModal";
@@ -26,6 +27,7 @@ export default function ModalsRoot() {
       <UpdateUserModal />
       <ViewUserModal />
       <UpdateAvatarModal />
+      <CreatePermissionModal />
     </>
   );
 }

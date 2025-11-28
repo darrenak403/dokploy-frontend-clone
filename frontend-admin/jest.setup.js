@@ -33,6 +33,8 @@ beforeAll(() => {
       // Suppress decryption errors (intentional for error handling tests)
       message.includes("Decryption error:") ||
       message.includes("Safe decrypt failed:") ||
+      // Suppress dispatch errors (intentional for error handling tests)
+      message.includes("Failed to update redux auth state") ||
       // Suppress React DOM prop warnings
       message.includes("React does not recognize") ||
       message.includes("isLoading") ||
