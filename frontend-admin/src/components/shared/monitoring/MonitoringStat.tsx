@@ -1,25 +1,9 @@
 "use client";
-<<<<<<< HEAD
-import React, { useMemo } from "react";
-=======
 import React from "react";
->>>>>>> 706ea9b95546c6814000ecbbd6afdf4667f0da2f
 
 import { Icon } from "@iconify/react";
 
 import { useFetchGetAllMonitoringSwrSingleton } from "@/hook/singleton/swrs/monitoring/useFetchGetAllMonitoringSwr";
-<<<<<<< HEAD
-import { getMonitoringStats } from "@/modules/monitoring/getAllMonitoringHelpers";
-
-const MonitoringStat: React.FC = () => {
-  const swrResult = useFetchGetAllMonitoringSwrSingleton();
-  const { data, isLoading } = swrResult || {};
-
-  const stats = useMemo(() => {
-    const monitoringData = Array.isArray(data) ? data : [];
-    return getMonitoringStats(monitoringData);
-  }, [data]);
-=======
 
 import { getMonitoringStats } from "@/modules/monitoring/getAllMonitoringHelpers";
 
@@ -27,7 +11,6 @@ const MonitoringStat = () => {
   const swrResult = useFetchGetAllMonitoringSwrSingleton();
   const { data, isLoading } = swrResult || {};
   const stats = getMonitoringStats(data || []);
->>>>>>> 706ea9b95546c6814000ecbbd6afdf4667f0da2f
 
   const cards = [
     {
@@ -84,12 +67,7 @@ const MonitoringStat = () => {
       value: isLoading ? "…" : String(stats.uniqueServices),
       subtitle: "Số dịch vụ khác nhau",
       icon: "mdi:server-network",
-<<<<<<< HEAD
-      accent:
-        "bg-teal-50 dark:bg-teal-950/20 text-teal-600 dark:text-teal-400",
-=======
       accent: "bg-teal-50 dark:bg-teal-950/20 text-teal-600 dark:text-teal-400",
->>>>>>> 706ea9b95546c6814000ecbbd6afdf4667f0da2f
       bgCard: "bg-white dark:bg-gray-800",
     },
     {

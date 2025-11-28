@@ -38,7 +38,6 @@ import { useFetchUpdateUserSwrCore } from "./user/useFetchUpdateUserSwr";
 import { useFetchCreateInstrumentSwrCore } from "./warehouse/useFetchCreateWareHouseIntrustmentSwr";
 import { useFetchGetAllInstrumentSwrCore } from "./warehouse/useFetchGetAllInstrumentSwr";
 import { useFetchUpdateInstrumentSwrCore } from "./warehouse/useFetchUpdateWareHouseIntrustmentSwr";
-import { useFetchGetAllMonitoringSwrCore } from "./monitoring/useFetchGetAllMonitoringSwr";
 
 export interface SwrContextType {
   useFetchRegisterSwr: ReturnType<typeof useFetchRegisterSwrCore>;
