@@ -130,6 +130,7 @@ describe("AccountList", () => {
 
   beforeEach(() => {
     jest.clearAllMocks();
+    jest.useFakeTimers();
     mockUseGetUserByIdDiscloresureSingleton.mockReturnValue({
       openWithUserId: mockOpenWithUserId,
     } as any);
@@ -208,12 +209,15 @@ describe("AccountList", () => {
     const searchInput = screen.getByPlaceholderText(/Tìm kiếm theo tên/);
     fireEvent.change(searchInput, { target: { value: "John" } });
 
+    // Advance timers to trigger debounce
+    jest.advanceTimersByTime(250);
+
     await waitFor(
       () => {
         expect(screen.getByText("John Doe")).toBeInTheDocument();
         expect(screen.queryByText("Jane Smith")).not.toBeInTheDocument();
       },
-      { timeout: 300 }
+      { timeout: 100 }
     );
   });
 
@@ -231,12 +235,15 @@ describe("AccountList", () => {
     const searchInput = screen.getByPlaceholderText(/Tìm kiếm theo tên/);
     fireEvent.change(searchInput, { target: { value: "jane@example.com" } });
 
+    // Advance timers to trigger debounce
+    jest.advanceTimersByTime(250);
+
     await waitFor(
       () => {
         expect(screen.getByText("Jane Smith")).toBeInTheDocument();
         expect(screen.queryByText("John Doe")).not.toBeInTheDocument();
       },
-      { timeout: 300 }
+      { timeout: 100 }
     );
   });
 
@@ -254,12 +261,15 @@ describe("AccountList", () => {
     const searchInput = screen.getByPlaceholderText(/Tìm kiếm theo tên/);
     fireEvent.change(searchInput, { target: { value: "0987654321" } });
 
+    // Advance timers to trigger debounce
+    jest.advanceTimersByTime(250);
+
     await waitFor(
       () => {
         expect(screen.getByText("Jane Smith")).toBeInTheDocument();
         expect(screen.queryByText("John Doe")).not.toBeInTheDocument();
       },
-      { timeout: 300 }
+      { timeout: 100 }
     );
   });
 
@@ -277,11 +287,14 @@ describe("AccountList", () => {
     const searchInput = screen.getByPlaceholderText(/Tìm kiếm theo tên/);
     fireEvent.change(searchInput, { target: { value: "2" } });
 
+    // Advance timers to trigger debounce
+    jest.advanceTimersByTime(250);
+
     await waitFor(
       () => {
         expect(screen.getByText("Jane Smith")).toBeInTheDocument();
       },
-      { timeout: 300 }
+      { timeout: 100 }
     );
   });
 
@@ -438,13 +451,16 @@ describe("AccountList", () => {
     expect(screen.getByText("John Doe")).toBeInTheDocument();
     expect(screen.getByText("Jane Smith")).toBeInTheDocument();
 
+    // Advance timers to trigger debounce
+    jest.advanceTimersByTime(250);
+
     // Wait for debounce
     await waitFor(
       () => {
         expect(screen.getByText("John Doe")).toBeInTheDocument();
         expect(screen.queryByText("Jane Smith")).not.toBeInTheDocument();
       },
-      { timeout: 300 }
+      { timeout: 100 }
     );
   });
 
