@@ -3,7 +3,7 @@ services:
     image: datdevv/frontend-user:latest
     container_name: frontend-user
     expose:
-      - "5174"                    # Internal port only
+      - "5174"                    # Internal port only (via Nginx)
     restart: unless-stopped
     networks:
       - app-network
@@ -12,7 +12,7 @@ services:
     image: datdevv/admin-frontend:latest
     container_name: admin-frontend
     expose:
-      - "5173"                    # Internal port only
+      - "5173"                    # Internal port only (via Nginx)
     restart: unless-stopped
     networks:
       - app-network
@@ -33,5 +33,6 @@ services:
 networks:
   app-network:
     driver: bridge
+
 
 
