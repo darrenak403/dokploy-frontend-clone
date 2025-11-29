@@ -13,7 +13,7 @@ const nextConfig: NextConfig = {
     qualities: [75, 90, 100],
   },
   async rewrites() {
-    const apiGateway = process.env.API_GATEWAY_URL || "http://api-gateway:6789";
+    const apiGateway = process.env.API_GATEWAY_URL || "http://localhost:6789";
     
     return [
       {

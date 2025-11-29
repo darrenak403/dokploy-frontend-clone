@@ -10,7 +10,7 @@ const nextConfig: NextConfig = {
     domains: ["lh3.googleusercontent.com", "res.cloudinary.com"],
   },
   async rewrites() {
-    const apiGateway = process.env.API_GATEWAY_URL || "http://api-gateway:6789";
+    const apiGateway = process.env.API_GATEWAY_URL || "http://localhost:6789";
     
     return [
       {
