@@ -2,12 +2,13 @@ services:
   frontend-user:
     build:
       context: ./frontend-user
+      args:
+        NEXT_PUBLIC_API_BASE_URL: /api
+        NEXT_PUBLIC_SECRET: ${NEXT_PUBLIC_SECRET:-1a9733d7738894c5}
     container_name: frontend-user
     environment:
       NODE_ENV: production
       API_GATEWAY_URL: ${API_GATEWAY_URL:-http://api-gateway:6789}
-      NEXT_PUBLIC_API_BASE_URL: /api
-      NEXT_PUBLIC_SECRET: ${NEXT_PUBLIC_SECRET:-1a9733d7738894c5}
     ports:
       - "6001:80"
     restart: unless-stopped
@@ -17,12 +18,13 @@ services:
   frontend-admin:
     build:
       context: ./frontend-admin
+      args:
+        NEXT_PUBLIC_API_BASE_URL: /api
+        NEXT_PUBLIC_SECRET: ${NEXT_PUBLIC_SECRET:-1a9733d7738894c5}
     container_name: frontend-admin
     environment:
       NODE_ENV: production
       API_GATEWAY_URL: ${API_GATEWAY_URL:-http://api-gateway:6789}
-      NEXT_PUBLIC_API_BASE_URL: /api
-      NEXT_PUBLIC_SECRET: ${NEXT_PUBLIC_SECRET:-1a9733d7738894c5}
     ports:
       - "6002:80"
     restart: unless-stopped

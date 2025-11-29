@@ -14,6 +14,14 @@ RUN npm ci
 FROM node:21-alpine AS builder
 WORKDIR /app
 
+# Accept build arguments for NEXT_PUBLIC variables
+ARG NEXT_PUBLIC_API_BASE_URL=/api
+ARG NEXT_PUBLIC_SECRET=1a9733d7738894c5
+
+# Set them as environment variables for the build
+ENV NEXT_PUBLIC_API_BASE_URL=$NEXT_PUBLIC_API_BASE_URL
+ENV NEXT_PUBLIC_SECRET=$NEXT_PUBLIC_SECRET
+
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 
