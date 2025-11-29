@@ -2,8 +2,8 @@ services:
   frontend-user:
     image: datdevv/frontend-user:latest
     container_name: frontend-user
-    ports:
-      - "5174:5174"               # FE User chạy tại http://localhost:3000
+    expose:
+      - "5174"                    # Internal port only
     restart: unless-stopped
     networks:
       - app-network
@@ -11,9 +11,22 @@ services:
   frontend-admin:
     image: datdevv/admin-frontend:latest
     container_name: admin-frontend
-    ports:
-      - "5173:5173"               # FE Admin chạy tại http://localhost:5173
+    expose:
+      - "5173"                    # Internal port only
     restart: unless-stopped
+    networks:
+      - app-network
+
+  nginx:
+    build: ./nginx
+    container_name: nginx-proxy
+    ports:
+      - "80:80"                   # HTTP
+      # - "443:443"               # HTTPS (uncomment khi có SSL)
+    restart: unless-stopped
+    depends_on:
+      - frontend-user
+      - frontend-admin
     networks:
       - app-network
 
