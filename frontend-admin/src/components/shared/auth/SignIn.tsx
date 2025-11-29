@@ -70,7 +70,7 @@ export const SignIn = () => {
           }
 
           setAlertColor("success");
-          setAlertMessage("Đăng nhập thành công!!!");
+          setAlertMessage("Đăng nhập thành công!");
           setShowAlert(true);
 
           setTimeout(() => {
