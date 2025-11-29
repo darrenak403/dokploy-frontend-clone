@@ -1,0 +1,24 @@
+# Cloudflare Tunnel Configuration for Dokploy
+
+# Tunnel name: dokploy-frontend-tunnel
+
+ingress:
+  # Admin Frontend
+  - hostname: admin.dupssapp.id.vn
+    service: http://nginx-proxy:80
+  
+  # User Frontend  
+  - hostname: dupssapp.id.vn
+    service: http://nginx-proxy:80
+  
+  # Catch-all rule (required)
+  - service: http_status:404
+
+# Network settings
+originRequest:
+  noTLSVerify: false
+  connectTimeout: 30s
+  tlsTimeout: 10s
+  tcpKeepAlive: 30s
+  keepAliveConnections: 100
+  keepAliveTimeout: 90s
