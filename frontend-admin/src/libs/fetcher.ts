@@ -8,7 +8,7 @@ import { clearAuth, setAccessToken } from "@/redux/slices/authSlice";
 import { store } from "@/redux/store";
 
 const BASE_URL =
-  process.env.NEXT_PUBLIC_API_BASE_URL ?? "http://localhost:6789/v1/api";
+  process.env.NEXT_PUBLIC_API_BASE_URL ?? "/api";
 
 const AUTH_BASE = `${BASE_URL}/iam`;
 const PATIENT_BASE = `${BASE_URL}`;
