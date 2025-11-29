@@ -21,8 +21,8 @@ services:
     build: ./nginx
     container_name: nginx-proxy
     ports:
-      - "80:80"                   # HTTP
-      # - "443:443"               # HTTPS (uncomment khi có SSL)
+      - "8080:80"                 # HTTP (8080 external -> 80 internal)
+      # - "8443:443"              # HTTPS (uncomment khi có SSL)
     restart: unless-stopped
     depends_on:
       - frontend-user
