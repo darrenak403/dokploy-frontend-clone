@@ -7,10 +7,64 @@ import "./globals.css";
 import { Providers } from "./providers";
 
 export const metadata: Metadata = {
-  title: "Laboratory",
-  description: "A system for managing laboratory operations and data.",
+  title: {
+    default: "Laboratory Medical Service - Phòng xét nghiệm máu chuẩn quốc tế",
+    template: "%s | Laboratory Medical Service"
+  },
+  description: "Hệ thống quản lý phòng xét nghiệm y tế hiện đại với công nghệ tiên tiến. Cung cấp dịch vụ xét nghiệm máu, sinh hóa, miễn dịch và vi sinh chính xác, nhanh chóng theo tiêu chuẩn quốc tế.",
+  keywords: ["phòng xét nghiệm", "xét nghiệm máu", "laboratory", "medical service", "xét nghiệm y tế", "chẩn đoán bệnh", "sinh hóa", "miễn dịch"],
+  authors: [{ name: "Laboratory Medical Service" }],
+  creator: "Laboratory Medical Service",
+  publisher: "Laboratory Medical Service",
+  metadataBase: new URL("https://lab.dupssapp.id.vn"),
+  alternates: {
+    canonical: "/",
+  },
+  openGraph: {
+    type: "website",
+    locale: "vi_VN",
+    url: "https://lab.dupssapp.id.vn",
+    title: "Laboratory Medical Service - Phòng xét nghiệm máu chuẩn quốc tế",
+    description: "Hệ thống quản lý phòng xét nghiệm y tế hiện đại với công nghệ tiên tiến. Cung cấp dịch vụ xét nghiệm máu, sinh hóa, miễn dịch và vi sinh chính xác, nhanh chóng theo tiêu chuẩn quốc tế.",
+    siteName: "Laboratory Medical Service",
+    images: [
+      {
+        url: "/images/LogoPDF2.png",
+        width: 1200,
+        height: 630,
+        alt: "Laboratory Medical Service Logo",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Laboratory Medical Service - Phòng xét nghiệm máu chuẩn quốc tế",
+    description: "Hệ thống quản lý phòng xét nghiệm y tế hiện đại với công nghệ tiên tiến.",
+    images: ["/images/LogoPDF2.png"],
+  },
   icons: {
-    icon: [{ url: "/images/LogoPDF2.png", sizes: "32x32", type: "image/png" }],
+    icon: [
+      { url: "/images/LogoPDF2.png", sizes: "32x32", type: "image/png" },
+      { url: "/images/LogoPDF2.png", sizes: "16x16", type: "image/png" },
+    ],
+    apple: [
+      { url: "/images/LogoPDF2.png", sizes: "180x180", type: "image/png" },
+    ],
+  },
+  manifest: "/manifest.json",
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
+  verification: {
+    google: "google-site-verification-code", // Thay bằng mã verification thực tế
   },
 };
 
