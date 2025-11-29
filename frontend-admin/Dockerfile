@@ -11,15 +11,20 @@ COPY . .
 RUN npm run build
 
 # ===========================
-# Run stage
+# Production stage with Nginx
 # ===========================
-FROM node:21-alpine
-WORKDIR /app
+FROM nginx:alpine
+WORKDIR /usr/share/nginx/html
 
-COPY --from=builder /app ./
+# Remove default nginx config
+RUN rm -rf /etc/nginx/conf.d/*
 
-EXPOSE 5173
-ENV PORT=5173
-ENV NODE_ENV=production
+# Copy custom nginx config
+COPY nginx.conf /etc/nginx/conf.d/default.conf
 
-CMD ["npm", "run", "start"]
+# Copy built files from Next.js
+COPY --from=builder /app/out .
+
+EXPOSE 80
+
+CMD ["nginx", "-g", "daemon off;"]

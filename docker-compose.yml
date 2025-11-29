@@ -1,33 +1,25 @@
 services:
   frontend-user:
-    image: datdevv/frontend-user:latest
+    build:
+      context: ./frontend-user
     container_name: frontend-user
-    expose:
-      - "5174"                    # Internal only - for Cloudflare Tunnel
+    environment:
+      NODE_ENV: production
+    ports:
+      - "6001:80"
     restart: unless-stopped
     networks:
       - app-network
 
   frontend-admin:
-    image: datdevv/admin-frontend:latest
-    container_name: admin-frontend
-    expose:
-      - "5173"                    # Internal only - for Cloudflare Tunnel
+    build:
+      context: ./frontend-admin
+    container_name: frontend-admin
+    environment:
+      NODE_ENV: production
+    ports:
+      - "6002:80"
     restart: unless-stopped
-    networks:
-      - app-network
-
-  nginx:
-    image: nginx:alpine
-    container_name: nginx-proxy
-    expose:
-      - "80"                      # Internal only - for Cloudflare Tunnel
-    volumes:
-      - ./nginx.conf:/etc/nginx/nginx.conf:ro
-    restart: unless-stopped
-    depends_on:
-      - frontend-user
-      - frontend-admin
     networks:
       - app-network
 
