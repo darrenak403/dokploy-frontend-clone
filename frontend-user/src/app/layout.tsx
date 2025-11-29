@@ -8,11 +8,11 @@ import { Providers } from "./providers";
 
 export const metadata: Metadata = {
   title: {
-    default: "Laboratory Medical Service - Phòng xét nghiệm máu chuẩn quốc tế",
-    template: "%s | Laboratory Medical Service"
+    default: "LabMS - Phòng xét nghiệm máu chuẩn quốc tế",
+    template: "%s | LabMS"
   },
   description: "Hệ thống quản lý phòng xét nghiệm y tế hiện đại với công nghệ tiên tiến. Cung cấp dịch vụ xét nghiệm máu, sinh hóa, miễn dịch và vi sinh chính xác, nhanh chóng theo tiêu chuẩn quốc tế.",
-  keywords: ["phòng xét nghiệm", "xét nghiệm máu", "laboratory", "medical service", "xét nghiệm y tế", "chẩn đoán bệnh", "sinh hóa", "miễn dịch"],
+  keywords: ["phòng xét nghiệm", "xét nghiệm máu", "laboratory", "medical service", "xét nghiệm y tế", "chẩn đoán bệnh", "sinh hóa", "miễn dịch", "LabMS"],
   authors: [{ name: "Laboratory Medical Service" }],
   creator: "Laboratory Medical Service",
   publisher: "Laboratory Medical Service",

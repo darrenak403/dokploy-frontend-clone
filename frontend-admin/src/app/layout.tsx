@@ -18,7 +18,7 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: {
-    default: "Admin - Laboratory Management System",
+    default: "Laboratory Management System",
     template: "%s | Laboratory Admin"
   },
   description: "Hệ thống quản trị phòng xét nghiệm y tế. Quản lý bệnh nhân, đơn xét nghiệm, kết quả, thiết bị, kho hóa chất và nhân viên một cách hiệu quả.",
