@@ -54,7 +54,14 @@ const CreateRegent = () => {
     onSubmit: async (values, { setSubmitting, resetForm }) => {
       try {
         setIsLoading(true);
-        const result = await createRegentSwr?.trigger(values as any);
+        // Format expiryDate từ "yyyy-MM-dd" thành "dd/MM/yyyy" trước khi gửi
+        const formattedValues = {
+          ...values,
+          expiryDate: values.expiryDate
+            ? values.expiryDate.split('-').reverse().join('/') // "2027-04-03" -> "03/04/2027"
+            : "",
+        };
+        const result = await createRegentSwr?.trigger(formattedValues as any);
         if (result?.data) {
           setAlertMessage("Thuốc thử đã được thêm thành công!");
           setAlertColor("success");
