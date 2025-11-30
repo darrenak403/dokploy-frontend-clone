@@ -13,6 +13,7 @@ const BASE_URL =
 const AUTH_BASE = `${BASE_URL}/iam`;
 const PATIENT_BASE = `${BASE_URL}`;
 const RESULT_BASE = `${BASE_URL}/testorder`;
+const ORDER_BASE = `${BASE_URL}`;
 const COMMENT_BASE = `${BASE_URL}`;
 const INSTRUMENT_BASE = `${BASE_URL}`;
 const WAREHOSE_BASE = `${BASE_URL}`;
@@ -21,6 +22,7 @@ const ROLE_BASE = `${BASE_URL}/iam`;
 const SERVICE_ROUTES: Record<string, string> = {
   "/auth": AUTH_BASE,
   "/patient": PATIENT_BASE,
+  "/orders": ORDER_BASE,
   "/results": RESULT_BASE,
   "/comments": COMMENT_BASE,
   "/instrument": INSTRUMENT_BASE,
