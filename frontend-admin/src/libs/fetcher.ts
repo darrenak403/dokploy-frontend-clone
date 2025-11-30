@@ -8,11 +8,11 @@ import { clearAuth, setAccessToken } from "@/redux/slices/authSlice";
 import { store } from "@/redux/store";
 
 const BASE_URL =
-  process.env.NEXT_PUBLIC_API_BASE_URL ?? "/api";
+  process.env.NEXT_PUBLIC_API_BASE_URL ?? "http://localhost:6789/v1/api";
 
 const AUTH_BASE = `${BASE_URL}/iam`;
 const PATIENT_BASE = `${BASE_URL}`;
-const RESULT_BASE = `${BASE_URL}`;
+const RESULT_BASE = `${BASE_URL}/testorder`;
 const COMMENT_BASE = `${BASE_URL}`;
 const INSTRUMENT_BASE = `${BASE_URL}`;
 const WAREHOSE_BASE = `${BASE_URL}`;
