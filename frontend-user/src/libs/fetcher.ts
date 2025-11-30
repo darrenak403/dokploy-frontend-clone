@@ -8,16 +8,18 @@ import { clearAuth, setAccessToken } from "@/redux/slices/authSlice";
 import { store } from "@/redux/store";
 
 const BASE_URL =
-  process.env.NEXT_PUBLIC_API_BASE_URL ?? "/api";
+  process.env.NEXT_PUBLIC_API_BASE_URL ?? "http://localhost:6789/v1/api";
 
 const AUTH_BASE = `${BASE_URL}/iam`;
 const PATIENT_BASE = `${BASE_URL}`;
-const ORDER_BASE = `${BASE_URL}`;
+const RESULT_BASE = `${BASE_URL}/testorder`;
+const ORDER_BASE = `${BASE_URL}/testorder`;
 
 const SERVICE_ROUTES: Record<string, string> = {
   "/auth": AUTH_BASE,
   "/patient": PATIENT_BASE,
   "/orders": ORDER_BASE,
+  "/results": RESULT_BASE,
 };
 
 const getServiceURL = (url: string): string => {
