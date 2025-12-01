@@ -56,7 +56,7 @@ const SpinnerGoogleCallback = () => {
   );
 
   // build full backend url; encode code because searchParams.get returns decoded value
-  const base = "https://api.dupssapp.id.vn/v1";
+  const base = "https://api.dupssapp.id.vn/v1/api";
   const apiUrl = code
     ? `${base}/iam/auth/google/social/callback?code=${encodeURIComponent(
         code
