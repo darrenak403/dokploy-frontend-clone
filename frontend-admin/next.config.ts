@@ -25,12 +25,8 @@ const nextConfig: NextConfig = {
       },
       // Test Order Service
       {
-        source: "/api/orders/:path*",
-        destination: `${apiGateway}/v1/api/orders/:path*`,
-      },
-      {
-        source: "/api/test-order/:path*",
-        destination: `${apiGateway}/v1/api/test-order/:path*`,
+        source: "/api/testorder/:path*",
+        destination: `${apiGateway}/v1/api/testorder/:path*`,
       },
       // Instrument Service
       {
