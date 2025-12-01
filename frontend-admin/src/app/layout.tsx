@@ -39,7 +39,7 @@ export const metadata: Metadata = {
     siteName: "Laboratory Admin",
     images: [
       {
-        url: "/images/LogoPDF2.png",
+        url: "/images/FSA.png",
         width: 1200,
         height: 630,
         alt: "Laboratory Management System Logo",

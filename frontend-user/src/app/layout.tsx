@@ -9,10 +9,21 @@ import { Providers } from "./providers";
 export const metadata: Metadata = {
   title: {
     default: "LabMS - Phòng xét nghiệm máu chuẩn quốc tế",
-    template: "%s | LabMS"
+    template: "%s | LabMS",
   },
-  description: "Hệ thống quản lý phòng xét nghiệm y tế hiện đại với công nghệ tiên tiến. Cung cấp dịch vụ xét nghiệm máu, sinh hóa, miễn dịch và vi sinh chính xác, nhanh chóng theo tiêu chuẩn quốc tế.",
-  keywords: ["phòng xét nghiệm", "xét nghiệm máu", "laboratory", "medical service", "xét nghiệm y tế", "chẩn đoán bệnh", "sinh hóa", "miễn dịch", "LabMS"],
+  description:
+    "Hệ thống quản lý phòng xét nghiệm y tế hiện đại với công nghệ tiên tiến. Cung cấp dịch vụ xét nghiệm máu, sinh hóa, miễn dịch và vi sinh chính xác, nhanh chóng theo tiêu chuẩn quốc tế.",
+  keywords: [
+    "phòng xét nghiệm",
+    "xét nghiệm máu",
+    "laboratory",
+    "medical service",
+    "xét nghiệm y tế",
+    "chẩn đoán bệnh",
+    "sinh hóa",
+    "miễn dịch",
+    "LabMS",
+  ],
   authors: [{ name: "Laboratory Medical Service" }],
   creator: "Laboratory Medical Service",
   publisher: "Laboratory Medical Service",
@@ -25,11 +36,12 @@ export const metadata: Metadata = {
     locale: "vi_VN",
     url: "https://lab.dupssapp.id.vn",
     title: "Laboratory Medical Service - Phòng xét nghiệm máu chuẩn quốc tế",
-    description: "Hệ thống quản lý phòng xét nghiệm y tế hiện đại với công nghệ tiên tiến. Cung cấp dịch vụ xét nghiệm máu, sinh hóa, miễn dịch và vi sinh chính xác, nhanh chóng theo tiêu chuẩn quốc tế.",
+    description:
+      "Hệ thống quản lý phòng xét nghiệm y tế hiện đại với công nghệ tiên tiến. Cung cấp dịch vụ xét nghiệm máu, sinh hóa, miễn dịch và vi sinh chính xác, nhanh chóng theo tiêu chuẩn quốc tế.",
     siteName: "Laboratory Medical Service",
     images: [
       {
-        url: "/images/LogoPDF2.png",
+        url: "/images/FSA.png",
         width: 1200,
         height: 630,
         alt: "Laboratory Medical Service Logo",
@@ -39,8 +51,9 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "Laboratory Medical Service - Phòng xét nghiệm máu chuẩn quốc tế",
-    description: "Hệ thống quản lý phòng xét nghiệm y tế hiện đại với công nghệ tiên tiến.",
-    images: ["/images/LogoPDF2.png"],
+    description:
+      "Hệ thống quản lý phòng xét nghiệm y tế hiện đại với công nghệ tiên tiến.",
+    images: ["/images/FSA.png"],
   },
   icons: {
     icon: [
