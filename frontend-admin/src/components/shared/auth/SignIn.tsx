@@ -266,7 +266,7 @@ export const SignIn = () => {
               </Button>
               <div className="absolute top-[-15px] right-[-10px]">
                 <p className="text-[10px] border-[1px] rounded-2xl px-1 py-1 bg-zinc-100 dark:bg-zinc-800 text-foreground border-zinc-200 dark:border-zinc-700 whitespace-nowrap">
-                  Not for admin
+                  Client-Facing
                 </p>
               </div>
             </div>
@@ -287,7 +287,7 @@ export const SignIn = () => {
               </div>
               <div className="absolute top-[-15px] right-[-10px]">
                 <p className="text-[10px] border-[1px] rounded-2xl px-1 py-1 bg-zinc-100 dark:bg-zinc-800 text-foreground border-zinc-200 dark:border-zinc-700 whitespace-nowrap">
-                  Not for admin
+                  Client-Facing
                 </p>
               </div>
             </div>

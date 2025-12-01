@@ -268,10 +268,10 @@ describe("SignIn", () => {
     expect(logo).toBeInTheDocument();
   });
 
-  it('shows "Not for admin" badges on social login buttons', () => {
+  it('shows "Client-Facing" badges on social login buttons', () => {
     render(<SignIn />);
 
-    const badges = screen.getAllByText("Not for admin");
+    const badges = screen.getAllByText("Client-Facing");
     expect(badges).toHaveLength(2);
   });
 });
