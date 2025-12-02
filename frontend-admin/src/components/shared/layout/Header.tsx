@@ -172,20 +172,20 @@ export const Header = () => {
                 </DropdownItem>
                 <DropdownItem key="my_profile">
                   <Link
+                    href="/service"
+                    prefetch={true}
+                    onMouseEnter={() => router.prefetch("/service")}
+                  >
+                    Dịch vụ
+                  </Link>
+                </DropdownItem>
+                <DropdownItem key="help_and_feedback">
+                  <Link
                     href="/profile"
                     prefetch={true}
                     onMouseEnter={() => router.prefetch("/profile")}
                   >
                     Hồ sơ của tôi
-                  </Link>
-                </DropdownItem>
-                <DropdownItem key="help_and_feedback">
-                  <Link
-                    href="/support"
-                    prefetch={true}
-                    onMouseEnter={() => router.prefetch("/support")}
-                  >
-                    Trợ giúp & phản hồi
                   </Link>
                 </DropdownItem>
                 <DropdownItem

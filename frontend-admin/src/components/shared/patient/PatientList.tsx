@@ -191,7 +191,7 @@ const PatientList: React.FC = () => {
             />
 
             {/* Filters Row */}
-            <div className="flex flex-col sm:flex-row gap-2 sm:gap-3">
+            <div className="flex flex-col lg:flex-row gap-2 sm:gap-3">
               <Select
                 placeholder="All Patients"
                 selectedKeys={[patientFilter]}
@@ -222,19 +222,19 @@ const PatientList: React.FC = () => {
                 <SelectItem key="6months">6 tháng qua</SelectItem>
                 <SelectItem key="1year">1 năm trước</SelectItem>
               </Select>
-            </div>
 
-            {/* Pagination */}
-            <div className="flex justify-center">
-              <Pagination
-                size="sm"
-                color="danger"
-                showControls
-                onChange={setPage}
-                page={data?.data?.currentPage ?? page}
-                total={data?.data?.totalPages ?? 1}
-                key={`${page}-${Number(data?.data?.totalPages ?? 1)}`}
-              />
+              {/* Pagination - inline on desktop */}
+              <div className="flex justify-center lg:justify-end">
+                <Pagination
+                  size="sm"
+                  color="danger"
+                  showControls
+                  onChange={setPage}
+                  page={data?.data?.currentPage ?? page}
+                  total={data?.data?.totalPages ?? 1}
+                  key={`${page}-${Number(data?.data?.totalPages ?? 1)}`}
+                />
+              </div>
             </div>
           </div>
         </div>

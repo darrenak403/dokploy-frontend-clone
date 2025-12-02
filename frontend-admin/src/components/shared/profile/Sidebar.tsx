@@ -20,18 +20,6 @@ export function Sidebar({ isOpen = false, onClose }: SidebarProps) {
       icon: "mdi:account-outline",
       label: "Hồ sơ của tôi",
     },
-    {
-      key: "/records",
-      href: "/records",
-      icon: "mdi:file-document-outline",
-      label: "Hồ sơ bệnh án",
-    },
-    {
-      key: "/profile/password",
-      href: `${base}/password`,
-      icon: "mdi:lock-outline",
-      label: "Đổi mật khẩu",
-    },
   ] as const;
 
   return (

@@ -195,11 +195,11 @@ const TestOrderList: React.FC = () => {
     <Card className="w-full shadow-none border border-gray-200 flex flex-col h-full">
       <CardBody className="p-0 flex flex-col h-full">
         {/* Header with Search and Filters */}
-        <div className="p-4 border-b border-divider flex-shrink-0">
-          <div className="flex flex-col sm:flex-row gap-4">
+        <div className="p-3 sm:p-4 border-b border-divider flex-shrink-0">
+          <div className="flex flex-col gap-3">
             {/* Search Input */}
             <Input
-              className="flex-1"
+              className="w-full"
               placeholder="Tìm kiếm theo tên, ID, email hoặc điện thoại..."
               value={searchQuery}
               onValueChange={setSearchQuery}
@@ -209,57 +209,63 @@ const TestOrderList: React.FC = () => {
               size="sm"
               variant="bordered"
             />
-            <Pagination
-              size="sm"
-              color="danger"
-              showControls
-              onChange={setPage}
-              page={data?.data?.currentPage ?? page}
-              total={data?.data?.totalPages ?? 1}
-              key={`${page}-${Number(data?.data?.totalPages ?? 1)}`}
-            />
 
-            {/* Status Filter (server-side) */}
-            <Select
-              aria-label="Chọn thời gian"
-              placeholder="All Status"
-              selectedKeys={[statusFilter]}
-              onSelectionChange={(keys) =>
-                setStatusFilter(Array.from(keys)[0] as string)
-              }
-              size="sm"
-              variant="bordered"
-              className="w-full sm:w-40"
-            >
-              <SelectItem key="all">Tất cả trạng thái</SelectItem>
-              <SelectItem key="PENDING">Đang chờ</SelectItem>
-              <SelectItem key="CANCELLED">Đã hủy</SelectItem>
-              <SelectItem key="COMPLETED">Đã hoàn thành</SelectItem>
-              <SelectItem key="REVIEWED">Đã xem xét</SelectItem>
-              <SelectItem key="AI_REVIEWED">Đã xem bởi AI</SelectItem>
-            </Select>
+            {/* Filters Row */}
+            <div className="flex flex-col lg:flex-row gap-2 sm:gap-3">
+              <Select
+                aria-label="Chọn trạng thái"
+                placeholder="All Status"
+                selectedKeys={[statusFilter]}
+                onSelectionChange={(keys) =>
+                  setStatusFilter(Array.from(keys)[0] as string)
+                }
+                size="sm"
+                variant="bordered"
+                className="flex-1 sm:min-w-[160px]"
+              >
+                <SelectItem key="all">Tất cả trạng thái</SelectItem>
+                <SelectItem key="PENDING">Đang chờ</SelectItem>
+                <SelectItem key="CANCELLED">Đã hủy</SelectItem>
+                <SelectItem key="COMPLETED">Đã hoàn thành</SelectItem>
+                <SelectItem key="REVIEWED">Đã xem xét</SelectItem>
+                <SelectItem key="AI_REVIEWED">Đã xem bởi AI</SelectItem>
+              </Select>
 
-            {/* Time Filter */}
-            <Select
-              aria-label="Chọn thời gian"
-              placeholder="All Time"
-              selectedKeys={[timeFilter]}
-              onSelectionChange={(keys) =>
-                setTimeFilter(Array.from(keys)[0] as string)
-              }
-              size="sm"
-              variant="bordered"
-              className="w-full sm:w-40"
-            >
-              <SelectItem key="all">Tất cả thời gian</SelectItem>
-              <SelectItem key="30days">30 ngày qua</SelectItem>
-              <SelectItem key="6months">6 tháng qua</SelectItem>
-              <SelectItem key="1year">1 năm trước</SelectItem>
-            </Select>
+              <Select
+                aria-label="Chọn thời gian"
+                placeholder="All Time"
+                selectedKeys={[timeFilter]}
+                onSelectionChange={(keys) =>
+                  setTimeFilter(Array.from(keys)[0] as string)
+                }
+                size="sm"
+                variant="bordered"
+                className="flex-1 sm:min-w-[160px]"
+              >
+                <SelectItem key="all">Tất cả thời gian</SelectItem>
+                <SelectItem key="30days">30 ngày qua</SelectItem>
+                <SelectItem key="6months">6 tháng qua</SelectItem>
+                <SelectItem key="1year">1 năm trước</SelectItem>
+              </Select>
+
+              {/* Pagination - inline on desktop */}
+              <div className="flex justify-center lg:justify-end">
+                <Pagination
+                  size="sm"
+                  color="danger"
+                  showControls
+                  onChange={setPage}
+                  page={data?.data?.currentPage ?? page}
+                  total={data?.data?.totalPages ?? 1}
+                  key={`${page}-${Number(data?.data?.totalPages ?? 1)}`}
+                />
+              </div>
+            </div>
           </div>
         </div>
 
-        <div className="flex-1 min-h-[500px] overflow-auto">
+        {/* Desktop Table View */}
+        <div className="hidden lg:block flex-1 min-h-[500px] overflow-auto">
           <div className="overflow-x-auto">
             <Table
               aria-label="Patient records table"
@@ -286,8 +292,6 @@ const TestOrderList: React.FC = () => {
                 <TableColumn className="whitespace-nowrap">
                   ĐIỆN THOẠI
                 </TableColumn>
-                {/* <TableColumn>EMAIL</TableColumn> */}
-                {/* <TableColumn>TẠO BỞI</TableColumn> */}
                 <TableColumn className="whitespace-nowrap">
                   NGƯỜI KIỂM TRA
                 </TableColumn>
@@ -347,7 +351,6 @@ const TestOrderList: React.FC = () => {
                     </TableCell>
                     <TableCell className="min-w-[200px]">
                       <ExpandableText text={order.address} maxLength={20} />
-                      {/* <AddressCell address={order.address} /> */}
                     </TableCell>
                     <TableCell className="min-w-[100px]">
                       <Chip
@@ -362,21 +365,14 @@ const TestOrderList: React.FC = () => {
                         {getGenderLabel(order.gender ?? undefined) || "N/A"}
                       </Chip>
                     </TableCell>
-
                     <TableCell className="min-w-[120px]">
                       <span className="text-sm">
                         {convertToDdMmYyyyFormat(order?.yob ?? "") || "-"}
                       </span>
-                      {/* <span className="text-[12px] text-default-500">
-                      {order.age ? `(${order.age} years old)` : ""}
-                    </span> */}
                     </TableCell>
                     <TableCell className="min-w-[130px]">
                       <span className="text-sm">{order.phone || "-"}</span>
                     </TableCell>
-                    {/* <TableCell>
-                    <span className="text-sm">{order.email || "-"}</span>
-                  </TableCell> */}
                     <TableCell className="min-w-[120px]">
                       <span className="text-sm ">{order.runBy || "-"}</span>
                     </TableCell>
@@ -530,6 +526,246 @@ const TestOrderList: React.FC = () => {
               </TableBody>
             </Table>
           </div>
+        </div>
+
+        {/* Mobile Card View */}
+        <div className="lg:hidden flex-1 overflow-auto p-3 sm:p-4">
+          {isLoading ? (
+            <div className="flex items-center justify-center py-12">
+              <Spinner size="lg" label="Đang tải dữ liệu..." />
+            </div>
+          ) : timeFilteredTestOrders.length === 0 ? (
+            <div className="text-center py-8">
+              <Icon
+                icon="mdi:account-search"
+                className="mx-auto h-12 w-12 text-default-300 mb-4"
+              />
+              <h3 className="text-base font-medium text-foreground mb-2">
+                Không tìm thấy đơn xét nghiệm
+              </h3>
+              <p className="text-sm text-default-500">
+                Vui lòng điều chỉnh tìm kiếm hoặc bộ lọc của bạn.
+              </p>
+            </div>
+          ) : (
+            <div className="space-y-3">
+              {timeFilteredTestOrders.map((order) => (
+                <Card
+                  key={order.id}
+                  className="border border-gray-200 dark:border-gray-700 shadow-sm"
+                >
+                  <CardBody className="p-3">
+                    {/* Header with Accession Number and Actions */}
+                    <div className="flex items-start justify-between gap-2 mb-3">
+                      <div className="flex-1 min-w-0">
+                        <span className="font-mono text-sm font-semibold text-[var(--coral-500)] block">
+                          {order.accessionNumber || "-"}
+                        </span>
+                        <h3 className="font-semibold text-base truncate mt-1">
+                          {order.patientName}
+                        </h3>
+                        <p className="text-xs text-gray-500 dark:text-gray-400">
+                          {String(
+                            patientCodeMap.get(String(order.patientId))
+                          ) || "-"}
+                        </p>
+                      </div>
+                      <Dropdown placement="bottom-end">
+                        <DropdownTrigger>
+                          <Button
+                            isIconOnly
+                            size="sm"
+                            variant="light"
+                            aria-label="More actions"
+                          >
+                            <Icon
+                              icon="mdi:dots-vertical"
+                              className="h-5 w-5"
+                            />
+                          </Button>
+                        </DropdownTrigger>
+                        <DropdownMenu>
+                          <DropdownSection>
+                            <DropdownItem
+                              key="view"
+                              onClick={() => {
+                                if (order.id) handleViewTestOrder(order.id);
+                              }}
+                            >
+                              <div className="flex items-center gap-2 text-blue-600 font-semibold">
+                                <Icon
+                                  icon="grommet-icons:test"
+                                  className="h-4 w-4"
+                                />
+                                <span>Đơn xét nghiệm</span>
+                              </div>
+                            </DropdownItem>
+                            {order.status === "COMPLETED" ? (
+                              <DropdownItem
+                                key="result-detail"
+                                onClick={() => {
+                                  if (order.accessionNumber)
+                                    handleViewDraftTestResultDetail(
+                                      order.id,
+                                      order.accessionNumber
+                                    );
+                                }}
+                              >
+                                <div className="flex items-center gap-2 text-violet-600 font-semibold">
+                                  <Icon
+                                    icon="tdesign:no-result"
+                                    className="h-4 w-4"
+                                  />
+                                  <span>Kết quả xét nghiệm</span>
+                                </div>
+                              </DropdownItem>
+                            ) : null}
+                            {order.status === "PENDING" ? (
+                              <DropdownItem
+                                key="send-result-detail"
+                                onClick={() => {
+                                  if (order.accessionNumber)
+                                    handleSendingLabResult(
+                                      order.accessionNumber
+                                    );
+                                }}
+                              >
+                                <div className="flex items-center gap-2 text-green-600 font-semibold">
+                                  <Icon
+                                    icon="material-symbols:send-outline-rounded"
+                                    className="h-4 w-4"
+                                  />
+                                  <span>Gửi kết quả xét nghiệm</span>
+                                </div>
+                              </DropdownItem>
+                            ) : null}
+                            <DropdownItem
+                              key="edit"
+                              onClick={() => {
+                                handleOpenUpdateModal(order);
+                              }}
+                            >
+                              <div className="flex items-center gap-2 text-orange-600 font-semibold">
+                                <Icon icon="mdi:pencil" className="h-4 w-4" />
+                                <span>Chỉnh sửa</span>
+                              </div>
+                            </DropdownItem>
+                            <DropdownItem
+                              key="delete"
+                              onClick={async () => {
+                                if (typeof order.id === "number") {
+                                  await handleDelete(order.id);
+                                }
+                              }}
+                              aria-disabled={
+                                deletingId === order.id ||
+                                typeof order.id !== "number"
+                              }
+                            >
+                              <div className="flex items-center gap-2 text-red-600 font-semibold">
+                                <Icon
+                                  icon={
+                                    deletingId === order.id
+                                      ? "mdi:loading"
+                                      : "mdi:delete"
+                                  }
+                                  className="h-4 w-4"
+                                />
+                                <span>Xóa</span>
+                              </div>
+                            </DropdownItem>
+                          </DropdownSection>
+                        </DropdownMenu>
+                      </Dropdown>
+                    </div>
+
+                    {/* Status and Priority Chips */}
+                    <div className="flex flex-wrap gap-2 mb-3">
+                      <Chip
+                        color={
+                          getGenderLabel(order.gender?.toLowerCase()) === "male"
+                            ? "primary"
+                            : "secondary"
+                        }
+                        size="sm"
+                        variant="flat"
+                      >
+                        {getGenderLabel(order.gender ?? undefined) || "N/A"}
+                      </Chip>
+                      <Chip
+                        color={getStatusColor(order.status)}
+                        size="sm"
+                        variant="flat"
+                      >
+                        {getStatusText(order.status)}
+                      </Chip>
+                      <Chip
+                        color={getPriorityColor(order.priority || "Low")}
+                        size="sm"
+                        variant="flat"
+                      >
+                        {typeof order.priority === "string"
+                          ? order.priority
+                          : "-"}
+                      </Chip>
+                    </div>
+
+                    {/* Test Order Details Grid */}
+                    <div className="grid grid-cols-2 gap-2 text-sm">
+                      <div>
+                        <p className="text-xs text-gray-500 dark:text-gray-400">
+                          Ngày sinh
+                        </p>
+                        <p className="font-medium">
+                          {convertToDdMmYyyyFormat(order?.yob ?? "") || "-"}
+                        </p>
+                      </div>
+                      <div>
+                        <p className="text-xs text-gray-500 dark:text-gray-400">
+                          Điện thoại
+                        </p>
+                        <p className="font-medium">{order.phone || "-"}</p>
+                      </div>
+                      <div>
+                        <p className="text-xs text-gray-500 dark:text-gray-400">
+                          Thiết bị
+                        </p>
+                        <p className="font-medium text-xs">
+                          {order.instrumentName || "-"}
+                        </p>
+                      </div>
+                      <div>
+                        <p className="text-xs text-gray-500 dark:text-gray-400">
+                          Người kiểm tra
+                        </p>
+                        <p className="font-medium text-xs">
+                          {order.runBy || "-"}
+                        </p>
+                      </div>
+                      {order.address && (
+                        <div className="col-span-2">
+                          <p className="text-xs text-gray-500 dark:text-gray-400">
+                            Địa chỉ
+                          </p>
+                          <ExpandableText text={order.address} maxLength={40} />
+                        </div>
+                      )}
+                      <div className="col-span-2">
+                        <p className="text-xs text-gray-500 dark:text-gray-400">
+                          Ngày tạo
+                        </p>
+                        <p className="font-medium text-xs">
+                          {order.createdAt
+                            ? String(order.createdAt).split(" ")[0]
+                            : "-"}
+                        </p>
+                      </div>
+                    </div>
+                  </CardBody>
+                </Card>
+              ))}
+            </div>
+          )}
         </div>
       </CardBody>
     </Card>
