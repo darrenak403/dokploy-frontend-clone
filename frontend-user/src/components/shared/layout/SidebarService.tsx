@@ -137,70 +137,73 @@ const SidebarService = ({ isOpen = false, onClose }: SidebarServiceProps) => {
                 })}
               </div>
 
-            {/* Accordion Menu Items */}
-            {/* Accordion code here if needed... */}
-          </div>
+              {/* Accordion Menu Items */}
+              {/* Accordion code here if needed... */}
+            </div>
 
-          {/* User Footer Section - Always at bottom */}
-          <div className="mt-auto">
-            <Divider />
+            {/* User Footer Section - Always at bottom */}
+            <div className="mt-auto">
+              <Divider />
 
-            <div className="p-4">
-              <Dropdown placement="top-end">
-                <DropdownTrigger>
-                  <Button
-                    variant="light"
-                    className="w-full justify-start p-3 h-auto rounded-lg"
-                  >
-                    <div className="flex items-center gap-3 w-full">
-                      <Avatar
-                        src={DefaultLogo.src}
-                        name={fullName || "User"}
-                        size="sm"
-                      />
-                      <div className="flex-1 text-left">
-                        <p className="text-sm font-medium text-gray-900 dark:text-white truncate">
-                          {fullName || "User"}
-                        </p>
-                        <p className="text-xs text-gray-500 dark:text-gray-400 truncate">
-                          {email || "user@example.com"}
-                        </p>
+              <div className="p-4">
+                <Dropdown placement="top-end">
+                  <DropdownTrigger>
+                    <Button
+                      variant="light"
+                      className="w-full justify-start p-3 h-auto rounded-lg"
+                    >
+                      <div className="flex items-center gap-3 w-full">
+                        <Avatar
+                          src={DefaultLogo.src}
+                          name={fullName || "User"}
+                          size="sm"
+                        />
+                        <div className="flex-1 text-left">
+                          <p className="text-sm font-medium text-gray-900 dark:text-white truncate">
+                            {fullName || "User"}
+                          </p>
+                          <p className="text-xs text-gray-500 dark:text-gray-400 truncate">
+                            {email || "user@example.com"}
+                          </p>
+                        </div>
+                        <Icon
+                          icon="solar:alt-arrow-up-linear"
+                          className="w-4 h-4 text-gray-400"
+                        />
                       </div>
-                      <Icon
-                        icon="solar:alt-arrow-up-linear"
-                        className="w-4 h-4 text-gray-400"
-                      />
-                    </div>
-                  </Button>
-                </DropdownTrigger>
+                    </Button>
+                  </DropdownTrigger>
 
-                <DropdownMenu
-                  onAction={(key) => handleDropdownAction(key as string)}
-                >
-                  <DropdownItem
-                    key="profile"
-                    startContent={
-                      <Icon icon="solar:user-bold" className="w-4 h-4" />
-                    }
+                  <DropdownMenu
+                    onAction={(key) => handleDropdownAction(key as string)}
                   >
-                    Hồ sơ của tôi
-                  </DropdownItem>
-                  <DropdownItem
-                    key="logout"
-                    color="danger"
-                    startContent={
-                      <Icon icon="solar:logout-2-outline" className="w-4 h-4" />
-                    }
-                  >
-                    Đăng xuất
-                  </DropdownItem>
-                </DropdownMenu>
-              </Dropdown>
+                    <DropdownItem
+                      key="profile"
+                      startContent={
+                        <Icon icon="solar:user-bold" className="w-4 h-4" />
+                      }
+                    >
+                      Hồ sơ của tôi
+                    </DropdownItem>
+                    <DropdownItem
+                      key="logout"
+                      color="danger"
+                      startContent={
+                        <Icon
+                          icon="solar:logout-2-outline"
+                          className="w-4 h-4"
+                        />
+                      }
+                    >
+                      Đăng xuất
+                    </DropdownItem>
+                  </DropdownMenu>
+                </Dropdown>
+              </div>
             </div>
           </div>
-        </div>
-      </CardBody>
-    </Card>
+        </CardBody>
+      </Card>
     </>
   );
 };
