@@ -16,12 +16,12 @@ const PermissionPage = () => {
     : [];
 
   return (
-    <div className="h-full flex flex-col gap-6">
+    <div className="h-full flex flex-col gap-3 sm:gap-4 md:gap-6">
       <MainTitle />
 
       <PermissionStats />
 
-      <div className="flex-1 min-h-0 grid grid-cols-1 lg:grid-cols-2 gap-6">
+      <div className="flex-1 min-h-0 grid grid-cols-1 lg:grid-cols-2 gap-3 sm:gap-4 md:gap-6">
         <div className="border border-gray-200 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-800 overflow-auto">
           <RoleList allPermissions={allPermissions} />
         </div>

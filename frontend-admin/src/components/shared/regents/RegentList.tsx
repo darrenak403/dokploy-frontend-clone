@@ -357,7 +357,7 @@ const RegentList = () => {
         </div>
       </div>
 
-      <div className="flex-1 overflow-auto p-6">
+      <div className="flex-1 min-h-[500px] overflow-auto p-6">
         {isLoading && (
           <div className="flex items-center justify-center py-12">
             <Spinner size="lg" label="Đang tải dữ liệu..." />

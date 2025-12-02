@@ -259,253 +259,277 @@ const TestOrderList: React.FC = () => {
           </div>
         </div>
 
-        <div className="flex-1 overflow-auto">
-          <Table
-            aria-label="Patient records table"
-            classNames={{
-              wrapper: "shadow-none",
-              table: "h-full",
-              tbody: "h-full",
-            }}
-          >
-            <TableHeader>
-              <TableColumn>MÃ XÉT NGHIỆM</TableColumn>
-              <TableColumn>TÊN BỆNH NHÂN</TableColumn>
-              <TableColumn>ĐỊA CHỈ</TableColumn>
-              <TableColumn>GIỚI TÍNH</TableColumn>
-              <TableColumn>NGÀY SINH</TableColumn>
-              <TableColumn>ĐIỆN THOẠI</TableColumn>
-              {/* <TableColumn>EMAIL</TableColumn> */}
-              {/* <TableColumn>TẠO BỞI</TableColumn> */}
-              <TableColumn>NGƯỜI KIỂM TRA</TableColumn>
-              <TableColumn>LOẠI XÉT NGHIỆM</TableColumn>
-              <TableColumn>THIẾT BỊ</TableColumn>
-              <TableColumn>ĐỘ ƯU TIÊN</TableColumn>
-              <TableColumn>THỜI GIAN TẠO</TableColumn>
-              <TableColumn>TRẠNG THÁI</TableColumn>
-              <TableColumn className="flex items-center justify-center">
-                HÀNH ĐỘNG
-              </TableColumn>
-            </TableHeader>
-            <TableBody
-              isLoading={isLoading}
-              loadingContent={<Spinner color="primary" />}
-              emptyContent={
-                <div className="text-center py-8">
-                  <Icon
-                    icon="mdi:account-search"
-                    className="mx-auto h-12 w-12 text-default-300 mb-4"
-                  />
-                  <h3 className="text-lg font-medium text-foreground mb-2">
-                    Không tìm thấy đơn xét nghiệm
-                  </h3>
-                  <p className="text-sm text-default-500">
-                    Vui lòng điều chỉnh tìm kiếm hoặc bộ lọc của bạn.
-                  </p>
-                </div>
-              }
+        <div className="flex-1 min-h-[500px] overflow-auto">
+          <div className="overflow-x-auto">
+            <Table
+              aria-label="Patient records table"
+              classNames={{
+                wrapper: "shadow-none min-w-max",
+                table: "h-full",
+                tbody: "h-full",
+              }}
             >
-              {timeFilteredTestOrders.map((order) => (
-                <TableRow
-                  key={order.id}
-                  className="border-b border-zinc-200/50"
-                >
-                  <TableCell>
-                    <span className="font-mono text-sm font-semibold text-[var(--coral-500)]">
-                      {order.accessionNumber ? order.accessionNumber : "-"}
-                    </span>
-                  </TableCell>
-                  <TableCell className="flex flex-col gap-0.5">
-                    <span className="font-medium">{order.patientName}</span>
-                    <span className="text-[12px] text-default-500">
-                      {String(patientCodeMap.get(String(order.patientId))) ||
-                        "-"}
-                    </span>
-                  </TableCell>
-                  <TableCell className="w-[200px]">
-                    <ExpandableText text={order.address} maxLength={20} />
-                    {/* <AddressCell address={order.address} /> */}
-                  </TableCell>
-                  <TableCell>
-                    <Chip
-                      color={
-                        getGenderLabel(order.gender?.toLowerCase()) === "male"
-                          ? "primary"
-                          : "secondary"
-                      }
-                      size="sm"
-                      variant="flat"
-                    >
-                      {getGenderLabel(order.gender ?? undefined) || "N/A"}
-                    </Chip>
-                  </TableCell>
+              <TableHeader>
+                <TableColumn className="whitespace-nowrap">
+                  MÃ XÉT NGHIỆM
+                </TableColumn>
+                <TableColumn className="whitespace-nowrap">
+                  TÊN BỆNH NHÂN
+                </TableColumn>
+                <TableColumn className="whitespace-nowrap">ĐỊA CHỈ</TableColumn>
+                <TableColumn className="whitespace-nowrap">
+                  GIỚI TÍNH
+                </TableColumn>
+                <TableColumn className="whitespace-nowrap">
+                  NGÀY SINH
+                </TableColumn>
+                <TableColumn className="whitespace-nowrap">
+                  ĐIỆN THOẠI
+                </TableColumn>
+                {/* <TableColumn>EMAIL</TableColumn> */}
+                {/* <TableColumn>TẠO BỞI</TableColumn> */}
+                <TableColumn className="whitespace-nowrap">
+                  NGƯỜI KIỂM TRA
+                </TableColumn>
+                <TableColumn className="whitespace-nowrap">
+                  LOẠI XÉT NGHIỆM
+                </TableColumn>
+                <TableColumn className="whitespace-nowrap">
+                  THIẾT BỊ
+                </TableColumn>
+                <TableColumn className="whitespace-nowrap">
+                  ĐỘ ƯU TIÊN
+                </TableColumn>
+                <TableColumn className="whitespace-nowrap">
+                  THỜI GIAN TẠO
+                </TableColumn>
+                <TableColumn className="whitespace-nowrap">
+                  TRẠNG THÁI
+                </TableColumn>
+                <TableColumn className="flex items-center justify-center whitespace-nowrap">
+                  HÀNH ĐỘNG
+                </TableColumn>
+              </TableHeader>
+              <TableBody
+                isLoading={isLoading}
+                loadingContent={<Spinner color="primary" />}
+                emptyContent={
+                  <div className="text-center py-8">
+                    <Icon
+                      icon="mdi:account-search"
+                      className="mx-auto h-12 w-12 text-default-300 mb-4"
+                    />
+                    <h3 className="text-lg font-medium text-foreground mb-2">
+                      Không tìm thấy đơn xét nghiệm
+                    </h3>
+                    <p className="text-sm text-default-500">
+                      Vui lòng điều chỉnh tìm kiếm hoặc bộ lọc của bạn.
+                    </p>
+                  </div>
+                }
+              >
+                {timeFilteredTestOrders.map((order) => (
+                  <TableRow
+                    key={order.id}
+                    className="border-b border-zinc-200/50"
+                  >
+                    <TableCell className="min-w-[150px]">
+                      <span className="font-mono text-sm font-semibold text-[var(--coral-500)]">
+                        {order.accessionNumber ? order.accessionNumber : "-"}
+                      </span>
+                    </TableCell>
+                    <TableCell className="flex flex-col gap-0.5 min-w-[200px]">
+                      <span className="font-medium">{order.patientName}</span>
+                      <span className="text-[12px] text-default-500">
+                        {String(patientCodeMap.get(String(order.patientId))) ||
+                          "-"}
+                      </span>
+                    </TableCell>
+                    <TableCell className="min-w-[200px]">
+                      <ExpandableText text={order.address} maxLength={20} />
+                      {/* <AddressCell address={order.address} /> */}
+                    </TableCell>
+                    <TableCell className="min-w-[100px]">
+                      <Chip
+                        color={
+                          getGenderLabel(order.gender?.toLowerCase()) === "male"
+                            ? "primary"
+                            : "secondary"
+                        }
+                        size="sm"
+                        variant="flat"
+                      >
+                        {getGenderLabel(order.gender ?? undefined) || "N/A"}
+                      </Chip>
+                    </TableCell>
 
-                  <TableCell className="">
-                    <span className="text-sm">
-                      {convertToDdMmYyyyFormat(order?.yob ?? "") || "-"}
-                    </span>
-                    {/* <span className="text-[12px] text-default-500">
+                    <TableCell className="min-w-[120px]">
+                      <span className="text-sm">
+                        {convertToDdMmYyyyFormat(order?.yob ?? "") || "-"}
+                      </span>
+                      {/* <span className="text-[12px] text-default-500">
                       {order.age ? `(${order.age} years old)` : ""}
                     </span> */}
-                  </TableCell>
-                  <TableCell>
-                    <span className="text-sm">{order.phone || "-"}</span>
-                  </TableCell>
-                  {/* <TableCell>
+                    </TableCell>
+                    <TableCell className="min-w-[130px]">
+                      <span className="text-sm">{order.phone || "-"}</span>
+                    </TableCell>
+                    {/* <TableCell>
                     <span className="text-sm">{order.email || "-"}</span>
                   </TableCell> */}
-                  <TableCell className="">
-                    <span className="text-sm ">{order.runBy || "-"}</span>
-                  </TableCell>
-                  <TableCell>
-                    <span className="text-sm">Xét nghiệm máu</span>
-                  </TableCell>
-                  <TableCell>
-                    <span className="text-sm">
-                      {order.instrumentName || "-"}
-                    </span>
-                  </TableCell>
-                  <TableCell>
-                    <Chip
-                      color={getPriorityColor(order.priority || "Low")}
-                      size="sm"
-                      variant="flat"
-                    >
-                      {typeof order.priority === "string"
-                        ? order.priority
-                        : "-"}
-                    </Chip>
-                  </TableCell>
-                  <TableCell>
-                    <span className="text-sm">
-                      {order.createdAt
-                        ? String(order.createdAt).split(" ")[0]
-                        : "-"}
-                    </span>
-                  </TableCell>
-                  <TableCell>
-                    <Chip
-                      color={getStatusColor(order.status)}
-                      size="sm"
-                      variant="flat"
-                    >
-                      {getStatusText(order.status)}
-                    </Chip>
-                  </TableCell>
-                  <TableCell>
-                    <div className="flex items-center justify-center">
-                      <Dropdown placement="bottom-end">
-                        <DropdownTrigger>
-                          <Button
-                            size="sm"
-                            variant="light"
-                            aria-label="More actions"
-                          >
-                            <Icon
-                              icon="mdi:dots-vertical"
-                              className="h-4 w-4"
-                            />
-                          </Button>
-                        </DropdownTrigger>
-                        <DropdownMenu>
-                          <DropdownSection>
-                            <DropdownItem
-                              key="view"
-                              onClick={() => {
-                                if (order.id) handleViewTestOrder(order.id);
-                              }}
+                    <TableCell className="min-w-[120px]">
+                      <span className="text-sm ">{order.runBy || "-"}</span>
+                    </TableCell>
+                    <TableCell className="min-w-[150px]">
+                      <span className="text-sm">Xét nghiệm máu</span>
+                    </TableCell>
+                    <TableCell className="min-w-[120px]">
+                      <span className="text-sm">
+                        {order.instrumentName || "-"}
+                      </span>
+                    </TableCell>
+                    <TableCell className="min-w-[120px]">
+                      <Chip
+                        color={getPriorityColor(order.priority || "Low")}
+                        size="sm"
+                        variant="flat"
+                      >
+                        {typeof order.priority === "string"
+                          ? order.priority
+                          : "-"}
+                      </Chip>
+                    </TableCell>
+                    <TableCell className="min-w-[120px]">
+                      <span className="text-sm">
+                        {order.createdAt
+                          ? String(order.createdAt).split(" ")[0]
+                          : "-"}
+                      </span>
+                    </TableCell>
+                    <TableCell className="min-w-[140px]">
+                      <Chip
+                        color={getStatusColor(order.status)}
+                        size="sm"
+                        variant="flat"
+                      >
+                        {getStatusText(order.status)}
+                      </Chip>
+                    </TableCell>
+                    <TableCell className="min-w-[120px]">
+                      <div className="flex items-center justify-center">
+                        <Dropdown placement="bottom-end">
+                          <DropdownTrigger>
+                            <Button
+                              size="sm"
+                              variant="light"
+                              aria-label="More actions"
                             >
-                              <div className="flex items-center gap-2 text-blue-600 font-semibold">
-                                <Icon
-                                  icon="grommet-icons:test"
-                                  className="h-4 w-4"
-                                />
-                                <span>Đơn xét nghiệm</span>
-                              </div>
-                            </DropdownItem>
-                            {order.status === "COMPLETED" ? (
+                              <Icon
+                                icon="mdi:dots-vertical"
+                                className="h-4 w-4"
+                              />
+                            </Button>
+                          </DropdownTrigger>
+                          <DropdownMenu>
+                            <DropdownSection>
                               <DropdownItem
-                                key="result-detail"
+                                key="view"
                                 onClick={() => {
-                                  if (order.accessionNumber)
-                                    handleViewDraftTestResultDetail(
-                                      order.id,
-                                      order.accessionNumber
-                                    );
+                                  if (order.id) handleViewTestOrder(order.id);
                                 }}
                               >
-                                <div className="flex items-center gap-2 text-violet-600 font-semibold">
+                                <div className="flex items-center gap-2 text-blue-600 font-semibold">
                                   <Icon
-                                    icon="tdesign:no-result"
+                                    icon="grommet-icons:test"
                                     className="h-4 w-4"
                                   />
-                                  <span>Kết quả xét nghiệm</span>
+                                  <span>Đơn xét nghiệm</span>
                                 </div>
                               </DropdownItem>
-                            ) : null}
-                            {order.status === "PENDING" ? (
+                              {order.status === "COMPLETED" ? (
+                                <DropdownItem
+                                  key="result-detail"
+                                  onClick={() => {
+                                    if (order.accessionNumber)
+                                      handleViewDraftTestResultDetail(
+                                        order.id,
+                                        order.accessionNumber
+                                      );
+                                  }}
+                                >
+                                  <div className="flex items-center gap-2 text-violet-600 font-semibold">
+                                    <Icon
+                                      icon="tdesign:no-result"
+                                      className="h-4 w-4"
+                                    />
+                                    <span>Kết quả xét nghiệm</span>
+                                  </div>
+                                </DropdownItem>
+                              ) : null}
+                              {order.status === "PENDING" ? (
+                                <DropdownItem
+                                  key="send-result-detail"
+                                  onClick={() => {
+                                    if (order.accessionNumber)
+                                      handleSendingLabResult(
+                                        order.accessionNumber
+                                      );
+                                  }}
+                                >
+                                  <div className="flex items-center gap-2 text-green-600 font-semibold">
+                                    <Icon
+                                      icon="material-symbols:send-outline-rounded"
+                                      className="h-4 w-4"
+                                    />
+                                    <span>Nhận kết quả xét nghiệm</span>
+                                  </div>
+                                </DropdownItem>
+                              ) : null}
                               <DropdownItem
-                                key="send-result-detail"
+                                key="edit"
                                 onClick={() => {
-                                  if (order.accessionNumber)
-                                    handleSendingLabResult(
-                                      order.accessionNumber
-                                    );
+                                  handleOpenUpdateModal(order);
                                 }}
                               >
-                                <div className="flex items-center gap-2 text-green-600 font-semibold">
-                                  <Icon
-                                    icon="material-symbols:send-outline-rounded"
-                                    className="h-4 w-4"
-                                  />
-                                  <span>Nhận kết quả xét nghiệm</span>
+                                <div className="flex items-center gap-2 text-orange-600 font-semibold">
+                                  <Icon icon="mdi:pencil" className="h-4 w-4" />
+                                  <span>Chỉnh sửa</span>
                                 </div>
                               </DropdownItem>
-                            ) : null}
-                            <DropdownItem
-                              key="edit"
-                              onClick={() => {
-                                handleOpenUpdateModal(order);
-                              }}
-                            >
-                              <div className="flex items-center gap-2 text-orange-600 font-semibold">
-                                <Icon icon="mdi:pencil" className="h-4 w-4" />
-                                <span>Chỉnh sửa</span>
-                              </div>
-                            </DropdownItem>
-                            <DropdownItem
-                              key="delete"
-                              onClick={async () => {
-                                if (typeof order.id === "number") {
-                                  await handleDelete(order.id);
-                                }
-                              }}
-                              aria-disabled={
-                                deletingId === order.id ||
-                                typeof order.id !== "number"
-                              }
-                            >
-                              <div className="flex items-center gap-2 text-red-600 font-semibold">
-                                <Icon
-                                  icon={
-                                    deletingId === order.id
-                                      ? "mdi:loading"
-                                      : "mdi:delete"
+                              <DropdownItem
+                                key="delete"
+                                onClick={async () => {
+                                  if (typeof order.id === "number") {
+                                    await handleDelete(order.id);
                                   }
-                                  className="h-4 w-4"
-                                />
-                                <span>Xóa</span>
-                              </div>
-                            </DropdownItem>
-                          </DropdownSection>
-                        </DropdownMenu>
-                      </Dropdown>
-                    </div>
-                  </TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
+                                }}
+                                aria-disabled={
+                                  deletingId === order.id ||
+                                  typeof order.id !== "number"
+                                }
+                              >
+                                <div className="flex items-center gap-2 text-red-600 font-semibold">
+                                  <Icon
+                                    icon={
+                                      deletingId === order.id
+                                        ? "mdi:loading"
+                                        : "mdi:delete"
+                                    }
+                                    className="h-4 w-4"
+                                  />
+                                  <span>Xóa</span>
+                                </div>
+                              </DropdownItem>
+                            </DropdownSection>
+                          </DropdownMenu>
+                        </Dropdown>
+                      </div>
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </div>
         </div>
       </CardBody>
     </Card>

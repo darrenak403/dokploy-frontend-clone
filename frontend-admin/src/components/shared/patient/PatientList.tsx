@@ -234,204 +234,227 @@ const PatientList: React.FC = () => {
           </div>
         </div>
 
-        <div className="flex-1 overflow-auto">
-          <Table
-            aria-label="Patient records table"
-            classNames={{
-              wrapper: "shadow-none",
-              table: "h-full",
-              tbody: "h-full",
-            }}
-          >
-            <TableHeader>
-              {/* <TableColumn>CCCD</TableColumn> */}
-              <TableColumn>HỌ TÊN</TableColumn>
-              <TableColumn>GIỚI TÍNH</TableColumn>
-              <TableColumn>NGÀY SINH</TableColumn>
-              <TableColumn>ĐIỆN THOẠI</TableColumn>
-              <TableColumn>EMAIL</TableColumn>
-              <TableColumn>ĐỊA CHỈ</TableColumn>
-              <TableColumn>NGƯỜI TẠO</TableColumn>
-              <TableColumn>NGƯỜI CẬP NHẬT</TableColumn>
-              <TableColumn>THỜI GIAN TẠO</TableColumn>
-              <TableColumn>TRẠNG THÁI</TableColumn>
-              <TableColumn className="flex items-center justify-center">
-                HÀNH ĐỘNG
-              </TableColumn>
-            </TableHeader>
-            <TableBody
-              isLoading={isLoading}
-              loadingContent={<Spinner color="primary" />}
-              emptyContent={
-                <div className="text-center py-8">
-                  <Icon
-                    icon="mdi:account-search"
-                    className="mx-auto h-12 w-12 text-default-300 mb-4"
-                  />
-                  <h3 className="text-lg font-medium text-foreground mb-2">
-                    Không tìm thấy bệnh nhân
-                  </h3>
-                  <p className="text-sm text-default-500">
-                    Vui lòng điều chỉnh tìm kiếm hoặc bộ lọc của bạn.
-                  </p>
-                </div>
-              }
+        <div className="flex-1 min-h-[500px] overflow-auto">
+          <div className="overflow-x-auto">
+            <Table
+              aria-label="Patient records table"
+              classNames={{
+                wrapper: "shadow-none min-w-max",
+                table: "h-full",
+                tbody: "h-full",
+              }}
             >
-              {timeFilteredPatients.map((patient) => (
-                <TableRow
-                  key={patient.id}
-                  className="border-b border-zinc-200/50"
-                >
-                  {/* <TableCell>{patient.identityNumber ? patient.identityNumber : "-"}</TableCell> */}
-                  {/* FullName */}
-                  <TableCell className="flex flex-col gap-0.5 w-[200px]">
-                    <span className="font-medium">{patient.fullName}</span>
-                    <span className="text-[12px] text-default-500">
-                      {patient.patientCode || "-"}
-                    </span>
-                  </TableCell>
-                  {/* Gender */}
-                  <TableCell>
-                    <Chip
-                      color={
-                        getGenderLabel(patient.gender?.toLowerCase()) === "male"
-                          ? "primary"
-                          : "secondary"
-                      }
-                      size="sm"
-                      variant="flat"
-                    >
-                      {getGenderLabel(patient.gender) || "N/A"}
-                    </Chip>
-                  </TableCell>
-                  {/* Date of Birth */}
-                  <TableCell>{patient.yob ? patient.yob : "-"}</TableCell>
-                  {/* Phone */}
-                  <TableCell>
-                    <span className="text-sm">{patient.phone || "-"}</span>
-                  </TableCell>
-                  {/* Email */}
-                  <TableCell>
-                    <span className="text-sm">{patient.email || "-"}</span>
-                  </TableCell>
-                  {/* Address */}
-                  <TableCell className="w-[200px]">
-                    <ExpandableText text={patient.address} maxLength={20} />
-                  </TableCell>
-                  {/* Created By */}
-                  <TableCell className="w-[80px]">
-                    <span className="text-sm ">{patient.createdBy || "-"}</span>
-                  </TableCell>
-                  {/* Modified By */}
-                  <TableCell>
-                    <span className="text-sm">{patient.modifiedBy || "-"}</span>
-                  </TableCell>
-                  {/* Created At */}
-                  <TableCell>
-                    {patient.createdAt
-                      ? String(patient.createdAt).split(" ")[0]
-                      : "-"}
-                  </TableCell>
-                  {/* Status */}
-                  <TableCell>
-                    <Chip
-                      color={getStatusColor(patient.deleted)}
-                      size="sm"
-                      variant="flat"
-                    >
-                      {genderStatusLabel(getStatusText(patient.deleted))}
-                    </Chip>
-                  </TableCell>
-                  {/* Actions */}
-                  <TableCell>
-                    <div className="flex items-center justify-center">
-                      <Dropdown placement="bottom-end">
-                        <DropdownTrigger>
-                          <Button
-                            size="sm"
-                            variant="light"
-                            aria-label="More actions"
-                          >
-                            <Icon
-                              icon="mdi:dots-vertical"
-                              className="h-4 w-4"
-                            />
-                          </Button>
-                        </DropdownTrigger>
-                        <DropdownMenu>
-                          <DropdownSection>
-                            <DropdownItem
-                              key="view"
-                              onClick={() => {
-                                if (patient.id) handleViewPatient(patient.id);
-                              }}
+              <TableHeader>
+                {/* <TableColumn>CCCD</TableColumn> */}
+                <TableColumn className="whitespace-nowrap">HỌ TÊN</TableColumn>
+                <TableColumn className="whitespace-nowrap">
+                  GIỚI TÍNH
+                </TableColumn>
+                <TableColumn className="whitespace-nowrap">
+                  NGÀY SINH
+                </TableColumn>
+                <TableColumn className="whitespace-nowrap">
+                  ĐIỆN THOẠI
+                </TableColumn>
+                <TableColumn className="whitespace-nowrap">EMAIL</TableColumn>
+                <TableColumn className="whitespace-nowrap">ĐỊA CHỈ</TableColumn>
+                <TableColumn className="whitespace-nowrap">
+                  NGƯỜI TẠO
+                </TableColumn>
+                <TableColumn className="whitespace-nowrap">
+                  NGƯỜI CẬP NHẬT
+                </TableColumn>
+                <TableColumn className="whitespace-nowrap">
+                  THỜI GIAN TẠO
+                </TableColumn>
+                <TableColumn className="whitespace-nowrap">
+                  TRẠNG THÁI
+                </TableColumn>
+                <TableColumn className="flex items-center justify-center whitespace-nowrap">
+                  HÀNH ĐỘNG
+                </TableColumn>
+              </TableHeader>
+              <TableBody
+                isLoading={isLoading}
+                loadingContent={<Spinner color="primary" />}
+                emptyContent={
+                  <div className="text-center py-8">
+                    <Icon
+                      icon="mdi:account-search"
+                      className="mx-auto h-12 w-12 text-default-300 mb-4"
+                    />
+                    <h3 className="text-lg font-medium text-foreground mb-2">
+                      Không tìm thấy bệnh nhân
+                    </h3>
+                    <p className="text-sm text-default-500">
+                      Vui lòng điều chỉnh tìm kiếm hoặc bộ lọc của bạn.
+                    </p>
+                  </div>
+                }
+              >
+                {timeFilteredPatients.map((patient) => (
+                  <TableRow
+                    key={patient.id}
+                    className="border-b border-zinc-200/50"
+                  >
+                    {/* <TableCell>{patient.identityNumber ? patient.identityNumber : "-"}</TableCell> */}
+                    {/* FullName */}
+                    <TableCell className="flex flex-col gap-0.5 min-w-[200px]">
+                      <span className="font-medium">{patient.fullName}</span>
+                      <span className="text-[12px] text-default-500">
+                        {patient.patientCode || "-"}
+                      </span>
+                    </TableCell>
+                    {/* Gender */}
+                    <TableCell className="min-w-[100px]">
+                      <Chip
+                        color={
+                          getGenderLabel(patient.gender?.toLowerCase()) ===
+                          "male"
+                            ? "primary"
+                            : "secondary"
+                        }
+                        size="sm"
+                        variant="flat"
+                      >
+                        {getGenderLabel(patient.gender) || "N/A"}
+                      </Chip>
+                    </TableCell>
+                    {/* Date of Birth */}
+                    <TableCell className="min-w-[100px]">
+                      {patient.yob ? patient.yob : "-"}
+                    </TableCell>
+                    {/* Phone */}
+                    <TableCell className="min-w-[130px]">
+                      <span className="text-sm">{patient.phone || "-"}</span>
+                    </TableCell>
+                    {/* Email */}
+                    <TableCell className="min-w-[180px]">
+                      <span className="text-sm">{patient.email || "-"}</span>
+                    </TableCell>
+                    {/* Address */}
+                    <TableCell className="min-w-[200px]">
+                      <ExpandableText text={patient.address} maxLength={20} />
+                    </TableCell>
+                    {/* Created By */}
+                    <TableCell className="min-w-[120px]">
+                      <span className="text-sm ">
+                        {patient.createdBy || "-"}
+                      </span>
+                    </TableCell>
+                    {/* Modified By */}
+                    <TableCell className="min-w-[120px]">
+                      <span className="text-sm">
+                        {patient.modifiedBy || "-"}
+                      </span>
+                    </TableCell>
+                    {/* Created At */}
+                    <TableCell className="min-w-[120px]">
+                      {patient.createdAt
+                        ? String(patient.createdAt).split(" ")[0]
+                        : "-"}
+                    </TableCell>
+                    {/* Status */}
+                    <TableCell className="min-w-[140px]">
+                      <Chip
+                        color={getStatusColor(patient.deleted)}
+                        size="sm"
+                        variant="flat"
+                      >
+                        {genderStatusLabel(getStatusText(patient.deleted))}
+                      </Chip>
+                    </TableCell>
+                    {/* Actions */}
+                    <TableCell className="min-w-[120px]">
+                      <div className="flex items-center justify-center">
+                        <Dropdown placement="bottom-end">
+                          <DropdownTrigger>
+                            <Button
+                              size="sm"
+                              variant="light"
+                              aria-label="More actions"
                             >
-                              <div className="flex items-center gap-2 text-blue-600 font-semibold">
-                                <Icon icon="mdi:eye" className="h-4 w-4" />
-                                <span>Xem</span>
-                              </div>
-                            </DropdownItem>
-                            <DropdownItem
-                              key="edit"
-                              onClick={() => {
-                                handleOpenUpdateModal(patient);
-                              }}
-                            >
-                              <div className="flex items-center gap-2 text-green-600 font-semibold">
-                                <Icon icon="mdi:pencil" className="h-4 w-4" />
-                                <span>Chỉnh sửa</span>
-                              </div>
-                            </DropdownItem>
-                            <DropdownItem
-                              key="delete"
-                              onClick={async () => {
-                                if (typeof patient.id === "number") {
-                                  await handleDelete(patient.id);
-                                }
-                              }}
-                              aria-disabled={
-                                deletingId === patient.id ||
-                                typeof patient.id !== "number"
-                              }
-                            >
-                              <div className="flex items-center gap-2 text-red-600 font-semibold">
-                                <Icon
-                                  icon={
-                                    deletingId === patient.id
-                                      ? "mdi:loading"
-                                      : "mdi:delete"
+                              <Icon
+                                icon="mdi:dots-vertical"
+                                className="h-4 w-4"
+                              />
+                            </Button>
+                          </DropdownTrigger>
+                          <DropdownMenu>
+                            <DropdownSection>
+                              <DropdownItem
+                                key="view"
+                                onClick={() => {
+                                  if (patient.id) handleViewPatient(patient.id);
+                                }}
+                              >
+                                <div className="flex items-center gap-2 text-blue-600 font-semibold">
+                                  <Icon icon="mdi:eye" className="h-4 w-4" />
+                                  <span>Xem</span>
+                                </div>
+                              </DropdownItem>
+                              <DropdownItem
+                                key="edit"
+                                onClick={() => {
+                                  handleOpenUpdateModal(patient);
+                                }}
+                              >
+                                <div className="flex items-center gap-2 text-green-600 font-semibold">
+                                  <Icon icon="mdi:pencil" className="h-4 w-4" />
+                                  <span>Chỉnh sửa</span>
+                                </div>
+                              </DropdownItem>
+                              <DropdownItem
+                                key="delete"
+                                onClick={async () => {
+                                  if (typeof patient.id === "number") {
+                                    await handleDelete(patient.id);
                                   }
-                                  className="h-4 w-4"
-                                />
-                                <span>Xóa</span>
-                              </div>
-                            </DropdownItem>
-                            <DropdownItem
-                              key="addTestOrder"
-                              onClick={async () => {
-                                if (typeof patient.id === "number") {
-                                  handleOpenCreateModal(patient.id);
+                                }}
+                                aria-disabled={
+                                  deletingId === patient.id ||
+                                  typeof patient.id !== "number"
                                 }
-                              }}
-                              aria-disabled={
-                                addTestOrderId === patient.id ||
-                                typeof patient.id !== "number"
-                              }
-                            >
-                              <div className="flex items-center gap-2 text-green-600 font-semibold">
-                                <Icon icon="mdi:plus" className="h-4 w-4" />
-                                <span>Thêm đơn xét nghiệm</span>
-                              </div>
-                            </DropdownItem>
-                          </DropdownSection>
-                        </DropdownMenu>
-                      </Dropdown>
-                    </div>
-                  </TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
+                              >
+                                <div className="flex items-center gap-2 text-red-600 font-semibold">
+                                  <Icon
+                                    icon={
+                                      deletingId === patient.id
+                                        ? "mdi:loading"
+                                        : "mdi:delete"
+                                    }
+                                    className="h-4 w-4"
+                                  />
+                                  <span>Xóa</span>
+                                </div>
+                              </DropdownItem>
+                              <DropdownItem
+                                key="addTestOrder"
+                                onClick={async () => {
+                                  if (typeof patient.id === "number") {
+                                    handleOpenCreateModal(patient.id);
+                                  }
+                                }}
+                                aria-disabled={
+                                  addTestOrderId === patient.id ||
+                                  typeof patient.id !== "number"
+                                }
+                              >
+                                <div className="flex items-center gap-2 text-green-600 font-semibold">
+                                  <Icon icon="mdi:plus" className="h-4 w-4" />
+                                  <span>Thêm đơn xét nghiệm</span>
+                                </div>
+                              </DropdownItem>
+                            </DropdownSection>
+                          </DropdownMenu>
+                        </Dropdown>
+                      </div>
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </div>
         </div>
       </CardBody>
     </Card>

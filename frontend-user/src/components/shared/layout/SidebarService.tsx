@@ -24,7 +24,12 @@ import { RootState, store } from "@/redux/store";
 
 import DefaultLogo from "../../../../public/images/gct.png";
 
-const SidebarService = () => {
+interface SidebarServiceProps {
+  isOpen?: boolean;
+  onClose?: () => void;
+}
+
+const SidebarService = ({ isOpen = false, onClose }: SidebarServiceProps) => {
   const router = useRouter();
   const pathname = usePathname();
 
@@ -73,35 +78,64 @@ const SidebarService = () => {
   };
 
   return (
-    <Card className="w-80 min-h-[88vh] shadow-sm border border-gray-200 dark:border-gray-700 rounded-2xl bg-white dark:bg-[#1a263b] flex flex-col">
-      <CardBody className="p-0 flex flex-col h-full">
-        {/* Main content wrapper with flex-1 to push footer to bottom */}
-        <div className="flex-1 flex flex-col">
-          <div className="p-4 flex-1">
-            {/* Regular Menu Items */}
-            <div className="space-y-1">
-              {menuItems.map((item) => {
-                const isActive = pathname === item.href;
+    <>
+      {/* Mobile overlay */}
+      {isOpen && (
+        <div
+          className="lg:hidden fixed inset-0 bg-black/50 z-40"
+          onClick={onClose}
+        />
+      )}
 
-                return (
-                  <Link
-                    key={item.key}
-                    href={item.href}
-                    className={`w-full flex items-center gap-3 px-4 py-3 text-left transition-all duration-200 ease-in-out rounded-md transform hover:scale-[1.02] active:scale-[0.98] ${
-                      isActive
-                        ? "bg-red-50 text-red-600 border-l-4 border-red-500 dark:bg-red-900/20 dark:text-red-400 shadow-sm"
-                        : "text-gray-700 hover:bg-gray-100 hover:shadow-sm dark:text-gray-300 dark:hover:bg-slate-700"
-                    }`}
-                  >
-                    <Icon
-                      icon={item.icon}
-                      className="w-5 h-5 transition-transform duration-200"
-                    />
-                    <span className="font-medium">{item.label}</span>
-                  </Link>
-                );
-              })}
-            </div>
+      {/* Sidebar */}
+      <Card
+        className={`w-80 min-h-[88vh] shadow-sm border border-gray-200 dark:border-gray-700 rounded-2xl bg-white dark:bg-[#1a263b] flex flex-col transition-transform duration-300 ease-in-out ${
+          isOpen
+            ? "fixed left-2 top-20 z-50 lg:relative lg:left-0 lg:top-0"
+            : "hidden lg:flex lg:relative"
+        }`}
+      >
+        {/* Close button for mobile */}
+        <button
+          onClick={onClose}
+          className="lg:hidden absolute top-4 right-4 p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-slate-700 z-10"
+          aria-label="Close menu"
+        >
+          <Icon
+            icon="solar:close-circle-bold"
+            className="w-6 h-6 text-gray-700 dark:text-gray-300"
+          />
+        </button>
+
+        <CardBody className="p-0 flex flex-col h-full">
+          {/* Main content wrapper with flex-1 to push footer to bottom */}
+          <div className="flex-1 flex flex-col">
+            <div className="p-4 flex-1">
+              {/* Regular Menu Items */}
+              <div className="space-y-1">
+                {menuItems.map((item) => {
+                  const isActive = pathname === item.href;
+
+                  return (
+                    <Link
+                      key={item.key}
+                      href={item.href}
+                      onClick={onClose}
+                      className={`w-full flex items-center gap-3 px-4 py-3 text-left transition-all duration-200 ease-in-out rounded-md transform hover:scale-[1.02] active:scale-[0.98] ${
+                        isActive
+                          ? "bg-red-50 text-red-600 border-l-4 border-red-500 dark:bg-red-900/20 dark:text-red-400 shadow-sm"
+                          : "text-gray-700 hover:bg-gray-100 hover:shadow-sm dark:text-gray-300 dark:hover:bg-slate-700"
+                      }`}
+                    >
+                      <Icon
+                        icon={item.icon}
+                        className="w-5 h-5 transition-transform duration-200"
+                      />
+                      <span className="font-medium">{item.label}</span>
+                    </Link>
+                  );
+                })}
+              </div>
 
             {/* Accordion Menu Items */}
             {/* Accordion code here if needed... */}
@@ -167,6 +201,7 @@ const SidebarService = () => {
         </div>
       </CardBody>
     </Card>
+    </>
   );
 };
 

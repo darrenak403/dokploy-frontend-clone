@@ -3,6 +3,8 @@
 
 import React, { useEffect, useRef } from "react";
 
+import { useRouter } from "next/navigation";
+
 import { Button } from "@heroui/react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -10,6 +12,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 gsap.registerPlugin(ScrollTrigger);
 
 export function MainTitle() {
+  const router = useRouter();
   const sectionRef = useRef<HTMLElement | null>(null);
   const titleRef = useRef<HTMLHeadingElement | null>(null);
   const subtitleRef = useRef<HTMLSpanElement | null>(null);
@@ -107,7 +110,10 @@ export function MainTitle() {
           <Button
             ref={primaryRef as any}
             size="lg"
-            className=" px-8 py-3 bg-gradient-to-b from-[var(--coral-500)] to-[var(--coral-600)] text-white "
+            className=" px-8 py-3 bg-gradient-to-b from-[var(--coral-500)] to-[var(--coral-600)] text-white"
+            onPress={() => {
+              router.push("/service");
+            }}
           >
             Bắt đầu ngay
           </Button>

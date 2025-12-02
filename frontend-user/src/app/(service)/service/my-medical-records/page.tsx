@@ -33,13 +33,13 @@ const MyMedicalRecordsPage = () => {
 
   return (
     <div className="max-w-screen mx-auto h-full min-h-0 flex flex-col">
-      <div className="mb-5">
+      <div className="mb-3 sm:mb-4 md:mb-5">
         <MyInformation patientRecord={patientRecord} />
       </div>
-      <div className="mb-5">
+      <div className="mb-3 sm:mb-4 md:mb-5">
         <TestOrderHistoryCurrently lastTestOrder={latestTestOrder} />
       </div>
-      <div className="flex-1 min-h-0 overflow-hidden">
+      <div className="flex-1 min-h-[500px] overflow-hidden">
         <TestOrderHistoryList testOrders={testOrders} />
       </div>
     </div>

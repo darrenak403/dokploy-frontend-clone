@@ -83,29 +83,34 @@ const WareHouseStats: React.FC = () => {
 
   return (
     <section aria-label="Warehouse equipment statistics" className="w-full">
-      <div className="grid grid-cols-3 sm:grid-cols-4 lg:grid-cols-5 gap-5">
+      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-2 sm:gap-3 md:gap-4">
         {cards.map((c) => (
           <div
             key={c.id}
-            className="p-4 rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 shadow-none hover:shadow-lg transform hover:scale-[1.01] origin-center transition-all duration-500 ease-in-out"
+            className="p-3 sm:p-4 rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 shadow-none hover:shadow-lg transform hover:scale-[1.01] origin-center transition-all duration-500 ease-in-out"
           >
             <div className="flex items-start justify-between">
-              <h3 className="text-sm font-semibold text-gray-800 dark:text-gray-100">
+              <h3 className="text-xs sm:text-sm font-semibold text-gray-800 dark:text-gray-100">
                 {c.title}
               </h3>
               <div
-                className={`w-9 h-9 rounded-md flex items-center justify-center ${c.accent}`}
+                className={`w-7 h-7 sm:w-9 sm:h-9 rounded-md flex items-center justify-center ${c.accent}`}
                 aria-hidden
               >
-                <Icon icon={c.icon} width="20" height="20" />
+                <Icon
+                  icon={c.icon}
+                  width="16"
+                  height="16"
+                  className="sm:w-5 sm:h-5"
+                />
               </div>
             </div>
 
-            <div className="mt-3">
-              <div className="text-2xl font-bold text-gray-900 dark:text-white">
+            <div className="mt-2 sm:mt-3">
+              <div className="text-lg sm:text-2xl font-bold text-gray-900 dark:text-white">
                 {c.value}
               </div>
-              <div className="mt-1 text-xs text-gray-500 dark:text-gray-400">
+              <div className="mt-1 text-[10px] sm:text-xs text-gray-500 dark:text-gray-400">
                 {c.subtitle}
               </div>
             </div>

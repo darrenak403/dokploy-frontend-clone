@@ -152,55 +152,67 @@ const MonitoringList = () => {
         </div>
 
         {/* Table */}
-        <div className="flex-1 overflow-auto">
-          <Table
-            aria-label="Monitoring table"
-            classNames={{
-              wrapper: "shadow-none",
-              table: "h-full",
-              tbody: "h-full",
-            }}
-          >
-            <TableHeader columns={columns}>
-              {(column) => (
-                <TableColumn key={column.key}>{column.label}</TableColumn>
-              )}
-            </TableHeader>
-            <TableBody
-              items={filteredData}
-              emptyContent="Không có dữ liệu giám sát"
-              isLoading={isLoading}
+        <div className="flex-1 min-h-[500px] overflow-auto">
+          <div className="overflow-x-auto">
+            <Table
+              aria-label="Monitoring table"
+              classNames={{
+                wrapper: "shadow-none min-w-max",
+                table: "h-full",
+                tbody: "h-full",
+              }}
             >
-              {(item: Monitoring) => (
-                <TableRow key={item.traceId}>
-                  <TableCell>{formatTimestamp(item.timestamp)}</TableCell>
-                  <TableCell>{item.service}</TableCell>
-                  <TableCell>{item.action}</TableCell>
-                  <TableCell>
-                    <div className="flex flex-col">
-                      <span>{item.entity}</span>
-                      {item.entityId && (
-                        <span className="text-gray-500 text-xs">
-                          ID: {item.entityId}
-                        </span>
-                      )}
-                    </div>
-                  </TableCell>
-                  <TableCell>{item.performedBy}</TableCell>
-                  <TableCell className="">
-                    <span
-                      className={`px-2 py-1 text-xs max-w-xl font-semibold rounded-full ${getStatusColorClass(item.status)}`}
-                    >
-                      {getStatusText(item.status)}
-                    </span>
-                  </TableCell>
-                  <TableCell className="">
-                    <div className="max-w-sm truncate">{item.message}</div>
-                  </TableCell>
-                </TableRow>
-              )}
-            </TableBody>
-          </Table>
+              <TableHeader columns={columns}>
+                {(column) => (
+                  <TableColumn key={column.key} className="whitespace-nowrap">
+                    {column.label}
+                  </TableColumn>
+                )}
+              </TableHeader>
+              <TableBody
+                items={filteredData}
+                emptyContent="Không có dữ liệu giám sát"
+                isLoading={isLoading}
+              >
+                {(item: Monitoring) => (
+                  <TableRow key={item.traceId}>
+                    <TableCell className="min-w-[150px]">
+                      {formatTimestamp(item.timestamp)}
+                    </TableCell>
+                    <TableCell className="min-w-[120px]">
+                      {item.service}
+                    </TableCell>
+                    <TableCell className="min-w-[120px]">
+                      {item.action}
+                    </TableCell>
+                    <TableCell className="min-w-[150px]">
+                      <div className="flex flex-col">
+                        <span>{item.entity}</span>
+                        {item.entityId && (
+                          <span className="text-gray-500 text-xs">
+                            ID: {item.entityId}
+                          </span>
+                        )}
+                      </div>
+                    </TableCell>
+                    <TableCell className="min-w-[130px]">
+                      {item.performedBy}
+                    </TableCell>
+                    <TableCell className="min-w-[120px]">
+                      <span
+                        className={`px-2 py-1 text-xs max-w-xl font-semibold rounded-full ${getStatusColorClass(item.status)}`}
+                      >
+                        {getStatusText(item.status)}
+                      </span>
+                    </TableCell>
+                    <TableCell className="min-w-[200px]">
+                      <div className="max-w-sm truncate">{item.message}</div>
+                    </TableCell>
+                  </TableRow>
+                )}
+              </TableBody>
+            </Table>
+          </div>
         </div>
       </CardBody>
     </Card>
