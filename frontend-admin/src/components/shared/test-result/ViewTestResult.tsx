@@ -149,23 +149,23 @@ const ViewTestResult: React.FC<TestResultProps> = ({
         )}
 
         {/* Toggle Button - Always visible */}
-        <div className="fixed top-25 right-10 z-50 no-print">
+        <div className="fixed top-36 sm:top-40 lg:top-24 right-4 sm:right-8 lg:right-10 z-50 no-print">
           <Button
             isIconOnly
             variant="bordered"
             onPress={() => setIsOpenActionButtonModal(!isOpenActionButtonModal)}
-            className="rounded-full border border-gray-300 bg-white hover:bg-gray-100"
+            className="rounded-full border border-gray-300 bg-white hover:bg-gray-100 shadow-lg"
           >
             <Icon
               icon={isOpenActionButtonModal ? "mdi:close" : "mdi:plus"}
-              className="w-6 h-6"
+              className="w-5 h-5 sm:w-6 sm:h-6"
             />
           </Button>
         </div>
 
         {/* Action Buttons */}
         {isOpenActionButtonModal && (
-          <div className="fixed top-32 right-10 z-40 no-print flex flex-col w-[200px] gap-3 bg-white/95 backdrop-blur-sm p-4 rounded-xl border border-gray-200">
+          <div className="fixed top-48 sm:top-52 lg:top-36 right-4 sm:right-8 lg:right-10 z-40 no-print flex flex-col w-[180px] sm:w-[200px] gap-3 bg-white/95 backdrop-blur-sm p-4 rounded-xl border border-gray-200 shadow-xl">
             <Button
               variant="bordered"
               startContent={<Icon icon="mdi:note-plus" className="w-5 h-5" />}
