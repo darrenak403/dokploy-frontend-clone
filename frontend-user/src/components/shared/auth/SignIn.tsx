@@ -186,7 +186,7 @@ export const SignIn = () => {
   }, [searchParams]);
 
   return (
-    <div className="wrapper w-full max-w-[90vw] sm:max-w-[500px] md:max-w-[600px] lg:min-w-[30vw] min-h-[72vh] flex items-center justify-center shadow-[0_0_10px_rgba(0,0,0,0.15)] dark:shadow-[0_0_10px_rgba(255,255,255,0.1)] rounded-[20px] dark:bg-slate-800 bg-background px-4 sm:px-6 md:px-8 py-8">
+    <div className="wrapper w-full max-w-[90vw] sm:max-w-[500px] md:max-w-[600px] lg:min-w-[30vw] min-h-[72vh] flex items-center justify-center dark:bg-slate-800 bg-background px-4 sm:px-6 md:px-8 py-8">
       <div className="container flex flex-col items-center justify-center w-full">
         {/* Alert */}
         <AnimatePresence>
@@ -252,7 +252,7 @@ export const SignIn = () => {
             )}
           </div>
 
-          <div className="w-full px-2 sm:px-4">
+          <div className="w-full px-2 sm:px-4 relative">
             <Input
               label="Mật khẩu"
               name="password"
@@ -262,7 +262,7 @@ export const SignIn = () => {
               isInvalid={!!(formik.touched.password && formik.errors.password)}
               onBlur={() => formik.setFieldTouched("password", true)}
               disabled={loading}
-              className="w-full relative"
+              className="w-full"
               classNames={{
                 input: "bg-white dark:bg-slate-600 text-foreground",
                 inputWrapper:
@@ -273,7 +273,7 @@ export const SignIn = () => {
                 <Icon
                   color="#71717b"
                   icon={showPassword ? "mdi:eye-off" : "mdi:eye"}
-                  className="cursor-pointer absolute right-4 top-6"
+                  className="cursor-pointer"
                   onClick={() => setShowPassword(!showPassword)}
                 />
               }
@@ -284,10 +284,10 @@ export const SignIn = () => {
               </div>
             )}
 
-            <div className="absolute bottom-[-8px] right-2">
+            <div className="flex justify-end mt-2">
               <Link
                 href="/forgot-password"
-                className="text-red-300 font-medium text-[12px] hover:underline"
+                className="text-red-400 font-medium text-xs hover:underline"
               >
                 Quên mật khẩu?
               </Link>
@@ -309,7 +309,7 @@ export const SignIn = () => {
             </Button>
           </div>
 
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mt-8">
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 md:mt-6 sm:mt-4">
             {/* Login google button */}
             <Button
               variant="bordered"
@@ -324,7 +324,7 @@ export const SignIn = () => {
             </Button>
 
             {/* Login facebook button */}
-            <div className="relative w-full sm:w-auto">
+            <div className="relative w-full sm:w-auto hidden sm:block">
               <Button
                 variant="bordered"
                 className="flex items-center justify-center gap-2 w-full sm:w-auto px-4 sm:px-5 py-1 rounded-[8px] border border-zinc-200 hover:bg-zinc-300 dark:hover:bg-slate-700"
@@ -336,7 +336,7 @@ export const SignIn = () => {
                   <p className="text-xs sm:text-sm">Đăng nhập bằng Facebook</p>
                 </div>
               </Button>
-              <div className="absolute top-[-15px] right-[-10px] sm:right-[-20px] hidden sm:block">
+              <div className="absolute top-[-15px] right-[-10px] sm:right-[-20px]">
                 <p className="text-[10px] border-[1px] rounded-2xl px-1 py-1 bg-zinc-100 dark:bg-slate-800 whitespace-nowrap">
                   tôi đã cố gắng hết sức
                 </p>

@@ -196,8 +196,8 @@ const Reset = () => {
   }
 
   return (
-    <div className="wrapper min-w-[30vw] min-h-[72vh] flex items-center justify-center shadow-[0_0_10px_rgba(0,0,0,0.15)] rounded-[20px]">
-      <div className="container flex flex-col items-center justify-center bg-white p-8">
+    <div className="wrapper w-full max-w-[90vw] sm:max-w-[500px] md:max-w-[600px] lg:min-w-[30vw] min-h-[72vh] flex items-center justify-center shadow-[0_0_10px_rgba(0,0,0,0.15)] dark:shadow-[0_0_10px_rgba(255,255,255,0.1)] rounded-[20px] dark:bg-slate-800 bg-white px-4 sm:px-6 md:px-8 py-8">
+      <div className="container flex flex-col items-center justify-center w-full">
         <AnimatePresence>
           {showAlert && (
             <motion.div
@@ -205,29 +205,35 @@ const Reset = () => {
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, y: -20, scale: 0.95 }}
               transition={{ duration: 0.4 }}
-              className="fixed top-16 right-0 z-999 w-auto max-w-sm"
+              className="fixed top-4 right-4 z-[999] w-auto max-w-[calc(100vw-2rem)] sm:max-w-sm"
             >
-              <Alert color={alertColor} title={alertMessage} />
+              <Alert
+                color={alertColor}
+                title={alertMessage}
+                variant="flat"
+                className="shadow-lg"
+              />
             </motion.div>
           )}
         </AnimatePresence>
 
-        <div className="image mb-6 flex items-center gap-2">
+        <div className="image mb-6 flex items-center gap-2 w-full max-w-[300px] sm:max-w-[350px] md:max-w-[400px]">
           <Image
             src="/images/AuthLogo.svg"
             alt="Reset Password"
             width={400}
             height={100}
             quality={100}
+            className="w-full h-auto"
           />
         </div>
-        <div className="flex items-center w-[350px] mb-6">
-          <div className="flex-1 h-px bg-zinc-200" />
-          <div className="flex-1 h-px bg-zinc-200" />
+        <div className="flex items-center w-full max-w-[300px] sm:max-w-[350px] mb-6">
+          <div className="flex-1 h-px bg-zinc-200 dark:bg-zinc-700" />
+          <div className="flex-1 h-px bg-zinc-200 dark:bg-zinc-700" />
         </div>
 
         <form
-          className="min-w-[400px] flex flex-col gap-6"
+          className="w-full max-w-[350px] sm:max-w-[400px] flex flex-col gap-6"
           onSubmit={formik.handleSubmit}
           noValidate
         >
@@ -279,7 +285,7 @@ const Reset = () => {
             </div>
           </div>
 
-          <div>
+          <div className="w-full">
             <Input
               label="Mật khẩu mới"
               name="newPassword"
@@ -294,6 +300,12 @@ const Reset = () => {
               onBlur={() => formik.setFieldTouched("newPassword", true)}
               disabled={loading}
               className="w-full"
+              classNames={{
+                input: "bg-white dark:bg-slate-600 text-foreground",
+                inputWrapper:
+                  "border border-gray-200 dark:border-gray-700 dark:bg-slate-600",
+                label: "text-foreground",
+              }}
               endContent={
                 <Icon
                   color="#71717b"
@@ -310,7 +322,7 @@ const Reset = () => {
             )}
           </div>
 
-          <div>
+          <div className="w-full">
             <Input
               label="Xác nhận mật khẩu mới"
               name="confirmPassword"
@@ -328,6 +340,12 @@ const Reset = () => {
               onBlur={() => formik.setFieldTouched("confirmPassword", true)}
               disabled={loading}
               className="w-full"
+              classNames={{
+                input: "bg-white dark:bg-slate-600 text-foreground",
+                inputWrapper:
+                  "border border-gray-200 dark:border-gray-700 dark:bg-slate-600",
+                label: "text-foreground",
+              }}
               endContent={
                 <Icon
                   color="#71717b"
@@ -345,10 +363,10 @@ const Reset = () => {
               )}
           </div>
 
-          <div className="flex items-center justify-center">
+          <div className="flex items-center justify-center w-full">
             <Button
               type="submit"
-              className="w-full bg-gradient-to-r from-red-400 to-red-500 text-white font-semibold"
+              className="w-full max-w-[300px] bg-gradient-to-r from-red-400 to-red-500 text-white font-semibold"
               disabled={loading}
               isLoading={loading}
               isDisabled={

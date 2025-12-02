@@ -19,10 +19,17 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: {
     default: "Laboratory Management System",
-    template: "%s | Laboratory Admin"
+    template: "%s | Laboratory Admin",
   },
-  description: "Hệ thống quản trị phòng xét nghiệm y tế. Quản lý bệnh nhân, đơn xét nghiệm, kết quả, thiết bị, kho hóa chất và nhân viên một cách hiệu quả.",
-  keywords: ["admin", "laboratory management", "quản lý xét nghiệm", "hệ thống quản trị", "medical admin"],
+  description:
+    "Hệ thống quản trị phòng xét nghiệm y tế. Quản lý bệnh nhân, đơn xét nghiệm, kết quả, thiết bị, kho hóa chất và nhân viên một cách hiệu quả.",
+  keywords: [
+    "admin",
+    "laboratory management",
+    "quản lý xét nghiệm",
+    "hệ thống quản trị",
+    "medical admin",
+  ],
   authors: [{ name: "Laboratory Medical Service" }],
   creator: "Laboratory Medical Service",
   publisher: "Laboratory Medical Service",
@@ -35,7 +42,8 @@ export const metadata: Metadata = {
     locale: "vi_VN",
     url: "https://labadmin.dupssapp.id.vn",
     title: "Admin - Laboratory Management System",
-    description: "Hệ thống quản trị phòng xét nghiệm y tế. Quản lý bệnh nhân, đơn xét nghiệm, kết quả, thiết bị, kho hóa chất và nhân viên một cách hiệu quả.",
+    description:
+      "Hệ thống quản trị phòng xét nghiệm y tế. Quản lý bệnh nhân, đơn xét nghiệm, kết quả, thiết bị, kho hóa chất và nhân viên một cách hiệu quả.",
     siteName: "Laboratory Admin",
     images: [
       {

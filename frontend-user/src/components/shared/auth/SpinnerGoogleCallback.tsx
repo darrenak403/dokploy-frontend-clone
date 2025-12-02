@@ -175,13 +175,13 @@ const SpinnerGoogleCallback = () => {
         </div>
 
         {/* Divider */}
-        <div className="flex items-center w-full max-w-[350px] sm:max-w-[450px] mt-6">
-          <div className="flex-1 h-px bg-zinc-200" />
-          <div className="flex-1 h-px bg-zinc-200" />
+        <div className="flex items-center w-full max-w-[350px] sm:max-w-[450px] mt-4 sm:mt-6">
+          <div className="flex-1 h-px bg-zinc-200 dark:bg-zinc-700" />
+          <div className="flex-1 h-px bg-zinc-200 dark:bg-zinc-700" />
         </div>
 
         {/* Spinner */}
-        <div className="my-25">
+        <div className="my-8 sm:my-12">
           <Spinner className="w-12 h-12 sm:w-16 sm:h-16 text-red-500" />
         </div>
 
@@ -189,14 +189,14 @@ const SpinnerGoogleCallback = () => {
         <div className="flex items-center justify-center w-full">
           <Button
             type="submit"
-            className="w-full max-w-[300px] mt-2 bg-gradient-to-r from-red-400 to-red-500 text-white font-semibold"
+            className="w-full max-w-[300px] bg-gradient-to-r from-red-400 to-red-500 text-white font-semibold"
           >
             Đăng nhập
           </Button>
         </div>
 
         {/* Social Buttons */}
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mt-8 w-full">
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 mt-6 sm:mt-8 w-full">
           {/* Login google button */}
           <Button
             variant="bordered"

@@ -197,14 +197,16 @@ export const SignUp = () => {
 
         {/* Divider */}
         <div className="flex items-center w-full max-w-[350px] sm:max-w-[450px] mt-4">
-          <div className="flex-1 h-px bg-zinc-200" />
-          <span className="mx-2 text-xs text-zinc-400">or</span>
-          <div className="flex-1 h-px bg-zinc-200" />
+          <div className="flex-1 h-px bg-zinc-200 dark:bg-zinc-700" />
+          <span className="mx-2 text-xs text-zinc-400 dark:text-zinc-500">
+            or
+          </span>
+          <div className="flex-1 h-px bg-zinc-200 dark:bg-zinc-700" />
         </div>
 
         {/* Form */}
         <form
-          className="w-full max-w-[350px] sm:max-w-[500px] flex flex-col items-center justify-center gap-4 mt-6"
+          className="w-full max-w-[350px] sm:max-w-[500px] flex flex-col items-center justify-center gap-3 sm:gap-4 mt-4 sm:mt-6"
           onSubmit={formik.handleSubmit}
           noValidate
         >
@@ -334,7 +336,7 @@ export const SignUp = () => {
               )}
           </div>
 
-          <div className="flex items-center justify-center w-full">
+          <div className="flex items-center justify-center w-full mt-2">
             <Button
               type="submit"
               isLoading={formik.isSubmitting}
@@ -344,14 +346,14 @@ export const SignUp = () => {
                 !formik.values.password ||
                 !formik.values.confirmPassword
               }
-              className="w-full max-w-[300px] mt-2 bg-gradient-to-r from-red-400 to-red-500 text-white font-semibold"
+              className="w-full max-w-[300px] bg-gradient-to-r from-red-400 to-red-500 text-white font-semibold"
               disabled={loading}
             >
               {loading ? "Đang đăng ký..." : "Đăng ký"}
             </Button>
           </div>
 
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mt-8">
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 md:mt-6 sm:mt-4">
             {/* Login google button */}
             <Button
               variant="bordered"
@@ -366,7 +368,7 @@ export const SignUp = () => {
             </Button>
 
             {/* Login facebook button */}
-            <div className="relative w-full sm:w-auto">
+            <div className="relative w-full sm:w-auto hidden sm:block">
               <Button
                 variant="bordered"
                 className="flex items-center justify-center gap-2 w-full sm:w-auto px-4 sm:px-5 py-1 rounded-[8px] border border-zinc-200 hover:bg-zinc-300 dark:hover:bg-slate-700"

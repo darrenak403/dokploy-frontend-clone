@@ -58,7 +58,7 @@ const CreateRegent = () => {
         const formattedValues = {
           ...values,
           expiryDate: values.expiryDate
-            ? values.expiryDate.split('-').reverse().join('/') // "2027-04-03" -> "03/04/2027"
+            ? values.expiryDate.split("-").reverse().join("/") // "2027-04-03" -> "03/04/2027"
             : "",
         };
         const result = await createRegentSwr?.trigger(formattedValues as any);

@@ -97,10 +97,9 @@ describe("Encrypt Module", () => {
       const consoleSpy = jest.spyOn(console, "error").mockImplementation();
 
       const empty = "";
-      const encrypted = encryptValue(empty);
 
-      // Empty string encryption results in value that can't be decrypted
-      expect(() => decryptValue(encrypted)).toThrow();
+      // Empty string encryption should throw error
+      expect(() => encryptValue(empty)).toThrow();
 
       consoleSpy.mockRestore();
     });

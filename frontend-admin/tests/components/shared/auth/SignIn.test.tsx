@@ -197,7 +197,7 @@ describe("SignIn", () => {
     });
 
     await waitFor(() => {
-      expect(screen.getByText("Đăng nhập thành công!!!")).toBeInTheDocument();
+      expect(screen.getByText("Đăng nhập thành công!")).toBeInTheDocument();
     });
 
     jest.advanceTimersByTime(1500);

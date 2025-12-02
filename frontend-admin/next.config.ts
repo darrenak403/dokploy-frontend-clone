@@ -10,8 +10,9 @@ const nextConfig: NextConfig = {
     domains: ["lh3.googleusercontent.com", "res.cloudinary.com"],
   },
   async rewrites() {
-    const apiGateway = process.env.API_GATEWAY_URL || "http://host.docker.internal:6789";
-    
+    const apiGateway =
+      process.env.API_GATEWAY_URL || "http://host.docker.internal:6789";
+
     return [
       // IAM Service
       {

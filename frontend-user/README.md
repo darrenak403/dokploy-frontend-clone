@@ -30,34 +30,40 @@ Modern Next.js 15 patient portal for laboratory services, built with TypeScript,
 ## 🛠 Tech Stack
 
 ### Core
+
 - **Next.js 15.5** - React framework with App Router
 - **React 19** - Latest React features
 - **TypeScript 5** - Type-safe development
 - **Tailwind CSS 4** - Utility-first styling
 
 ### State & Data
+
 - **Redux Toolkit** - State management
 - **Redux Persist** - State persistence
 - **SWR** - Data fetching and caching
 - **Axios** - HTTP client
 
 ### UI & Design
+
 - **HeroUI** - Component library
 - **Framer Motion** - Smooth animations
 - **next-themes** - Theme management
 - **react-icons** - Icon library
 
 ### Forms & Validation
+
 - **Formik** - Form management
 - **Yup** - Schema validation
 
 ### Testing
+
 - **Jest 30** - Testing framework
 - **React Testing Library** - Component testing
 - **ESLint** - Code linting
 - **Prettier** - Code formatting
 
 ### Utilities
+
 - **dayjs** - Date manipulation
 - **crypto-js** - Data encryption
 - **react-hot-toast** - Notifications
@@ -130,29 +136,34 @@ frontend-user/
 ## 🚀 Getting Started
 
 ### Prerequisites
+
 - **Node.js** 18+ (LTS recommended)
 - **npm** 9+ or **yarn** 1.22+
 
 ### Installation
 
 1. **Clone and navigate:**
+
    ```bash
    git clone <repository-url>
    cd frontend-user
    ```
 
 2. **Install dependencies:**
+
    ```bash
    npm install
    ```
 
 3. **Setup environment:**
+
    ```bash
    cp .env.example .env.local
    # Edit .env.local with your API URLs
    ```
 
 4. **Run development server:**
+
    ```bash
    npm run dev
    ```
@@ -163,6 +174,7 @@ frontend-user/
 ## 📜 Available Scripts
 
 ### Development
+
 ```bash
 npm run dev              # Start dev server (localhost:3000)
 npm run build            # Build for production
@@ -170,6 +182,7 @@ npm run start            # Start production server
 ```
 
 ### Code Quality
+
 ```bash
 npm run lint             # Run ESLint
 npm run lint:fix         # Fix ESLint issues
@@ -178,6 +191,7 @@ npm run type-check       # TypeScript check
 ```
 
 ### Testing
+
 ```bash
 npm run test             # Run all tests
 npm run test:watch       # Watch mode
@@ -187,6 +201,7 @@ npm run test:coverage    # Coverage report
 ## 🔄 Development Workflow
 
 ### Commit Message Format
+
 Follow [Conventional Commits](https://www.conventionalcommits.org/):
 
 ```
@@ -201,6 +216,7 @@ test(appointment): add booking tests
 See **[TEST_WRITING_GUIDE.md](./TEST_WRITING_GUIDE.md)** for detailed guidelines.
 
 **Quick example:**
+
 ```typescript
 import { render, screen } from '@testing-library/react';
 import Dashboard from '@/components/shared/dashboard/Dashboard';
@@ -238,6 +254,7 @@ NEXT_PUBLIC_GOOGLE_SECRET=
 ### Docker Deployment
 
 1. **Build Docker image:**
+
    ```bash
    docker build -t labuser-frontend .
    ```
@@ -280,6 +297,7 @@ vercel --prod
 ## 📞 Support
 
 For issues or questions:
+
 1. Check documentation
 2. Search GitHub issues
 3. Contact support team

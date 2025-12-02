@@ -18,9 +18,14 @@ export const encryptValue = (
     throw new Error("Encryption key is not configured");
   }
 
+  const stringValue = String(value);
+  if (stringValue === "") {
+    throw new Error("Cannot encrypt empty string");
+  }
+
   try {
-    const stringValue = String(value);
-    const encrypted = CryptoJS.AES.encrypt(stringValue, key).toString();
+    const prefixedValue = "ENCRYPTED:" + stringValue;
+    const encrypted = CryptoJS.AES.encrypt(prefixedValue, key).toString();
     return encrypted;
   } catch (error) {
     console.error("Encryption error:", error);
@@ -49,11 +54,11 @@ export const decryptValue = (
       CryptoJS.enc.Utf8
     );
 
-    if (!decrypted) {
-      throw new Error("Decryption returned empty string");
+    if (!decrypted || !decrypted.startsWith("ENCRYPTED:")) {
+      throw new Error("Invalid encrypted data or wrong secret key");
     }
 
-    return decrypted;
+    return decrypted.slice(10); // Remove "ENCRYPTED:" prefix
   } catch (error) {
     console.error("Decryption error:", error);
     throw new Error("Failed to decrypt value");

@@ -56,8 +56,7 @@ const SpinnerFacebookCallback = () => {
   );
 
   // build full backend url; encode code because searchParams.get returns decoded value
-  const base =
-    process.env.NEXT_PUBLIC_API_BASE_URL ?? "/api";
+  const base = process.env.NEXT_PUBLIC_API_BASE_URL ?? "/api";
   const apiUrl = code
     ? `${base}/iam/auth/google/social/callback?code=${encodeURIComponent(
         code

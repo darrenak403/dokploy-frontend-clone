@@ -10,14 +10,14 @@ interface AuthLayoutProps {
 
 export default function AuthLayout({ children }: AuthLayoutProps) {
   return (
-    <div className="absolute inset-0 min-w-[100vw] min-h-[100vh] flex justify-around items-center bg-[var(--bg-pale)] z-10">
-      <div className="min-h-[85vh] w-[90%] bg-white dark:bg-slate-900 rounded-[20px] flex overflow-hidden ">
+    <div className="absolute inset-0 min-w-[100vw] min-h-[100vh] flex justify-around items-center bg-[var(--bg-pale)] z-10 p-4 sm:p-6">
+      <div className="min-h-[85vh] w-full max-w-[95%] lg:max-w-[90%] bg-white dark:bg-slate-900 rounded-[20px] flex overflow-hidden">
         {/* Left side */}
-        <div className="flex-[1.1] flex items-center justify-center">
+        <div className="flex-1 flex items-center justify-center w-full">
           {children}
         </div>
-        {/* Right side */}
-        <div className="flex-[0.9] flex items-center justify-center bg-[var(--coral-500)] rounded-2xl dark:bg-[var(--bg-pale-2)]">
+        {/* Right side - Hidden on mobile and tablet */}
+        <div className="hidden lg:flex flex-[0.9] items-center justify-center bg-[var(--coral-500)] rounded-2xl dark:bg-[var(--bg-pale-2)]">
           <Image
             className="rounded-2xl"
             src={PosterAuth}
