@@ -280,7 +280,7 @@ export const SignUp = () => {
 
           <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 mt-6 sm:mt-8">
             {/* Login google button */}
-            <div className="w-full sm:w-auto">
+            <div className="w-full sm:w-auto hidden sm:block">
               <Button
                 variant="bordered"
                 className="flex items-center justify-center gap-2 w-full sm:w-auto px-4 sm:px-8 py-1 rounded-[8px] border border-zinc-200 hover:bg-zinc-300 dark:hover:bg-slate-700"

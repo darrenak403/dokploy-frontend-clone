@@ -80,19 +80,19 @@ const SidebarService = ({ isOpen = false, onClose }: SidebarServiceProps) => {
   return (
     <>
       {/* Mobile overlay */}
-      {isOpen && (
-        <div
-          className="lg:hidden fixed inset-0 bg-black/50 z-40"
-          onClick={onClose}
-        />
-      )}
+      <div
+        className={`lg:hidden fixed inset-0 bg-black/50 z-40 transition-opacity duration-300 ${
+          isOpen ? "opacity-100" : "opacity-0 pointer-events-none"
+        }`}
+        onClick={onClose}
+      />
 
       {/* Sidebar */}
       <Card
-        className={`w-80 min-h-[88vh] shadow-sm border border-gray-200 dark:border-gray-700 rounded-2xl bg-white dark:bg-[#1a263b] flex flex-col transition-transform duration-300 ease-in-out ${
+        className={`w-80 min-h-[88vh] shadow-sm border border-gray-200 dark:border-gray-700 rounded-2xl bg-white dark:bg-[#1a263b] flex flex-col transition-all duration-300 ease-in-out lg:translate-x-0 lg:opacity-100 ${
           isOpen
-            ? "fixed left-2 top-20 z-50 lg:relative lg:left-0 lg:top-0"
-            : "hidden lg:flex lg:relative"
+            ? "fixed left-2 top-20 z-50 translate-x-0 opacity-100"
+            : "fixed -translate-x-[calc(100%+1rem)] opacity-0 lg:relative lg:flex"
         }`}
       >
         {/* Close button for mobile */}

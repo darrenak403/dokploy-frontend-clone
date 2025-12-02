@@ -203,6 +203,26 @@ export const Header = () => {
             <NavbarItem className="flex-shrink-0 w-auto">
               <ThemeToggle />
             </NavbarItem>
+            <NavbarItem className="sm:hidden">
+              <Link
+                href="/signin"
+                prefetch={true}
+                onMouseEnter={() => router.prefetch("/signin")}
+              >
+                <Button
+                  className="text-xs opacity-100"
+                  size="sm"
+                  style={{
+                    background:
+                      "linear-gradient(90deg, var(--coral-500), var(--coral-600))",
+                    color: "#ffffff",
+                    borderRadius: 8,
+                  }}
+                >
+                  Đăng nhập
+                </Button>
+              </Link>
+            </NavbarItem>
             <NavbarItem className="hidden sm:block">
               <Link
                 href="/signin"

@@ -1,6 +1,8 @@
 "use client";
 import { useState } from "react";
 
+import { Button } from "@heroui/react";
+
 import ProtectedRoute from "@/libs/ProtectedRoute";
 
 import SidebarService from "@/components/shared/layout/SidebarService";
@@ -26,13 +28,16 @@ export default function ServiceLayout({
           />
 
           {/* Right side - Main content: important -> flex-1 w-0 */}
-          <div className="flex-1 w-0 h-full min-h-0">
+          <div className="flex flex-col flex-1 w-0 h-full min-h-0 gap-2 sm:gap-3 md:gap-4 ">
             {/* Mobile menu button */}
             <button
               onClick={() => setSidebarOpen(true)}
-              className="lg:hidden fixed top-20 left-4 z-40 p-2 rounded-lg bg-white dark:bg-slate-800 shadow-lg border border-gray-200 dark:border-gray-700"
+              className="flex items-center justify-between w-full lg:hidden p-3 rounded-lg bg-white dark:bg-slate-800 shadow-md border border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-slate-700 transition-colors duration-200"
               aria-label="Open menu"
             >
+              <span className="font-medium text-gray-700 dark:text-gray-300">
+                Danh mục
+              </span>
               <svg
                 className="w-6 h-6 text-gray-700 dark:text-gray-300"
                 fill="none"
@@ -45,7 +50,6 @@ export default function ServiceLayout({
                 <path d="M4 6h16M4 12h16M4 18h16"></path>
               </svg>
             </button>
-
             <div className="border border-gray-200 dark:border-gray-700 p-2 sm:p-3 md:p-4 rounded-lg shadow-md h-full min-h-0 bg-white dark:bg-slate-800 overflow-y-auto">
               {children}
             </div>

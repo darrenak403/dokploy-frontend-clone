@@ -158,6 +158,9 @@ export const SignIn = () => {
             height={100}
             quality={100}
             className="w-full h-auto"
+            onClick={() => {
+              router.push("/");
+            }}
           />
         </div>
 
@@ -254,7 +257,7 @@ export const SignIn = () => {
 
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
             {/* Login google button */}
-            <div className="mt-8 relative w-full sm:w-auto">
+            <div className="mt-8 relative w-full sm:w-auto hidden sm:block">
               <Button
                 variant="bordered"
                 className="flex items-center justify-center gap-2 w-full px-4 sm:px-8 py-1 rounded-[8px] border border-zinc-200 dark:border-zinc-700 hover:bg-zinc-100 dark:hover:bg-zinc-800 dark:bg-slate-700 text-foreground"

@@ -353,7 +353,7 @@ export const SignUp = () => {
             </Button>
           </div>
 
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 md:mt-6 sm:mt-4">
+          <div className="relative w-full sm:w-auto hidden sm:block">
             {/* Login google button */}
             <Button
               variant="bordered"
@@ -391,7 +391,7 @@ export const SignUp = () => {
 
         {/* Signin link */}
         <div className="w-full text-center mt-6 text-sm">
-          <span className="text-zinc-500">Bạn đã có tài khoản? </span>
+          <span className="text-zinc-500">Bạn đã có tài khoản?</span>
           <Link
             href="/signin"
             className="text-red-500 font-medium hover:underline"
