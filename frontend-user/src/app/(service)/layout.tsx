@@ -31,7 +31,9 @@ export default function ServiceLayout({
               className="flex items-center justify-between w-full lg:hidden p-3 rounded-lg bg-white dark:bg-slate-800 shadow-md border border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-slate-700 transition-colors duration-200"
               aria-label="Open menu"
             >
-              <span className="font-medium text-gray-700 dark:text-gray-300">Danh mục</span>
+              <span className="font-medium text-gray-700 dark:text-gray-300">
+                Danh mục
+              </span>
               <svg
                 className="w-6 h-6 text-gray-700 dark:text-gray-300"
                 fill="none"
