@@ -28,7 +28,16 @@ export default function Home() {
     }
 
     const missing = !user.email || !user.phone || !user.address || !user.gender;
-    setShowProfileWarning(!!missing);
+
+    if (missing) {
+      const timer = setTimeout(() => {
+        setShowProfileWarning(true);
+      }, 2000);
+
+      return () => clearTimeout(timer);
+    } else {
+      setShowProfileWarning(false);
+    }
   }, [user]);
   return (
     <div className="min-h-screen bg-[#f9f9f9] dark:bg-[#121212] mx-auto">
@@ -75,7 +84,7 @@ export default function Home() {
 
             {/* Action Button */}
             <Button
-              onClick={() => router.push("/profile")}
+              onPress={() => router.push("/profile")}
               className="w-full bg-red-600 hover:bg-red-700 text-white font-medium py-2.5 rounded-lg transition"
             >
               Đi tới trang hồ sơ

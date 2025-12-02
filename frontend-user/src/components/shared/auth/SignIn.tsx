@@ -111,6 +111,7 @@ export const SignIn = () => {
         (response.status === 200 || response.status === 201) &&
         response.data
       ) {
+        console.log("Google OAuth URL from backend:", response.data?.data);
         window.location.href = response.data?.data;
       } else {
         throw new Error(
