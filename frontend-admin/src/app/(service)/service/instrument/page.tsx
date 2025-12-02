@@ -7,18 +7,23 @@ import RegentStats from "@/components/shared/regents/RegentStats";
 
 const InstrumentPage = () => {
   return (
-    <div className="h-full flex flex-col gap-3 sm:gap-4 md:gap-6">
-      <MainTitle />
+    <div className="w-full h-full flex flex-col">
+      <div className="flex-shrink-0">
+        <MainTitle />
+      </div>
 
-      <RegentStats />
+      <div className="flex-shrink-0 px-4 sm:px-6 py-3 sm:py-4">
+        <RegentStats />
+      </div>
 
-      <div className="flex-1 min-h-0 grid grid-cols-1 lg:grid-cols-3 gap-3 sm:gap-4 md:gap-6">
-        <div className="lg:col-span-1 border border-gray-200 dark:border-gray-700 rounded-lg shadow-md bg-white dark:bg-gray-800 overflow-auto">
-          <CreateRegent />
-        </div>
-
-        <div className="lg:col-span-2 border border-gray-200 dark:border-gray-700 rounded-lg shadow-md bg-white dark:bg-gray-800 overflow-auto">
-          <RegentList />
+      <div className="flex-1 min-h-0 px-4 sm:px-6 pb-4">
+        <div className="h-full grid grid-cols-1 lg:grid-cols-3 gap-3 sm:gap-4">
+          <div className="lg:col-span-2 h-full min-h-[600px] lg:min-h-0">
+            <RegentList />
+          </div>
+          <div className="lg:col-span-1 h-full min-h-[400px] lg:min-h-0">
+            <CreateRegent />
+          </div>
         </div>
       </div>
     </div>

@@ -92,8 +92,8 @@ const CreateRegent = () => {
   });
 
   return (
-    <div className="h-full flex flex-col">
-      <div className="p-6 border-b border-gray-200 dark:border-gray-700">
+    <div className="h-full flex flex-col bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700">
+      <div className="flex-shrink-0 p-3 sm:p-4 border-b border-gray-200 dark:border-gray-700">
         {/* Alert */}
         <AnimatePresence>
           {showAlert && (
@@ -102,22 +102,30 @@ const CreateRegent = () => {
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, y: -20, scale: 0.95 }}
               transition={{ duration: 0.4 }}
-              className="fixed top-20 right-4 z-[999] w-auto max-w-sm"
+              className="fixed top-20 right-4 z-[999] w-auto max-w-[90vw] sm:max-w-sm"
             >
               <Alert
                 color={alertColor}
                 title={alertMessage}
                 variant="flat"
-                className="shadow-lg"
+                className="shadow-lg bg-background border border-gray-200 dark:border-gray-700"
               />
             </motion.div>
           )}
         </AnimatePresence>
-        <div className="flex items-center justify-between">
+        <div className="flex items-center gap-2">
+          <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-lg bg-gray-100 dark:bg-gray-800 flex items-center justify-center flex-shrink-0">
+            <Icon
+              icon="mdi:flask-plus"
+              className="w-4 h-4 sm:w-5 sm:h-5 text-gray-600 dark:text-gray-400"
+            />
+          </div>
           <div>
-            <h2 className="text-xl font-semibold">Thêm mới thuốc thử</h2>
-            <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
-              Nhập thông tin thuốc thử mới vào hệ thống
+            <h2 className="text-base sm:text-lg font-bold text-gray-900 dark:text-white">
+              Thêm mới thuốc thử
+            </h2>
+            <p className="text-xs text-gray-500 dark:text-gray-400">
+              Nhập thông tin chi tiết
             </p>
           </div>
         </div>
@@ -125,9 +133,9 @@ const CreateRegent = () => {
 
       <form
         onSubmit={formik.handleSubmit}
-        className="flex-1 overflow-auto p-6 space-y-4"
+        className="flex-1 overflow-auto p-3 sm:p-4 space-y-3 sm:space-y-4"
       >
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-3 sm:gap-4">
           <Select
             name="reagentType"
             label="Loại thuốc thử"
@@ -410,10 +418,11 @@ const CreateRegent = () => {
         />
 
         {/* Submit Button */}
-        <div className="pt-4 md:col-span-2">
+        <div className="pt-3 sm:pt-4 lg:col-span-2">
           <Button
             type="submit"
             color="default"
+            size="lg"
             isLoading={isLoading}
             isDisabled={
               !formik.isValid ||
@@ -429,11 +438,13 @@ const CreateRegent = () => {
               !formik.values.remarks ||
               formik.values.quantity <= 0
             }
-            className="w-full bg-gray-900 dark:bg-gray-700 text-white 
+            className="w-full bg-black dark:bg-gray-700 text-white 
                      hover:bg-gray-800 dark:hover:bg-gray-600 
-                     font-medium"
+                     font-medium text-sm sm:text-base"
             startContent={
-              !isLoading && <Icon icon="mdi:plus" className="h-5 w-5" />
+              !isLoading && (
+                <Icon icon="mdi:plus" className="h-4 w-4 sm:h-5 sm:w-5" />
+              )
             }
           >
             {isLoading ? "Đang thêm..." : "Thêm Thuốc Thử"}

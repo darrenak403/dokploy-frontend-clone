@@ -291,8 +291,8 @@ const RegentList = () => {
       : filteredBySearch.filter((eq) => eq.status === statusFilter);
 
   return (
-    <div className="h-full flex flex-col">
-      <div className="p-6 border-b border-gray-200 dark:border-gray-700">
+    <div className="h-full flex flex-col bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700">
+      <div className="flex-shrink-0 p-3 sm:p-4 border-b border-gray-200 dark:border-gray-700">
         {/* Alert */}
         <AnimatePresence>
           {showAlert && (
@@ -301,31 +301,41 @@ const RegentList = () => {
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, y: -20, scale: 0.95 }}
               transition={{ duration: 0.4 }}
-              className="fixed top-20 right-4 z-[999] w-auto max-w-sm"
+              className="fixed top-20 right-4 z-[999] w-auto max-w-[90vw] sm:max-w-sm"
             >
               <Alert
                 color={alertColor}
                 title={alertMessage}
                 variant="flat"
-                className="shadow-lg"
+                className="shadow-lg bg-background border border-gray-200 dark:border-gray-700"
               />
             </motion.div>
           )}
         </AnimatePresence>
-        <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
-          <div>
-            <h2 className="text-xl font-semibold">Danh Sách Thuốc Thử</h2>
-            <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
-              {isLoading
-                ? "Đang tải..."
-                : `${filteredEquipments.length} thuốc thử trong hệ thống`}
-            </p>
+        <div className="flex flex-col gap-3">
+          <div className="flex items-center gap-2">
+            <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-lg bg-gray-100 dark:bg-gray-800 flex items-center justify-center flex-shrink-0">
+              <Icon
+                icon="mdi:flask"
+                className="w-4 h-4 sm:w-5 sm:h-5 text-gray-600 dark:text-gray-400"
+              />
+            </div>
+            <div>
+              <h2 className="text-base sm:text-lg font-bold text-gray-900 dark:text-white">
+                Danh sách thuốc thử
+              </h2>
+              <p className="text-xs text-gray-500 dark:text-gray-400">
+                {isLoading
+                  ? "Đang tải..."
+                  : `${filteredEquipments.length} thuốc thử`}
+              </p>
+            </div>
           </div>
 
-          <div className="flex flex-col sm:flex-row gap-4 lg:w-auto sm:w-full">
+          <div className="flex flex-col sm:flex-row gap-2 sm:gap-3">
             <Input
-              className="sm:flex-1 lg:w-64"
-              placeholder="Tìm kiếm theo tên hoặc mã lô..."
+              className="flex-1"
+              placeholder="Tìm kiếm..."
               value={searchQuery}
               onValueChange={setSearchQuery}
               startContent={
@@ -338,14 +348,14 @@ const RegentList = () => {
 
             <Select
               aria-label="Chọn trạng thái"
-              placeholder="Tất cả trạng thái"
+              placeholder="Trạng thái"
               selectedKeys={[statusFilter]}
               onSelectionChange={(keys) =>
                 setStatusFilter(Array.from(keys)[0] as string)
               }
               size="sm"
               variant="bordered"
-              className="w-full sm:w-48"
+              className="w-full sm:w-auto sm:min-w-[160px]"
               disabled={isLoading}
             >
               <SelectItem key="all">Tất cả trạng thái</SelectItem>
@@ -357,7 +367,7 @@ const RegentList = () => {
         </div>
       </div>
 
-      <div className="flex-1 min-h-[500px] overflow-auto p-6">
+      <div className="flex-1 overflow-auto p-3 sm:p-4">
         {isLoading && (
           <div className="flex items-center justify-center py-12">
             <Spinner size="lg" label="Đang tải dữ liệu..." />
@@ -397,7 +407,7 @@ const RegentList = () => {
         )}
 
         {!isLoading && !error && filteredEquipments.length > 0 && (
-          <div className="space-y-4">
+          <div className="space-y-3">
             {filteredEquipments.map((equipment: any, idx: number) => {
               const statusDisplay = getStatusDisplay(equipment.status);
               const updateKey = String(equipment.id);
@@ -411,15 +421,15 @@ const RegentList = () => {
               return (
                 <div
                   key={`${equipment.lotNumber || idx}`}
-                  className="border border-gray-200 dark:border-gray-700 rounded-lg p-4
+                  className="border border-gray-200 dark:border-gray-700 rounded-lg p-3 sm:p-4
                            hover:shadow-md transition-shadow"
                 >
-                  <div className="flex items-center justify-between mb-3">
-                    <h3 className="font-semibold text-lg">
+                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-3">
+                    <h3 className="font-semibold text-base sm:text-lg truncate">
                       {equipment.reagentName}
                     </h3>
 
-                    <div className="flex items-center gap-2">
+                    <div className="flex items-center gap-4 flex-shrink-0">
                       <Dropdown>
                         <DropdownTrigger>
                           <Button
@@ -430,7 +440,7 @@ const RegentList = () => {
                             ${statusDisplay.borderColor} 
                             ${statusDisplay.bgColor}
                             ${statusDisplay.color}
-                            font-medium min-w-[180px]
+                            font-medium min-w-[140px] sm:min-w-[180px] text-xs sm:text-sm
                             ${
                               isAnyItemUpdating
                                 ? "opacity-50 cursor-not-allowed"
@@ -543,7 +553,7 @@ const RegentList = () => {
                     </div>
                   </div>
 
-                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 text-sm">
+                  <div className="grid grid-cols-2 lg:grid-cols-3 gap-2 sm:gap-3 text-xs sm:text-sm">
                     <div>
                       <p className="text-gray-500 dark:text-gray-400">
                         Loại thuốc thử:
