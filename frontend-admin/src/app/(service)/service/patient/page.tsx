@@ -13,7 +13,7 @@ const PatientDashboardPage = () => {
       <div className="flex-shrink-0 mb-3 sm:mb-4 md:mb-6">
         <PatientStat />
       </div>
-      <div className="flex-1 min-h-0 overflow-hidden">
+      <div className="flex-1 min-h-[1000px] lg:min-h-0 overflow-hidden">
         <PatientList />
       </div>
     </div>

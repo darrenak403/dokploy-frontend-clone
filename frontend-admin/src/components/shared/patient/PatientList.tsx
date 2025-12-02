@@ -175,11 +175,11 @@ const PatientList: React.FC = () => {
     <Card className="w-full shadow-none border border-gray-200 flex flex-col h-full">
       <CardBody className="p-0 flex flex-col h-full">
         {/* Header with Search and Filters */}
-        <div className="p-4 border-b border-divider flex-shrink-0">
-          <div className="flex flex-col sm:flex-row gap-4">
+        <div className="p-3 sm:p-4 border-b border-divider flex-shrink-0">
+          <div className="flex flex-col gap-3">
             {/* Search Input */}
             <Input
-              className="flex-1"
+              className="w-full"
               placeholder="Tìm kiếm theo tên, ID, email hoặc điện thoại..."
               value={searchQuery}
               onValueChange={setSearchQuery}
@@ -189,52 +189,58 @@ const PatientList: React.FC = () => {
               size="sm"
               variant="bordered"
             />
-            <Pagination
-              size="sm"
-              color="danger"
-              showControls
-              onChange={setPage}
-              page={data?.data?.currentPage ?? page}
-              total={data?.data?.totalPages ?? 1}
-              key={`${page}-${Number(data?.data?.totalPages ?? 1)}`}
-            />
 
-            {/* Patient Filter */}
-            <Select
-              placeholder="All Patients"
-              selectedKeys={[patientFilter]}
-              onSelectionChange={(keys) =>
-                setPatientFilter(Array.from(keys)[0] as string)
-              }
-              size="sm"
-              variant="bordered"
-              className="w-full sm:w-40"
-            >
-              <SelectItem key="all">Tất cả bệnh nhân</SelectItem>
-              <SelectItem key="active">Đang hoạt động</SelectItem>
-              <SelectItem key="inactive">Ngừng hoạt động</SelectItem>
-            </Select>
+            {/* Filters Row */}
+            <div className="flex flex-col sm:flex-row gap-2 sm:gap-3">
+              <Select
+                placeholder="All Patients"
+                selectedKeys={[patientFilter]}
+                onSelectionChange={(keys) =>
+                  setPatientFilter(Array.from(keys)[0] as string)
+                }
+                size="sm"
+                variant="bordered"
+                className="flex-1 sm:min-w-[160px]"
+              >
+                <SelectItem key="all">Tất cả bệnh nhân</SelectItem>
+                <SelectItem key="active">Đang hoạt động</SelectItem>
+                <SelectItem key="inactive">Ngừng hoạt động</SelectItem>
+              </Select>
 
-            {/* Time Filter */}
-            <Select
-              placeholder="All Time"
-              selectedKeys={[timeFilter]}
-              onSelectionChange={(keys) =>
-                setTimeFilter(Array.from(keys)[0] as string)
-              }
-              size="sm"
-              variant="bordered"
-              className="w-full sm:w-40"
-            >
-              <SelectItem key="all">Tất cả thời gian</SelectItem>
-              <SelectItem key="30days">30 ngày qua</SelectItem>
-              <SelectItem key="6months">6 tháng qua</SelectItem>
-              <SelectItem key="1year">1 năm trước</SelectItem>
-            </Select>
+              <Select
+                placeholder="All Time"
+                selectedKeys={[timeFilter]}
+                onSelectionChange={(keys) =>
+                  setTimeFilter(Array.from(keys)[0] as string)
+                }
+                size="sm"
+                variant="bordered"
+                className="flex-1 sm:min-w-[160px]"
+              >
+                <SelectItem key="all">Tất cả thời gian</SelectItem>
+                <SelectItem key="30days">30 ngày qua</SelectItem>
+                <SelectItem key="6months">6 tháng qua</SelectItem>
+                <SelectItem key="1year">1 năm trước</SelectItem>
+              </Select>
+            </div>
+
+            {/* Pagination */}
+            <div className="flex justify-center">
+              <Pagination
+                size="sm"
+                color="danger"
+                showControls
+                onChange={setPage}
+                page={data?.data?.currentPage ?? page}
+                total={data?.data?.totalPages ?? 1}
+                key={`${page}-${Number(data?.data?.totalPages ?? 1)}`}
+              />
+            </div>
           </div>
         </div>
 
-        <div className="flex-1 min-h-[500px] overflow-auto">
+        {/* Desktop Table View */}
+        <div className="hidden lg:block flex-1 min-h-[500px] overflow-auto">
           <div className="overflow-x-auto">
             <Table
               aria-label="Patient records table"
@@ -245,7 +251,6 @@ const PatientList: React.FC = () => {
               }}
             >
               <TableHeader>
-                {/* <TableColumn>CCCD</TableColumn> */}
                 <TableColumn className="whitespace-nowrap">HỌ TÊN</TableColumn>
                 <TableColumn className="whitespace-nowrap">
                   GIỚI TÍNH
@@ -297,15 +302,12 @@ const PatientList: React.FC = () => {
                     key={patient.id}
                     className="border-b border-zinc-200/50"
                   >
-                    {/* <TableCell>{patient.identityNumber ? patient.identityNumber : "-"}</TableCell> */}
-                    {/* FullName */}
                     <TableCell className="flex flex-col gap-0.5 min-w-[200px]">
                       <span className="font-medium">{patient.fullName}</span>
                       <span className="text-[12px] text-default-500">
                         {patient.patientCode || "-"}
                       </span>
                     </TableCell>
-                    {/* Gender */}
                     <TableCell className="min-w-[100px]">
                       <Chip
                         color={
@@ -320,41 +322,33 @@ const PatientList: React.FC = () => {
                         {getGenderLabel(patient.gender) || "N/A"}
                       </Chip>
                     </TableCell>
-                    {/* Date of Birth */}
                     <TableCell className="min-w-[100px]">
                       {patient.yob ? patient.yob : "-"}
                     </TableCell>
-                    {/* Phone */}
                     <TableCell className="min-w-[130px]">
                       <span className="text-sm">{patient.phone || "-"}</span>
                     </TableCell>
-                    {/* Email */}
                     <TableCell className="min-w-[180px]">
                       <span className="text-sm">{patient.email || "-"}</span>
                     </TableCell>
-                    {/* Address */}
                     <TableCell className="min-w-[200px]">
                       <ExpandableText text={patient.address} maxLength={20} />
                     </TableCell>
-                    {/* Created By */}
                     <TableCell className="min-w-[120px]">
                       <span className="text-sm ">
                         {patient.createdBy || "-"}
                       </span>
                     </TableCell>
-                    {/* Modified By */}
                     <TableCell className="min-w-[120px]">
                       <span className="text-sm">
                         {patient.modifiedBy || "-"}
                       </span>
                     </TableCell>
-                    {/* Created At */}
                     <TableCell className="min-w-[120px]">
                       {patient.createdAt
                         ? String(patient.createdAt).split(" ")[0]
                         : "-"}
                     </TableCell>
-                    {/* Status */}
                     <TableCell className="min-w-[140px]">
                       <Chip
                         color={getStatusColor(patient.deleted)}
@@ -364,7 +358,6 @@ const PatientList: React.FC = () => {
                         {genderStatusLabel(getStatusText(patient.deleted))}
                       </Chip>
                     </TableCell>
-                    {/* Actions */}
                     <TableCell className="min-w-[120px]">
                       <div className="flex items-center justify-center">
                         <Dropdown placement="bottom-end">
@@ -455,6 +448,213 @@ const PatientList: React.FC = () => {
               </TableBody>
             </Table>
           </div>
+        </div>
+
+        {/* Mobile Card View */}
+        <div className="lg:hidden flex-1 overflow-auto p-3 sm:p-4">
+          {isLoading ? (
+            <div className="flex items-center justify-center py-12">
+              <Spinner size="lg" label="Đang tải dữ liệu..." />
+            </div>
+          ) : timeFilteredPatients.length === 0 ? (
+            <div className="text-center py-8">
+              <Icon
+                icon="mdi:account-search"
+                className="mx-auto h-12 w-12 text-default-300 mb-4"
+              />
+              <h3 className="text-base font-medium text-foreground mb-2">
+                Không tìm thấy bệnh nhân
+              </h3>
+              <p className="text-sm text-default-500">
+                Vui lòng điều chỉnh tìm kiếm hoặc bộ lọc của bạn.
+              </p>
+            </div>
+          ) : (
+            <div className="space-y-3">
+              {timeFilteredPatients.map((patient) => (
+                <Card
+                  key={patient.id}
+                  className="border border-gray-200 dark:border-gray-700 shadow-sm"
+                >
+                  <CardBody className="p-3">
+                    {/* Header with Name and Actions */}
+                    <div className="flex items-start justify-between gap-2 mb-3">
+                      <div className="flex-1 min-w-0">
+                        <h3 className="font-semibold text-base truncate">
+                          {patient.fullName}
+                        </h3>
+                        <p className="text-xs text-gray-500 dark:text-gray-400">
+                          {patient.patientCode || "-"}
+                        </p>
+                      </div>
+                      <Dropdown placement="bottom-end">
+                        <DropdownTrigger>
+                          <Button
+                            isIconOnly
+                            size="sm"
+                            variant="light"
+                            aria-label="More actions"
+                          >
+                            <Icon
+                              icon="mdi:dots-vertical"
+                              className="h-5 w-5"
+                            />
+                          </Button>
+                        </DropdownTrigger>
+                        <DropdownMenu>
+                          <DropdownSection>
+                            <DropdownItem
+                              key="view"
+                              onClick={() => {
+                                if (patient.id) handleViewPatient(patient.id);
+                              }}
+                            >
+                              <div className="flex items-center gap-2 text-blue-600 font-semibold">
+                                <Icon icon="mdi:eye" className="h-4 w-4" />
+                                <span>Xem</span>
+                              </div>
+                            </DropdownItem>
+                            <DropdownItem
+                              key="edit"
+                              onClick={() => {
+                                handleOpenUpdateModal(patient);
+                              }}
+                            >
+                              <div className="flex items-center gap-2 text-green-600 font-semibold">
+                                <Icon icon="mdi:pencil" className="h-4 w-4" />
+                                <span>Chỉnh sửa</span>
+                              </div>
+                            </DropdownItem>
+                            <DropdownItem
+                              key="delete"
+                              onClick={async () => {
+                                if (typeof patient.id === "number") {
+                                  await handleDelete(patient.id);
+                                }
+                              }}
+                              aria-disabled={
+                                deletingId === patient.id ||
+                                typeof patient.id !== "number"
+                              }
+                            >
+                              <div className="flex items-center gap-2 text-red-600 font-semibold">
+                                <Icon
+                                  icon={
+                                    deletingId === patient.id
+                                      ? "mdi:loading"
+                                      : "mdi:delete"
+                                  }
+                                  className="h-4 w-4"
+                                />
+                                <span>Xóa</span>
+                              </div>
+                            </DropdownItem>
+                            <DropdownItem
+                              key="addTestOrder"
+                              onClick={async () => {
+                                if (typeof patient.id === "number") {
+                                  handleOpenCreateModal(patient.id);
+                                }
+                              }}
+                              aria-disabled={
+                                addTestOrderId === patient.id ||
+                                typeof patient.id !== "number"
+                              }
+                            >
+                              <div className="flex items-center gap-2 text-green-600 font-semibold">
+                                <Icon icon="mdi:plus" className="h-4 w-4" />
+                                <span>Thêm đơn xét nghiệm</span>
+                              </div>
+                            </DropdownItem>
+                          </DropdownSection>
+                        </DropdownMenu>
+                      </Dropdown>
+                    </div>
+
+                    {/* Status and Gender Chips */}
+                    <div className="flex flex-wrap gap-2 mb-3">
+                      <Chip
+                        color={
+                          getGenderLabel(patient.gender?.toLowerCase()) ===
+                          "male"
+                            ? "primary"
+                            : "secondary"
+                        }
+                        size="sm"
+                        variant="flat"
+                      >
+                        {getGenderLabel(patient.gender) || "N/A"}
+                      </Chip>
+                      <Chip
+                        color={getStatusColor(patient.deleted)}
+                        size="sm"
+                        variant="flat"
+                      >
+                        {genderStatusLabel(getStatusText(patient.deleted))}
+                      </Chip>
+                    </div>
+
+                    {/* Patient Details Grid */}
+                    <div className="grid grid-cols-2 gap-2 text-sm">
+                      <div>
+                        <p className="text-xs text-gray-500 dark:text-gray-400">
+                          Năm sinh
+                        </p>
+                        <p className="font-medium">
+                          {patient.yob ? patient.yob : "-"}
+                        </p>
+                      </div>
+                      <div>
+                        <p className="text-xs text-gray-500 dark:text-gray-400">
+                          Điện thoại
+                        </p>
+                        <p className="font-medium">{patient.phone || "-"}</p>
+                      </div>
+                      {patient.email && (
+                        <div className="col-span-2">
+                          <p className="text-xs text-gray-500 dark:text-gray-400">
+                            Email
+                          </p>
+                          <p className="font-medium truncate">
+                            {patient.email}
+                          </p>
+                        </div>
+                      )}
+                      {patient.address && (
+                        <div className="col-span-2">
+                          <p className="text-xs text-gray-500 dark:text-gray-400">
+                            Địa chỉ
+                          </p>
+                          <ExpandableText
+                            text={patient.address}
+                            maxLength={40}
+                          />
+                        </div>
+                      )}
+                      <div>
+                        <p className="text-xs text-gray-500 dark:text-gray-400">
+                          Người tạo
+                        </p>
+                        <p className="font-medium text-xs">
+                          {patient.createdBy || "-"}
+                        </p>
+                      </div>
+                      <div>
+                        <p className="text-xs text-gray-500 dark:text-gray-400">
+                          Ngày tạo
+                        </p>
+                        <p className="font-medium text-xs">
+                          {patient.createdAt
+                            ? String(patient.createdAt).split(" ")[0]
+                            : "-"}
+                        </p>
+                      </div>
+                    </div>
+                  </CardBody>
+                </Card>
+              ))}
+            </div>
+          )}
         </div>
       </CardBody>
     </Card>

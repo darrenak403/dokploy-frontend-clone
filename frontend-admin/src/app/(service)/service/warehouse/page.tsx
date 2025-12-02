@@ -7,22 +7,23 @@ import WareHouseStats from "@/components/shared/warehouse/WareHouseStats";
 
 const WarehousePage = () => {
   return (
-    <div className="h-full w-full flex flex-col gap-3 sm:gap-4 md:gap-6">
+    <div className="w-full h-full flex flex-col">
       <div className="flex-shrink-0">
         <MainTitle />
       </div>
 
-      <div className="flex-shrink-0">
+      <div className="flex-shrink-0 px-4 sm:px-6 py-3 sm:py-4">
         <WareHouseStats />
       </div>
 
-      <div className="flex-1 min-h-0 grid grid-cols-1 lg:grid-cols-3 gap-3 sm:gap-4 md:gap-6 overflow-hidden">
-        <div className="h-full lg:col-span-1 border border-gray-200 dark:border-gray-700 rounded-lg shadow-md bg-white dark:bg-gray-800 overflow-y-auto">
-          <CreateWareHouse />
-        </div>
-
-        <div className="h-full lg:col-span-2 border border-gray-200 dark:border-gray-700 rounded-lg shadow-md bg-white dark:bg-gray-800 overflow-y-auto">
-          <WareHouseList />
+      <div className="flex-1 min-h-0 px-4 sm:px-6 pb-4">
+        <div className="h-full grid grid-cols-1 lg:grid-cols-3 gap-3 sm:gap-4">
+          <div className="lg:col-span-2 h-full min-h-[600px] lg:min-h-0">
+            <WareHouseList />
+          </div>
+          <div className="lg:col-span-1 h-full min-h-[400px] lg:min-h-0">
+            <CreateWareHouse />
+          </div>
         </div>
       </div>
     </div>

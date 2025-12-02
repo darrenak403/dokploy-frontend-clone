@@ -60,8 +60,8 @@ const CreateWareHouse = () => {
   });
 
   return (
-    <div className="h-full flex flex-col">
-      <div className="p-6 border-b border-gray-200 dark:border-gray-700">
+    <div className="h-full flex flex-col bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700">
+      <div className="p-3 sm:p-4 border-b border-gray-200 dark:border-gray-700">
         {/* Alert */}
         <AnimatePresence>
           {showAlert && (
@@ -81,11 +81,19 @@ const CreateWareHouse = () => {
             </motion.div>
           )}
         </AnimatePresence>
-        <div className="flex items-center justify-between">
+        <div className="flex items-center gap-3">
+          <div className="flex-shrink-0 w-8 h-8 sm:w-10 sm:h-10 rounded-lg bg-gray-100 dark:bg-gray-800 flex items-center justify-center">
+            <Icon
+              icon="mdi:package-variant-plus"
+              className="w-4 h-4 sm:w-5 sm:h-5 text-gray-900 dark:text-white"
+            />
+          </div>
           <div>
-            <h2 className="text-xl font-semibold">Thêm mới thiết bị</h2>
-            <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
-              Nhập thông tin thiết bị mới vào hệ thống
+            <h2 className="text-base sm:text-lg font-semibold">
+              Thêm mới thiết bị
+            </h2>
+            <p className="text-xs text-gray-600 dark:text-gray-400 mt-0.5">
+              Nhập thông tin thiết bị mới
             </p>
           </div>
         </div>
@@ -93,7 +101,7 @@ const CreateWareHouse = () => {
 
       <form
         onSubmit={formik.handleSubmit}
-        className="flex-1 overflow-auto p-6 space-y-4"
+        className="flex-1 overflow-auto p-3 sm:p-4 space-y-3"
       >
         <Input
           name="name"
@@ -153,10 +161,11 @@ const CreateWareHouse = () => {
         />
 
         {/* Submit Button */}
-        <div className="pt-4">
+        <div className="pt-2">
           <Button
             type="submit"
             color="default"
+            size="lg"
             isLoading={isLoading}
             isDisabled={
               !formik.isValid ||
@@ -167,7 +176,9 @@ const CreateWareHouse = () => {
                      hover:bg-gray-800 dark:hover:bg-gray-600 
                      font-medium"
             startContent={
-              !isLoading && <Icon icon="mdi:plus" className="h-5 w-5" />
+              !isLoading && (
+                <Icon icon="mdi:plus" className="h-4 w-4 sm:h-5 sm:w-5" />
+              )
             }
           >
             {isLoading ? "Đang thêm..." : "Thêm Thiết Bị"}

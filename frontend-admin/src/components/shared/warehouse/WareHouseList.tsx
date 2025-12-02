@@ -153,8 +153,8 @@ const WareHouseList = () => {
   }, []);
 
   return (
-    <div className="h-full flex flex-col">
-      <div className="p-6 border-b border-gray-200 dark:border-gray-700">
+    <div className="h-full flex flex-col bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700">
+      <div className="p-3 sm:p-4 border-b border-gray-200 dark:border-gray-700">
         {/* Alert */}
         <AnimatePresence>
           {showAlert && (
@@ -174,19 +174,29 @@ const WareHouseList = () => {
             </motion.div>
           )}
         </AnimatePresence>
-        <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
-          <div>
-            <h2 className="text-xl font-semibold">Danh Sách Thiết Bị</h2>
-            <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
-              {isLoading
-                ? "Đang tải..."
-                : `${filteredEquipments.length} thiết bị trong hệ thống`}
-            </p>
+        <div className="flex flex-col gap-3">
+          <div className="flex items-center gap-3">
+            <div className="flex-shrink-0 w-8 h-8 sm:w-10 sm:h-10 rounded-lg bg-gray-100 dark:bg-gray-800 flex items-center justify-center">
+              <Icon
+                icon="mdi:package-variant"
+                className="w-4 h-4 sm:w-5 sm:h-5 text-gray-900 dark:text-white"
+              />
+            </div>
+            <div>
+              <h2 className="text-base sm:text-lg font-semibold">
+                Danh Sách Thiết Bị
+              </h2>
+              <p className="text-xs text-gray-600 dark:text-gray-400 mt-0.5">
+                {isLoading
+                  ? "Đang tải..."
+                  : `${filteredEquipments.length} thiết bị trong hệ thống`}
+              </p>
+            </div>
           </div>
 
-          <div className="flex flex-col sm:flex-row gap-4 lg:w-auto sm:w-full">
+          <div className="flex flex-col sm:flex-row gap-2 sm:gap-3 w-full">
             <Input
-              className="sm:flex-1 lg:w-64"
+              className="flex-1"
               placeholder="Tìm kiếm theo tên hoặc số seri..."
               value={searchQuery}
               onValueChange={setSearchQuery}
@@ -207,7 +217,7 @@ const WareHouseList = () => {
               }
               size="sm"
               variant="bordered"
-              className="w-full sm:w-48"
+              className="w-full sm:min-w-[160px] sm:max-w-[200px]"
               disabled={isLoading}
             >
               <SelectItem key="all">Tất cả trạng thái</SelectItem>
@@ -221,7 +231,7 @@ const WareHouseList = () => {
         </div>
       </div>
 
-      <div className="flex-1 overflow-auto p-6">
+      <div className="flex-1 overflow-auto p-3 sm:p-4">
         {isLoading && (
           <div className="flex items-center justify-center py-12">
             <Spinner size="lg" label="Đang tải dữ liệu..." />
@@ -261,7 +271,7 @@ const WareHouseList = () => {
         )}
 
         {!isLoading && !error && filteredEquipments.length > 0 && (
-          <div className="space-y-4">
+          <div className="space-y-3">
             {filteredEquipments.map((equipment) => {
               const statusDisplay = getStatusDisplay(equipment.status);
               const isThisItemUpdating = isUpdating === equipment.id;
@@ -270,11 +280,13 @@ const WareHouseList = () => {
               return (
                 <div
                   key={equipment.id}
-                  className="border border-gray-200 dark:border-gray-700 rounded-lg p-4
+                  className="border border-gray-200 dark:border-gray-700 rounded-lg p-3 sm:p-4
                            hover:shadow-md transition-shadow"
                 >
-                  <div className="flex items-center justify-between mb-3">
-                    <h3 className="font-semibold text-lg">{equipment.name}</h3>
+                  <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 sm:gap-0 mb-3">
+                    <h3 className="font-semibold text-base sm:text-lg">
+                      {equipment.name}
+                    </h3>
 
                     <Dropdown>
                       <DropdownTrigger>
@@ -286,7 +298,7 @@ const WareHouseList = () => {
                             ${statusDisplay.borderColor} 
                             ${statusDisplay.bgColor}
                             ${statusDisplay.color}
-                            font-medium min-w-[180px]
+                            font-medium min-w-[140px] sm:min-w-[180px] w-full sm:w-auto
                             ${
                               isAnyItemUpdating
                                 ? "opacity-50 cursor-not-allowed"
@@ -383,21 +395,21 @@ const WareHouseList = () => {
                     </Dropdown>
                   </div>
 
-                  <div className="grid grid-cols-2 gap-3 text-sm">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-3 text-sm">
                     <div>
-                      <p className="text-gray-500 dark:text-gray-400">
+                      <p className="text-xs text-gray-500 dark:text-gray-400">
                         Số Seri:
                       </p>
                       <p className="font-medium">{equipment.serialNumber}</p>
                     </div>
                     <div>
-                      <p className="text-gray-500 dark:text-gray-400">
+                      <p className="text-xs text-gray-500 dark:text-gray-400">
                         Người Tạo:
                       </p>
                       <p className="font-medium">{equipment.createdBy}</p>
                     </div>
                     <div>
-                      <p className="text-gray-500 dark:text-gray-400">
+                      <p className="text-xs text-gray-500 dark:text-gray-400">
                         Tạo Lúc:
                       </p>
                       <p className="font-medium">
