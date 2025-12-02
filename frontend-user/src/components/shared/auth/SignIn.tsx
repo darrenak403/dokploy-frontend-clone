@@ -312,9 +312,9 @@ export const SignIn = () => {
             </Button>
           </div>
 
-          <div className="items-center justify-center gap-4 hidden">
+          <div className="relative flex flex-col sm:flex-row items-center justify-center gap-4 mt-2 sm:mt-4 w-full">
             {/* Login google button */}
-            <div className="mt-8 relative w-full sm:w-auto hidden">
+            <div className="w-full sm:w-auto">
               <Button
                 variant="bordered"
                 className="flex items-center justify-center gap-2 w-full px-4 sm:px-8 py-1 rounded-[8px] border border-zinc-200 dark:border-zinc-700 hover:bg-zinc-100 dark:hover:bg-zinc-800 dark:bg-slate-700 text-foreground"
@@ -328,14 +328,9 @@ export const SignIn = () => {
                   </p>
                 </div>
               </Button>
-              <div className="absolute top-[-15px] right-[-10px]">
-                <p className="text-[10px] border-[1px] rounded-2xl px-1 py-1 bg-zinc-100 dark:bg-zinc-800 text-foreground border-zinc-200 dark:border-zinc-700 whitespace-nowrap">
-                  Client-Facing
-                </p>
-              </div>
             </div>
             {/* Login facebook button */}
-            <div className="mt-8 relative w-full sm:w-auto hidden">
+            <div className="w-full sm:w-auto hidden">
               <div>
                 <Button
                   variant="bordered"
@@ -348,11 +343,6 @@ export const SignIn = () => {
                     </p>
                   </div>
                 </Button>
-              </div>
-              <div className="absolute top-[-15px] right-[-10px]">
-                <p className="text-[10px] border-[1px] rounded-2xl px-1 py-1 bg-zinc-100 dark:bg-zinc-800 text-foreground border-zinc-200 dark:border-zinc-700 whitespace-nowrap">
-                  Client-Facing
-                </p>
               </div>
             </div>
           </div>
