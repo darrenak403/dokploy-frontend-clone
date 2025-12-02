@@ -51,10 +51,10 @@ const InitialOptions: React.FC<InitialOptionsProps> = ({
     <div className="p-6 flex flex-col gap-6">
       {/* Welcome Section */}
       <div className="text-center">
-        <h3 className="text-xl font-semibold text-gray-800 mb-2">
+        <h3 className="text-xl font-semibold text-gray-800 dark:text-gray-200 mb-2">
           Xin chào! Tôi là Dr.Meddy 👨‍⚕️
         </h3>
-        <p className="text-sm text-gray-500">
+        <p className="text-sm text-gray-500 dark:text-gray-400">
           Trợ lý AI chuyên về xét nghiệm máu. Tôi có thể giúp gì cho bạn hôm
           nay?
         </p>
@@ -65,25 +65,25 @@ const InitialOptions: React.FC<InitialOptionsProps> = ({
         {options.map((option) => (
           <button
             key={option.id}
-            className="w-full bg-white border-2 border-gray-200 rounded-xl p-5 cursor-pointer transition-all duration-200 text-left flex flex-row gap-4 items-center hover:border-red-500 hover:shadow-lg hover:-translate-y-0.5"
+            className="w-full bg-white dark:bg-[#2a2a2a] border-2 border-gray-200 dark:border-[#3a3a3a] rounded-xl p-5 cursor-pointer transition-all duration-200 text-left flex flex-row gap-4 items-center hover:border-red-500 dark:hover:border-red-500 hover:shadow-lg hover:-translate-y-0.5"
             onClick={() => handleOptionClick(option)}
           >
             {/* Icon */}
-            <div className="w-12 h-12 min-w-[48px] bg-red-50 rounded-xl flex items-center justify-center">
-              <Icon icon={option.icon} className="text-2xl text-red-500" />
+            <div className="w-12 h-12 min-w-[48px] bg-red-50 dark:bg-red-900/20 rounded-xl flex items-center justify-center">
+              <Icon icon={option.icon} className="text-2xl text-red-500 dark:text-red-400" />
             </div>
 
             {/* Content */}
             <div className="flex-1 flex flex-col gap-1">
-              <h4 className="text-base font-semibold text-gray-800 m-0 flex items-center gap-2 flex-wrap">
+              <h4 className="text-base font-semibold text-gray-800 dark:text-gray-200 m-0 flex items-center gap-2 flex-wrap">
                 {option.title}
                 {option.inDevelopment && (
-                  <span className="text-xs font-medium text-amber-600 bg-amber-100 px-2 py-0.5 rounded-md">
+                  <span className="text-xs font-medium text-amber-600 dark:text-amber-400 bg-amber-100 dark:bg-amber-900/30 px-2 py-0.5 rounded-md">
                     🚧 Đang phát triển
                   </span>
                 )}
               </h4>
-              <p className="text-sm text-gray-500 m-0 leading-relaxed">
+              <p className="text-sm text-gray-500 dark:text-gray-400 m-0 leading-relaxed">
                 {option.description}
               </p>
             </div>
