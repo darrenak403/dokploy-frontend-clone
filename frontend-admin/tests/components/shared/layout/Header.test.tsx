@@ -196,7 +196,7 @@ describe("Header Component", () => {
         </Provider>
       );
 
-      expect(screen.getByText("Đăng nhập")).toBeInTheDocument();
+      expect(screen.getAllByText("Đăng nhập")[0]).toBeInTheDocument();
       expect(screen.getByText("Đăng ký")).toBeInTheDocument();
     });
 

@@ -1,16 +1,16 @@
 "use client";
-import { useState } from "react";
+// import { useState } from "react";
 
 import ProtectedRoute from "@/libs/ProtectedRoute";
 
-import { Sidebar } from "@/components/shared/profile/Sidebar";
+// import { Sidebar } from "@/components/shared/profile/Sidebar";
 
 export default function ServiceLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  const [sidebarOpen, setSidebarOpen] = useState(false);
+  // const [sidebarOpen, setSidebarOpen] = useState(false);
 
   return (
     <ProtectedRoute

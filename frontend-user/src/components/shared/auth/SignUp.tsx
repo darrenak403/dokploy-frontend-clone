@@ -51,8 +51,8 @@ export const SignUp = () => {
   const [googleLoading, setGoogleLoading] = useState(false);
 
   //loginFaceBook
-  const facebookLoginType = "facebook";
-  const [facebookLoading, setFacebookLoading] = useState(false);
+  // const facebookLoginType = "facebook";
+  // const [facebookLoading, setFacebookLoading] = useState(false);
 
   const formik = useFormik<SignUpFormValues>({
     initialValues: {
@@ -124,41 +124,41 @@ export const SignUp = () => {
     }
   };
 
-  const handleLoginFacebook = async () => {
-    try {
-      setFacebookLoading(true);
+  // const handleLoginFacebook = async () => {
+  //   try {
+  //     setFacebookLoading(true);
 
-      const response = await axiosNoAuth.get<{
-        status: number;
-        message: string | null;
-        data: string;
-      }>(
-        `/auth/google/social?loginType=${encodeURIComponent(facebookLoginType)}`
-      );
+  //     const response = await axiosNoAuth.get<{
+  //       status: number;
+  //       message: string | null;
+  //       data: string;
+  //     }>(
+  //       `/auth/google/social?loginType=${encodeURIComponent(facebookLoginType)}`
+  //     );
 
-      if (
-        (response.status === 200 || response.status === 201) &&
-        response.data
-      ) {
-        window.location.href = response.data?.data;
-      } else {
-        throw new Error(
-          response.data.data || "thất bại khi lấy URL OAuth của FaceBook"
-        );
-      }
-    } catch (error) {
-      setAlertColor("danger");
-      setAlertMessage(
-        error instanceof Error
-          ? error.message
-          : "thất bại khi đăng nhập FaceBook"
-      );
-      setShowAlert(true);
-      setTimeout(() => setShowAlert(false), 1000);
-    } finally {
-      setFacebookLoading(false);
-    }
-  };
+  //     if (
+  //       (response.status === 200 || response.status === 201) &&
+  //       response.data
+  //     ) {
+  //       window.location.href = response.data?.data;
+  //     } else {
+  //       throw new Error(
+  //         response.data.data || "thất bại khi lấy URL OAuth của FaceBook"
+  //       );
+  //     }
+  //   } catch (error) {
+  //     setAlertColor("danger");
+  //     setAlertMessage(
+  //       error instanceof Error
+  //         ? error.message
+  //         : "thất bại khi đăng nhập FaceBook"
+  //     );
+  //     setShowAlert(true);
+  //     setTimeout(() => setShowAlert(false), 1000);
+  //   } finally {
+  //     setFacebookLoading(false);
+  //   }
+  // };
 
   return (
     <div className="wrapper w-full max-w-[90vw] sm:max-w-[500px] md:max-w-[600px] lg:min-w-[30vw] min-h-[75vh] flex items-center justify-center dark:bg-slate-800 bg-background px-4 sm:px-6 md:px-8 py-8">

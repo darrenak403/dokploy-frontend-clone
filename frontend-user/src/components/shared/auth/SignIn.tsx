@@ -44,8 +44,8 @@ export const SignIn = () => {
   const [googleLoading, setGoogleLoading] = useState(false);
 
   //loginFaceBook
-  const facebookLoginType = "facebook";
-  const [facebookLoading, setFacebookLoading] = useState(false);
+  // const facebookLoginType = "facebook";
+  // const [facebookLoading, setFacebookLoading] = useState(false);
 
   //swr
   const { login, loading } = useFetchLoginSwrSingleton();
@@ -136,41 +136,41 @@ export const SignIn = () => {
     }
   };
 
-  const handleLoginFacebook = async () => {
-    try {
-      setFacebookLoading(true);
+  // const handleLoginFacebook = async () => {
+  //   try {
+  //     setFacebookLoading(true);
 
-      const response = await axiosNoAuth.get<{
-        status: number;
-        message: string | null;
-        data: string;
-      }>(
-        `/auth/google/social?loginType=${encodeURIComponent(facebookLoginType)}`
-      );
+  //     const response = await axiosNoAuth.get<{
+  //       status: number;
+  //       message: string | null;
+  //       data: string;
+  //     }>(
+  //       `/auth/google/social?loginType=${encodeURIComponent(facebookLoginType)}`
+  //     );
 
-      if (
-        (response.status === 200 || response.status === 201) &&
-        response.data
-      ) {
-        window.location.href = response.data?.data;
-      } else {
-        throw new Error(
-          response.data.data || "thất bại khi lấy URL OAuth của FaceBook"
-        );
-      }
-    } catch (error) {
-      setAlertColor("danger");
-      setAlertMessage(
-        error instanceof Error
-          ? error.message
-          : "thất bại khi đăng nhập FaceBook"
-      );
-      setShowAlert(true);
-      setTimeout(() => setShowAlert(false), 1000);
-    } finally {
-      setFacebookLoading(false);
-    }
-  };
+  //     if (
+  //       (response.status === 200 || response.status === 201) &&
+  //       response.data
+  //     ) {
+  //       window.location.href = response.data?.data;
+  //     } else {
+  //       throw new Error(
+  //         response.data.data || "thất bại khi lấy URL OAuth của FaceBook"
+  //       );
+  //     }
+  //   } catch (error) {
+  //     setAlertColor("danger");
+  //     setAlertMessage(
+  //       error instanceof Error
+  //         ? error.message
+  //         : "thất bại khi đăng nhập FaceBook"
+  //     );
+  //     setShowAlert(true);
+  //     setTimeout(() => setShowAlert(false), 1000);
+  //   } finally {
+  //     setFacebookLoading(false);
+  //   }
+  // };
 
   useEffect(() => {
     const error = searchParams?.get("error");

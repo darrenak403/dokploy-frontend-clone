@@ -57,9 +57,7 @@ describe("MonitoringPage", () => {
 
   it("should have proper layout structure", () => {
     const { container } = render(<MonitoringPage />);
-    const mainDiv = container.querySelector(
-      ".max-w-screen.mx-auto.h-full.min-h-0"
-    );
+    const mainDiv = container.querySelector(".flex.flex-col");
     expect(mainDiv).toBeInTheDocument();
   });
 

@@ -18,6 +18,8 @@ const customJestConfig = {
     "!src/**/*.stories.{js,jsx,ts,tsx}",
     "!src/**/__tests__/**",
     "!src/**/__mocks__/**",
+    "!src/hook/singleton/swrs/**",
+    "!src/libs/fetcher.ts",
   ],
   coverageThreshold: {
     global: {

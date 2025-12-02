@@ -95,8 +95,8 @@ describe("SignUp", () => {
   it("renders social login buttons", () => {
     render(<SignUp />);
 
-    expect(screen.getByText("Login with Google")).toBeInTheDocument();
-    expect(screen.getByText("Login with Facebook")).toBeInTheDocument();
+    expect(screen.getByText("Đăng nhập bằng Google")).toBeInTheDocument();
+    expect(screen.getByText("Đăng nhập bằng Facebook")).toBeInTheDocument();
   });
 
   it("renders sign in link", () => {
