@@ -84,7 +84,7 @@ export default function NotFound() {
   }, [gsap]);
 
   return (
-    <div className="fixed top-0 min-h-screen w-full overflow-hidden bg-gradient-to-br from-background via-background to-background">
+    <div className="relative h-[80vh] w-full overflow-hidden bg-gradient-to-br from-background via-background to-background">
       {/* 3D Background Scene */}
       <div className="absolute inset-0 z-0">
         <MedicalScene3D />
@@ -94,17 +94,17 @@ export default function NotFound() {
       <div className="absolute inset-0 z-10 bg-gradient-to-b from-background/80 via-background/60 to-background/80" />
 
       {/* Content */}
-      <div className="relative z-20 flex min-h-screen items-center justify-center px-6 py-12">
+      <div className="relative z-20 flex h-[80vh] items-center justify-center px-3 sm:px-4 md:px-6 py-6 sm:py-8 md:py-12">
         <div className="max-w-2xl text-center">
           {/* Error Code */}
-          <div className="mb-8 flex items-center justify-center gap-4">
+          <div className="mb-4 sm:mb-6 md:mb-8 flex items-center justify-center gap-2 sm:gap-3 md:gap-4">
             <Icon
               icon="mdi:flask"
-              className="h-16 w-16 text-red-500 animate-pulse"
+              className="h-8 w-8 sm:h-12 sm:w-12 md:h-16 md:w-16 text-red-500 animate-pulse"
             />
             <h1
               ref={titleRef}
-              className="text-[120px] font-bold leading-none tracking-tighter text-transparent bg-clip-text bg-gradient-to-r from-red-500 via-blue-500 to-red-500"
+              className="text-[120px] sm:text-[120px] md:text-[120px] lg:text-[140px] font-bold leading-none tracking-tighter text-transparent bg-clip-text bg-gradient-to-r from-red-500 via-blue-500 to-red-500"
               style={{
                 filter: "drop-shadow(0 0 20px rgba(59, 130, 246, 0.3))",
               }}
@@ -113,46 +113,46 @@ export default function NotFound() {
             </h1>
             <Icon
               icon="mdi:test-tube"
-              className="h-16 w-16 text-blue-500 animate-pulse"
+              className="h-8 w-8 sm:h-12 sm:w-12 md:h-16 md:w-16 text-blue-500 animate-pulse"
             />
           </div>
 
           {/* Error Message */}
-          <div className="mb-12 space-y-4">
+          <div className="mb-6 sm:mb-8 md:mb-12 space-y-2 sm:space-y-3 md:space-y-4">
             <p
               ref={subtitleRef}
-              className="text-2xl font-semibold text-foreground md:text-3xl"
+              className="text-base sm:text-xl md:text-2xl lg:text-3xl font-semibold text-foreground px-2 sm:px-0"
             >
               Kết Quả Xét Nghiệm Không Tìm Thấy
             </p>
-            <div ref={contentRef} className="space-y-3">
-              <div className="flex items-center justify-center gap-2 text-gray-600 dark:text-gray-400">
-                <Icon icon="mdi:alert-circle" className="h-5 w-5" />
-                <p className="text-lg">
+            <div
+              ref={contentRef}
+              className="space-y-2 sm:space-y-3 px-2 sm:px-0"
+            >
+              <div className="flex items-center justify-center gap-1.5 sm:gap-2 text-gray-600 dark:text-gray-400">
+                <Icon
+                  icon="mdi:alert-circle"
+                  className="h-4 w-4 sm:h-5 sm:w-5"
+                />
+                <p className="text-sm sm:text-base md:text-lg">
                   Trang bạn đang tìm kiếm không tồn tại trong hệ thống
                 </p>
               </div>
-              <p className="text-base text-gray-500 dark:text-gray-400">
-                Đường dẫn:{" "}
-                <code className="rounded bg-gray-100 dark:bg-gray-800 px-2 py-1 text-sm font-mono text-red-600 dark:text-red-400">
-                  {pathname}
-                </code>
-              </p>
             </div>
           </div>
 
           {/* Action Buttons */}
-          <div className="flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
+          <div className="flex items-center gap-2 sm:gap-3 md:gap-4 sm:flex-row sm:justify-center w-full px-2 sm:px-0">
             <Button
               as={Link}
               href="/service"
               color="danger"
-              size="lg"
-              className="group relative overflow-hidden"
+              size="sm"
+              className="group relative overflow-hidden w-full sm:w-auto text-xs sm:text-sm md:text-base"
               startContent={
                 <Icon
                   icon="mdi:home"
-                  className="h-5 w-5 transition-transform group-hover:scale-110"
+                  className="h-4 w-4 sm:h-5 sm:w-5 transition-transform group-hover:scale-110"
                 />
               }
             >
@@ -163,12 +163,12 @@ export default function NotFound() {
               as={Link}
               href="/service/test-order"
               variant="bordered"
-              size="lg"
-              className="group"
+              size="sm"
+              className="group w-full sm:w-auto text-xs sm:text-sm md:text-base"
               startContent={
                 <Icon
                   icon="mdi:test-tube"
-                  className="h-5 w-5 transition-transform group-hover:rotate-12"
+                  className="h-4 w-4 sm:h-5 sm:w-5 transition-transform group-hover:rotate-12"
                 />
               }
             >
@@ -177,18 +177,21 @@ export default function NotFound() {
           </div>
 
           {/* Medical Info Card */}
-          <div className="mt-16 rounded-2xl border border-primary/20 bg-card/50 backdrop-blur-sm p-6 shadow-lg">
-            <div className="flex items-start gap-4">
+          <div className="mt-6 sm:mt-10 md:mt-16 rounded-xl sm:rounded-2xl border border-primary/20 bg-card/50 backdrop-blur-sm p-3 sm:p-4 md:p-6 shadow-lg mx-2 sm:mx-0">
+            <div className="flex items-start gap-2 sm:gap-3 md:gap-4">
               <div className="flex-shrink-0">
-                <div className="rounded-full bg-gradient-to-r from-red-500 to-blue-500 p-3">
-                  <Icon icon="mdi:flask" className="h-6 w-6 text-white" />
+                <div className="rounded-full bg-gradient-to-r from-red-500 to-blue-500 p-2 sm:p-2.5 md:p-3">
+                  <Icon
+                    icon="mdi:flask"
+                    className="h-4 w-4 sm:h-5 sm:w-5 md:h-6 md:w-6 text-white"
+                  />
                 </div>
               </div>
               <div className="text-left">
-                <h3 className="mb-2 text-lg font-semibold text-foreground">
+                <h3 className="mb-1 sm:mb-1.5 md:mb-2 text-sm sm:text-base md:text-lg font-semibold text-foreground">
                   Hệ Thống Xét Nghiệm Máu
                 </h3>
-                <p className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">
+                <p className="text-xs sm:text-sm text-gray-600 dark:text-gray-400 leading-relaxed">
                   Nếu bạn cần hỗ trợ hoặc có câu hỏi về kết quả xét nghiệm của
                   mình, vui lòng liên hệ với bộ phận chăm sóc khách hàng hoặc
                   quay lại trang chủ để tra cứu thông tin.
@@ -200,9 +203,9 @@ export default function NotFound() {
       </div>
 
       {/* Decorative Elements */}
-      <div className="absolute top-10 left-10 h-20 w-20 rounded-full bg-gradient-to-r from-red-500 to-blue-500 opacity-20 blur-3xl animate-pulse" />
-      <div className="absolute bottom-10 right-10 h-32 w-32 rounded-full bg-gradient-to-r from-blue-500 to-red-500 opacity-20 blur-3xl animate-pulse" />
-      <div className="absolute top-1/2 left-1/4 h-16 w-16 rounded-full bg-primary/30 opacity-30 blur-2xl" />
+      <div className="absolute top-4 sm:top-6 md:top-10 left-4 sm:left-6 md:left-10 h-12 w-12 sm:h-16 sm:w-16 md:h-20 md:w-20 rounded-full bg-gradient-to-r from-red-500 to-blue-500 opacity-20 blur-2xl sm:blur-3xl animate-pulse" />
+      <div className="absolute bottom-4 sm:bottom-6 md:bottom-10 right-4 sm:right-6 md:right-10 h-16 w-16 sm:h-24 sm:w-24 md:h-32 md:w-32 rounded-full bg-gradient-to-r from-blue-500 to-red-500 opacity-20 blur-2xl sm:blur-3xl animate-pulse" />
+      <div className="absolute top-1/2 left-1/4 h-10 w-10 sm:h-12 sm:w-12 md:h-16 md:w-16 rounded-full bg-primary/30 opacity-30 blur-xl sm:blur-2xl" />
     </div>
   );
 }

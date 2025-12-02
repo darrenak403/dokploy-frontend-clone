@@ -337,7 +337,7 @@ export const SignIn = () => {
               </Button>
             </div>
             {/* Login facebook button */}
-            <div className="w-full sm:w-auto hidden">
+            <div className="relative w-full sm:w-auto">
               <div>
                 <Button
                   variant="bordered"
@@ -350,6 +350,11 @@ export const SignIn = () => {
                     </p>
                   </div>
                 </Button>
+              </div>
+              <div className="absolute top-[-15px] right-[-10px]">
+                <p className="text-[10px] border-[1px] rounded-2xl px-1 py-1 bg-zinc-100 dark:bg-zinc-800 text-foreground border-zinc-200 dark:border-zinc-700 whitespace-nowrap">
+                  Updating
+                </p>
               </div>
             </div>
           </div>
