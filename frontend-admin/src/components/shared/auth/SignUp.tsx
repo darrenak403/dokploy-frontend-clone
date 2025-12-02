@@ -83,8 +83,8 @@ export const SignUp = () => {
   });
 
   return (
-    <div className="wrapper min-w-[30vw] min-h-[75vh] flex items-center justify-center shadow-[0_0_10px_rgba(0,0,0,0.15)] rounded-[20px]">
-      <div className="container flex flex-col items-center justify-center bg-white">
+    <div className="wrapper w-full max-w-[90vw] sm:max-w-[500px] md:max-w-[600px] lg:min-w-[30vw] min-h-[75vh] flex items-center justify-center dark:bg-slate-800 bg-background px-4 sm:px-6 md:px-8 py-8">
+      <div className="container flex flex-col items-center justify-center w-full">
         {/* Alert */}
         <AnimatePresence>
           {showAlert && (
@@ -93,7 +93,7 @@ export const SignUp = () => {
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, y: -20, scale: 0.95 }}
               transition={{ duration: 0.4 }}
-              className="fixed top-4 right-4 z-[999] w-auto max-w-sm"
+              className="fixed top-4 right-4 z-[999] w-auto max-w-[calc(100vw-2rem)] sm:max-w-sm"
             >
               <Alert
                 color={alertColor}
@@ -104,25 +104,36 @@ export const SignUp = () => {
             </motion.div>
           )}
         </AnimatePresence>
+
         {/* Logo */}
-        <div className="image flex items-center gap-2">
-          <Image src={AuthLogo} alt="Sign Up" width={400} quality={100} />
+        <div className="image flex items-center gap-2 w-full max-w-[300px] sm:max-w-[350px] md:max-w-[400px]">
+          <Image
+            src={AuthLogo}
+            alt="Sign Up"
+            width={400}
+            height={400}
+            quality={100}
+            className="w-full h-auto"
+          />
         </div>
 
         {/* Divider */}
-        <div className="flex items-center w-[450px] mt-8">
-          <div className="flex-1 h-px bg-zinc-200" />
-          <span className="mx-2 text-xs text-zinc-400">or</span>
-          <div className="flex-1 h-px bg-zinc-200" />
+        <div className="flex items-center w-full max-w-[350px] sm:max-w-[450px] mt-4">
+          <div className="flex-1 h-px bg-zinc-200 dark:bg-zinc-700" />
+          <span className="mx-2 text-xs text-zinc-400 dark:text-zinc-500">
+            or
+          </span>
+          <div className="flex-1 h-px bg-zinc-200 dark:bg-zinc-700" />
         </div>
 
         {/* Form */}
         <form
-          className="min-w-[400px] flex flex-col gap-4 mt-6"
+          className="w-full max-w-[350px] sm:max-w-[500px] flex flex-col items-center justify-center gap-3 sm:gap-4 mt-4 sm:mt-6"
           onSubmit={formik.handleSubmit}
           noValidate
         >
-          <div>
+          {/* Full Name */}
+          <div className="w-full px-2 sm:px-4">
             <Input
               label="Full Name"
               name="fullName"
@@ -133,14 +144,22 @@ export const SignUp = () => {
               onBlur={() => formik.setFieldTouched("fullName", true)}
               disabled={loading}
               className="w-full"
+              classNames={{
+                input: "bg-white dark:bg-slate-600 text-foreground",
+                inputWrapper:
+                  "border border-gray-200 dark:border-gray-700 dark:bg-slate-600",
+                label: "text-foreground",
+              }}
             />
             {formik.touched.fullName && formik.errors.fullName && (
-              <div className="text-xs text-red-500 mt-1">
+              <div className="text-xs text-red-500 mt-1 ml-1">
                 {formik.errors.fullName}
               </div>
             )}
           </div>
-          <div>
+
+          {/* Email */}
+          <div className="w-full px-2 sm:px-4">
             <Input
               label="Email"
               name="email"
@@ -151,14 +170,22 @@ export const SignUp = () => {
               onBlur={() => formik.setFieldTouched("email", true)}
               disabled={loading}
               className="w-full"
+              classNames={{
+                input: "bg-white dark:bg-slate-600 text-foreground",
+                inputWrapper:
+                  "border border-gray-200 dark:border-gray-700 dark:bg-slate-600",
+                label: "text-foreground",
+              }}
             />
             {formik.touched.email && formik.errors.email && (
-              <div className="text-xs text-red-500 mt-1">
+              <div className="text-xs text-red-500 mt-1 ml-1">
                 {formik.errors.email}
               </div>
             )}
           </div>
-          <div>
+
+          {/* Password */}
+          <div className="w-full px-2 sm:px-4">
             <Input
               label="Password"
               name="password"
@@ -168,22 +195,30 @@ export const SignUp = () => {
               isInvalid={!!(formik.touched.password && formik.errors.password)}
               onBlur={() => formik.setFieldTouched("password", true)}
               disabled={loading}
-              className="w-full relative"
+              className="w-full"
+              classNames={{
+                input: "bg-white dark:bg-slate-600 text-foreground",
+                inputWrapper:
+                  "border border-gray-200 dark:border-gray-700 dark:bg-slate-600",
+                label: "text-foreground",
+              }}
               endContent={
                 <Icon
                   icon={showPassword ? "mdi:eye-off" : "mdi:eye"}
-                  className="cursor-pointer absolute right-4 top-6"
+                  className="cursor-pointer text-gray-400"
                   onClick={() => setShowPassword(!showPassword)}
                 />
               }
             />
             {formik.touched.password && formik.errors.password && (
-              <div className="text-xs text-red-500 mt-1">
+              <div className="text-xs text-red-500 mt-1 ml-1">
                 {formik.errors.password}
               </div>
             )}
           </div>
-          <div>
+
+          {/* Confirm Password */}
+          <div className="w-full px-2 sm:px-4">
             <Input
               label="Confirm password"
               name="confirmPassword"
@@ -200,23 +235,30 @@ export const SignUp = () => {
               }
               onBlur={() => formik.setFieldTouched("confirmPassword", true)}
               disabled={loading}
-              className="w-full relative"
+              className="w-full"
+              classNames={{
+                input: "bg-white dark:bg-slate-600 text-foreground",
+                inputWrapper:
+                  "border border-gray-200 dark:border-gray-700 dark:bg-slate-600",
+                label: "text-foreground",
+              }}
               endContent={
                 <Icon
                   icon={showConfirmPassword ? "mdi:eye-off" : "mdi:eye"}
-                  className="cursor-pointer absolute right-4 top-6"
+                  className="cursor-pointer text-gray-400"
                   onClick={() => setShowConfirmPassword(!showConfirmPassword)}
                 />
               }
             />
             {formik.touched.confirmPassword &&
               formik.errors.confirmPassword && (
-                <div className="text-xs text-red-500 mt-1">
+                <div className="text-xs text-red-500 mt-1 ml-1">
                   {formik.errors.confirmPassword}
                 </div>
               )}
           </div>
-          <div className="flex items-center justify-center">
+
+          <div className="flex items-center justify-center w-full">
             <Button
               type="submit"
               isLoading={formik.isSubmitting}
@@ -229,34 +271,36 @@ export const SignUp = () => {
               onPress={() => {
                 formik.handleSubmit();
               }}
-              className="w-[300px] mt-2 bg-gradient-to-r from-red-400 to-red-500 text-white font-semibold"
+              className="w-full max-w-[300px] mt-2 bg-gradient-to-r from-red-400 to-red-500 text-white font-semibold"
               disabled={loading}
             >
               {loading ? "Signing up..." : "Sign Up"}
             </Button>
           </div>
-          <div className="flex items-center justify-center gap-4">
+
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 mt-6 sm:mt-8">
             {/* Login google button */}
-            <div className="mt-8">
+            <div className="w-full sm:w-auto">
               <Button
                 variant="bordered"
-                className="flex items-center justify-center gap-2 w-full px-5 py-1 rounded-[8px] border border-zinc-200 hover:bg-zinc-100 "
+                className="flex items-center justify-center gap-2 w-full sm:w-auto px-4 sm:px-8 py-1 rounded-[8px] border border-zinc-200 hover:bg-zinc-300 dark:hover:bg-slate-700"
               >
-                <div className="flex items-center gap-2">
+                <div className="flex items-center gap-2 w-full sm:w-[200px]">
                   <Icon icon="flat-color-icons:google" width="25" height="25" />
-                  <p>Login with Google</p>
+                  <p className="text-xs sm:text-sm">Login with Google</p>
                 </div>
               </Button>
             </div>
-            {/* Login google button */}
-            <div className="mt-8">
+
+            {/* Login facebook button */}
+            <div className="w-full sm:w-auto hidden sm:block">
               <Button
                 variant="bordered"
-                className="flex items-center justify-center gap-2 w-full px-5 py-1 rounded-[8px] border border-zinc-200 hover:bg-zinc-100 "
+                className="flex items-center justify-center gap-2 w-full sm:w-auto px-4 sm:px-5 py-1 rounded-[8px] border border-zinc-200 hover:bg-zinc-300 dark:hover:bg-slate-700"
               >
-                <div className="flex items-center gap-2">
+                <div className="flex items-center gap-2 w-full sm:w-[200px]">
                   <Icon icon="logos:facebook" width="25" height="25" />
-                  <p>Login with Facebook</p>
+                  <p className="text-xs sm:text-sm">Login with Facebook</p>
                 </div>
               </Button>
             </div>

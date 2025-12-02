@@ -2,6 +2,7 @@
 import React, { useState } from "react";
 
 import Image from "next/image";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 
 import { useFetchLoginSwrSingleton } from "@/hook";
@@ -126,7 +127,7 @@ export const SignIn = () => {
   };
 
   return (
-    <div className="wrapper min-w-[90vw] sm:min-w-[400px] md:min-w-[500px] lg:min-w-[600px] min-h-[72vh] flex items-center justify-center shadow-[0_0_10px_rgba(0,0,0,0.15)] dark:shadow-[0_0_10px_rgba(255,255,255,0.1)] rounded-[20px] dark:bg-slate-800 bg-background p-4 sm:p-6 md:p-8">
+    <div className="wrapper min-w-[90vw] sm:min-w-[400px] md:min-w-[500px] lg:min-w-[600px] min-h-[72vh] flex items-center justify-center dark:bg-slate-800 bg-background p-4 sm:p-6 md:p-8">
       <div className="container flex flex-col items-center justify-center text-foreground w-full max-w-[500px]">
         {/* Alert */}
         <AnimatePresence>
@@ -163,6 +164,9 @@ export const SignIn = () => {
         {/* Divider */}
         <div className="flex items-center w-full max-w-[350px] sm:max-w-[400px] md:max-w-[450px] mt-6">
           <div className="flex-1 h-px bg-zinc-200 dark:bg-zinc-700" />
+          <span className="mx-2 text-xs text-zinc-400 dark:text-zinc-500">
+            or
+          </span>
           <div className="flex-1 h-px bg-zinc-200 dark:bg-zinc-700" />
         </div>
 
@@ -172,7 +176,7 @@ export const SignIn = () => {
           onSubmit={formik.handleSubmit}
           noValidate
         >
-          <div className="mb-5">
+          <div>
             <Input
               label="Email"
               name="email"
@@ -271,7 +275,7 @@ export const SignIn = () => {
               </div>
             </div>
             {/* Login facebook button */}
-            <div className="mt-8 relative w-full sm:w-auto">
+            <div className="mt-8 relative w-full sm:w-auto hidden sm:block">
               <div>
                 <Button
                   variant="bordered"
