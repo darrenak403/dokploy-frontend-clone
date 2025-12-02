@@ -118,17 +118,17 @@ export function AccountInfo() {
   });
 
   return (
-    <div className="w-full mx-auto p-6 bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-600 shadow-md">
+    <div className="w-full mx-auto p-3 sm:p-4 md:p-6 bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-600 shadow-md">
       {/* Title */}
       {showAlert && alertMessage ? (
-        <div className="mb-4">
+        <div className="mb-3 sm:mb-4">
           <Alert color={alertColor}>{alertMessage}</Alert>
         </div>
       ) : null}
 
       {/* Avatar + Info + Edit Button Section */}
-      <div className="flex items-start justify-between mb-8">
-        <div className="flex items-start gap-6">
+      <div className="flex flex-col sm:flex-row items-start justify-between gap-3 sm:gap-4 mb-4 sm:mb-6 md:mb-8">
+        <div className="flex items-start gap-3 sm:gap-4 md:gap-6">
           {/* Avatar */}
           <div className="relative group">
             <button
@@ -146,29 +146,32 @@ export function AccountInfo() {
               <Avatar
                 src={user?.avatarUrl || DefaultLogo.src}
                 alt="avatar"
-                className="w-24 h-24"
+                className="w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24"
                 size="lg"
                 name={user?.fullName?.split(" ").slice(-1)[0]?.[0] ?? "U"}
                 showFallback
                 fallback={
                   <Icon
                     icon="mdi:account"
-                    className="w-12 h-12 text-gray-400"
+                    className="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 text-gray-400"
                   />
                 }
               />
 
               <span className="pointer-events-none absolute inset-0 flex items-center justify-center">
-                <span className="w-10 h-10 rounded-full bg-black/30 dark:bg-white/20 text-white dark:text-black opacity-0 group-hover:opacity-100 transition-opacity duration-200 flex items-center justify-center">
-                  <Icon icon="mdi:cloud-upload-outline" className="w-5 h-5" />
+                <span className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-black/30 dark:bg-white/20 text-white dark:text-black opacity-0 group-hover:opacity-100 transition-opacity duration-200 flex items-center justify-center">
+                  <Icon
+                    icon="mdi:cloud-upload-outline"
+                    className="w-4 h-4 sm:w-5 sm:h-5"
+                  />
                 </span>
               </span>
             </button>
           </div>
 
-          <div className="flex flex-col gap-2 mt-3">
+          <div className="flex flex-col gap-1 sm:gap-2 mt-1 sm:mt-2 md:mt-3">
             {!editing ? (
-              <h3 className="text-xl font-semibold text-gray-900 dark:text-white">
+              <h3 className="text-base sm:text-lg md:text-xl font-semibold text-gray-900 dark:text-white">
                 {user?.fullName || "Chưa có tên"}
               </h3>
             ) : (
@@ -184,7 +187,7 @@ export function AccountInfo() {
                     formik.touched.fullName && !!formik.errors.fullName
                   }
                   placeholder="Nhập họ và tên"
-                  className="w-full bg-transparent text-gray-900 dark:text-white text-xl font-semibold placeholder:text-gray-500 focus:outline-none"
+                  className="w-full bg-transparent text-gray-900 dark:text-white text-base sm:text-lg md:text-xl font-semibold placeholder:text-gray-500 focus:outline-none"
                   style={{ border: 0, padding: 0, margin: 0 }}
                 />
                 {formik.touched.fullName && formik.errors.fullName ? (
@@ -194,20 +197,23 @@ export function AccountInfo() {
                 ) : null}
               </div>
             )}
-            <p className="text-gray-600 dark:text-gray-400">
+            <p className="text-xs sm:text-sm md:text-base text-gray-600 dark:text-gray-400">
               {user?.email || "Chưa có email"}
             </p>
           </div>
         </div>
 
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-2 sm:gap-3 flex-wrap">
           {!editing ? (
             <Button
-              className="inline-flex items-center gap-2 px-4 py-2 rounded-lg shadow-sm
+              size="sm"
+              className="inline-flex items-center gap-1 sm:gap-2 px-3 sm:px-4 py-2 rounded-lg shadow-sm text-xs sm:text-sm
                      bg-red-50 text-red-600 font-semibold dark:bg-red-900/20 
                      dark:text-red-400"
               variant="solid"
-              startContent={<Icon icon="mdi:pencil" className="w-4 h-4" />}
+              startContent={
+                <Icon icon="mdi:pencil" className="w-3 h-3 sm:w-4 sm:h-4" />
+              }
               onClick={() => {
                 // prefill backend key so select shows correct option when editing
                 formik.setFieldValue("gender", user?.gender ?? "");
@@ -219,8 +225,9 @@ export function AccountInfo() {
           ) : (
             <>
               <Button
+                size="sm"
                 variant="solid"
-                className="mr-2 bg-red-50 text-red-600 font-semibold dark:bg-red-900/20 flex items-center"
+                className="mr-1 sm:mr-2 bg-red-50 text-red-600 font-semibold dark:bg-red-900/20 flex items-center text-xs sm:text-sm px-3 sm:px-4"
                 onClick={() => formik.submitForm()}
                 disabled={
                   formik.isSubmitting ||
@@ -234,7 +241,7 @@ export function AccountInfo() {
                   <>
                     <Icon
                       icon="mdi:loading"
-                      className="w-4 h-4 mr-2 animate-spin"
+                      className="w-3 h-3 sm:w-4 sm:h-4 mr-1 sm:mr-2 animate-spin"
                     />
                     Đang lưu...
                   </>
@@ -243,7 +250,8 @@ export function AccountInfo() {
                 )}
               </Button>
               <Button
-                className="inline-flex items-center gap-2 px-4 py-2 rounded-lg shadow-sm
+                size="sm"
+                className="inline-flex items-center gap-1 sm:gap-2 px-3 sm:px-4 py-2 rounded-lg shadow-sm text-xs sm:text-sm
                      bg-red-600 text-red-50 font-semibold"
                 variant="solid"
                 onClick={() => {
@@ -258,10 +266,10 @@ export function AccountInfo() {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4 md:gap-6">
         <div className="w-full">
-          <div className="flex items-center justify-between mb-2">
-            <label className="text-sm font-medium text-gray-700 dark:text-gray-200">
+          <div className="flex items-center justify-between mb-1 sm:mb-2">
+            <label className="text-xs sm:text-sm font-medium text-gray-700 dark:text-gray-200">
               Ngày sinh
             </label>
           </div>
@@ -280,7 +288,10 @@ export function AccountInfo() {
                 label: "text-foreground",
               }}
               startContent={
-                <Icon icon="mdi:calendar" className="h-4 w-4 text-gray-500" />
+                <Icon
+                  icon="mdi:calendar"
+                  className="h-3 w-3 sm:h-4 sm:w-4 text-gray-500"
+                />
               }
             />
           ) : (
@@ -312,7 +323,10 @@ export function AccountInfo() {
                   label: "text-foreground",
                 }}
                 startContent={
-                  <Icon icon="mdi:calendar" className="h-4 w-4 text-gray-500" />
+                  <Icon
+                    icon="mdi:calendar"
+                    className="h-3 w-3 sm:h-4 sm:w-4 text-gray-500"
+                  />
                 }
               />
             </div>
@@ -320,8 +334,8 @@ export function AccountInfo() {
         </div>
 
         <div className="w-full">
-          <div className="flex items-center justify-between mb-2">
-            <label className="text-sm font-medium text-gray-700 dark:text-gray-200">
+          <div className="flex items-center justify-between mb-1 sm:mb-2">
+            <label className="text-xs sm:text-sm font-medium text-gray-700 dark:text-gray-200">
               Giới tính
             </label>
           </div>
@@ -343,7 +357,7 @@ export function AccountInfo() {
               startContent={
                 <Icon
                   icon="mdi:gender-male-female"
-                  className="h-4 w-4 text-gray-500"
+                  className="h-3 w-3 sm:h-4 sm:w-4 text-gray-500"
                 />
               }
             />
@@ -377,7 +391,7 @@ export function AccountInfo() {
                 startContent={
                   <Icon
                     icon="mdi:gender-male-female"
-                    className="h-4 w-4 text-gray-500"
+                    className="h-3 w-3 sm:h-4 sm:w-4 text-gray-500"
                   />
                 }
               >
@@ -390,8 +404,8 @@ export function AccountInfo() {
         </div>
 
         <div className="w-full">
-          <div className="flex items-center justify-between mb-2">
-            <label className="text-sm font-medium text-gray-700 dark:text-gray-200">
+          <div className="flex items-center justify-between mb-1 sm:mb-2">
+            <label className="text-xs sm:text-sm font-medium text-gray-700 dark:text-gray-200">
               Số điện thoại
             </label>
           </div>
@@ -413,7 +427,10 @@ export function AccountInfo() {
               label: "text-foreground",
             }}
             startContent={
-              <Icon icon="mdi:phone" className="h-4 w-4 text-gray-500" />
+              <Icon
+                icon="mdi:phone"
+                className="h-3 w-3 sm:h-4 sm:w-4 text-gray-500"
+              />
             }
           />
         </div>
@@ -421,8 +438,8 @@ export function AccountInfo() {
         {/* Địa chỉ */}
 
         <div className="w-full">
-          <div className="flex items-center justify-between mb-2">
-            <label className="text-sm font-medium text-gray-700 dark:text-gray-200">
+          <div className="flex items-center justify-between mb-1 sm:mb-2">
+            <label className="text-xs sm:text-sm font-medium text-gray-700 dark:text-gray-200">
               Địa chỉ
             </label>
           </div>
@@ -444,7 +461,10 @@ export function AccountInfo() {
               label: "text-foreground",
             }}
             startContent={
-              <Icon icon="mdi:map-marker" className="text-gray-500 mt-[3px]" />
+              <Icon
+                icon="mdi:map-marker"
+                className="w-3 h-3 sm:w-4 sm:h-4 text-gray-500 mt-[3px]"
+              />
             }
           />
         </div>

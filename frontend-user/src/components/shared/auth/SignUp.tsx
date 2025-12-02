@@ -161,7 +161,7 @@ export const SignUp = () => {
   };
 
   return (
-    <div className="wrapper w-full max-w-[90vw] sm:max-w-[500px] md:max-w-[600px] lg:min-w-[30vw] min-h-[75vh] flex items-center justify-center shadow-[0_0_10px_rgba(0,0,0,0.15)] dark:shadow-[0_0_10px_rgba(255,255,255,0.1)] rounded-[20px] dark:bg-slate-800 bg-background px-4 sm:px-6 md:px-8 py-8">
+    <div className="wrapper w-full max-w-[90vw] sm:max-w-[500px] md:max-w-[600px] lg:min-w-[30vw] min-h-[75vh] flex items-center justify-center dark:bg-slate-800 bg-background px-4 sm:px-6 md:px-8 py-8">
       <div className="container flex flex-col items-center justify-center w-full">
         {/* Alert */}
         <AnimatePresence>
@@ -206,7 +206,7 @@ export const SignUp = () => {
 
         {/* Form */}
         <form
-          className="w-full max-w-[350px] sm:max-w-[500px] flex flex-col items-center justify-center gap-3 sm:gap-4 mt-4 sm:mt-6"
+          className="w-full max-w-[350px] sm:max-w-[500px] flex flex-col items-center justify-center gap-6 sm:gap-4 mt-4 sm:mt-6"
           onSubmit={formik.handleSubmit}
           noValidate
         >
@@ -353,36 +353,46 @@ export const SignUp = () => {
             </Button>
           </div>
 
-          <div className="relative w-full sm:w-auto hidden sm:block">
+          <div className="items-center justify-center gap-4 hidden">
             {/* Login google button */}
-            <Button
-              variant="bordered"
-              className="flex items-center justify-center gap-2 w-full sm:w-auto px-4 sm:px-8 py-1 rounded-[8px] border border-zinc-200 hover:bg-zinc-300 dark:hover:bg-slate-700"
-              onPress={handleGoogleLogin}
-              disabled={googleLoading}
-            >
-              <div className="flex items-center gap-2 w-full sm:w-[200px]">
-                <Icon icon="logos:google-icon" width="25" height="25" />
-                <p className="text-xs sm:text-sm">Đăng nhập bằng Google</p>
-              </div>
-            </Button>
-
-            {/* Login facebook button */}
-            <div className="relative w-full sm:w-auto hidden sm:block">
+            <div className="mt-8 relative w-full sm:w-auto hidden">
               <Button
                 variant="bordered"
-                className="flex items-center justify-center gap-2 w-full sm:w-auto px-4 sm:px-5 py-1 rounded-[8px] border border-zinc-200 hover:bg-zinc-300 dark:hover:bg-slate-700"
-                onPress={handleLoginFacebook}
-                disabled={facebookLoading}
+                className="flex items-center justify-center gap-2 w-full px-4 sm:px-8 py-1 rounded-[8px] border border-zinc-200 dark:border-zinc-700 hover:bg-zinc-100 dark:hover:bg-zinc-800 dark:bg-slate-700 text-foreground"
+                onPress={handleGoogleLogin}
+                disabled={googleLoading}
               >
-                <div className="flex items-center gap-2 w-full sm:w-[200px]">
-                  <Icon icon="logos:facebook" width="25" height="25" />
-                  <p className="text-xs sm:text-sm">Đăng nhập bằng Facebook</p>
+                <div className="flex items-center gap-2 min-w-[160px] sm:w-[180px] justify-center">
+                  <Icon icon="logos:google-icon" width="25" height="25" />
+                  <p className="text-foreground text-xs sm:text-sm">
+                    Đăng nhập bằng Google
+                  </p>
                 </div>
               </Button>
-              <div className="absolute top-[-15px] right-[-10px] sm:right-[-20px] hidden sm:block">
-                <p className="text-[10px] border-[1px] rounded-2xl px-1 py-1 bg-zinc-100 dark:bg-slate-800 whitespace-nowrap">
-                  tôi đã cố gắng hết sức
+              <div className="absolute top-[-15px] right-[-10px]">
+                <p className="text-[10px] border-[1px] rounded-2xl px-1 py-1 bg-zinc-100 dark:bg-zinc-800 text-foreground border-zinc-200 dark:border-zinc-700 whitespace-nowrap">
+                  Client-Facing
+                </p>
+              </div>
+            </div>
+            {/* Login facebook button */}
+            <div className="mt-8 relative w-full sm:w-auto hidden">
+              <div>
+                <Button
+                  variant="bordered"
+                  className="flex items-center justify-center gap-2 w-full px-4 sm:px-5 py-1 rounded-[8px] border border-zinc-200 dark:border-zinc-700 hover:bg-zinc-100 dark:hover:bg-zinc-800 dark:bg-slate-700 text-foreground"
+                >
+                  <div className="flex items-center gap-2 justify-center">
+                    <Icon icon="logos:facebook" width="25" height="25" />
+                    <p className="text-foreground text-xs sm:text-sm">
+                      Đăng nhập bằng Facebook
+                    </p>
+                  </div>
+                </Button>
+              </div>
+              <div className="absolute top-[-15px] right-[-10px]">
+                <p className="text-[10px] border-[1px] rounded-2xl px-1 py-1 bg-zinc-100 dark:bg-zinc-800 text-foreground border-zinc-200 dark:border-zinc-700 whitespace-nowrap">
+                  Client-Facing
                 </p>
               </div>
             </div>
@@ -390,7 +400,7 @@ export const SignUp = () => {
         </form>
 
         {/* Signin link */}
-        <div className="w-full text-center mt-6 text-sm">
+        <div className="w-full text-center mt-4 text-sm flex gap-2 mx-auto justify-center ">
           <span className="text-zinc-500">Bạn đã có tài khoản?</span>
           <Link
             href="/signin"

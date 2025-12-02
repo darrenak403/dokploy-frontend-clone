@@ -278,37 +278,52 @@ export const SignUp = () => {
             </Button>
           </div>
 
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 mt-6 sm:mt-8">
+          <div className="items-center justify-center gap-4 hidden">
             {/* Login google button */}
-            <div className="w-full sm:w-auto hidden sm:block">
+            <div className="mt-8 relative w-full sm:w-auto hidden">
               <Button
                 variant="bordered"
-                className="flex items-center justify-center gap-2 w-full sm:w-auto px-4 sm:px-8 py-1 rounded-[8px] border border-zinc-200 hover:bg-zinc-300 dark:hover:bg-slate-700"
+                className="flex items-center justify-center gap-2 w-full px-4 sm:px-8 py-1 rounded-[8px] border border-zinc-200 dark:border-zinc-700 hover:bg-zinc-100 dark:hover:bg-zinc-800 dark:bg-slate-700 text-foreground"
               >
-                <div className="flex items-center gap-2 w-full sm:w-[200px]">
-                  <Icon icon="flat-color-icons:google" width="25" height="25" />
-                  <p className="text-xs sm:text-sm">Login with Google</p>
+                <div className="flex items-center gap-2 min-w-[160px] sm:w-[180px] justify-center">
+                  <Icon icon="logos:google-icon" width="25" height="25" />
+                  <p className="text-foreground text-xs sm:text-sm">
+                    Đăng nhập bằng Google
+                  </p>
                 </div>
               </Button>
+              <div className="absolute top-[-15px] right-[-10px]">
+                <p className="text-[10px] border-[1px] rounded-2xl px-1 py-1 bg-zinc-100 dark:bg-zinc-800 text-foreground border-zinc-200 dark:border-zinc-700 whitespace-nowrap">
+                  Client-Facing
+                </p>
+              </div>
             </div>
-
             {/* Login facebook button */}
-            <div className="w-full sm:w-auto hidden sm:block">
-              <Button
-                variant="bordered"
-                className="flex items-center justify-center gap-2 w-full sm:w-auto px-4 sm:px-5 py-1 rounded-[8px] border border-zinc-200 hover:bg-zinc-300 dark:hover:bg-slate-700"
-              >
-                <div className="flex items-center gap-2 w-full sm:w-[200px]">
-                  <Icon icon="logos:facebook" width="25" height="25" />
-                  <p className="text-xs sm:text-sm">Login with Facebook</p>
-                </div>
-              </Button>
+            <div className="mt-8 relative w-full sm:w-auto hidden">
+              <div>
+                <Button
+                  variant="bordered"
+                  className="flex items-center justify-center gap-2 w-full px-4 sm:px-5 py-1 rounded-[8px] border border-zinc-200 dark:border-zinc-700 hover:bg-zinc-100 dark:hover:bg-zinc-800 dark:bg-slate-700 text-foreground"
+                >
+                  <div className="flex items-center gap-2 justify-center">
+                    <Icon icon="logos:facebook" width="25" height="25" />
+                    <p className="text-foreground text-xs sm:text-sm">
+                      Đăng nhập bằng Facebook
+                    </p>
+                  </div>
+                </Button>
+              </div>
+              <div className="absolute top-[-15px] right-[-10px]">
+                <p className="text-[10px] border-[1px] rounded-2xl px-1 py-1 bg-zinc-100 dark:bg-zinc-800 text-foreground border-zinc-200 dark:border-zinc-700 whitespace-nowrap">
+                  Client-Facing
+                </p>
+              </div>
             </div>
           </div>
         </form>
 
         {/* Signin link */}
-        <div className="w-full text-center mt-6 text-sm">
+        <div className="w-full text-center mt-4 text-sm">
           <span className="text-zinc-500">Already have an account? </span>
           <Link
             href="/signin"

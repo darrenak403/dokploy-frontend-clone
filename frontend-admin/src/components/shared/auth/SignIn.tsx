@@ -237,7 +237,7 @@ export const SignIn = () => {
           <div className="flex items-center justify-center">
             <Button
               type="submit"
-              className="w-full sm:w-[300px] mt-2 font-semibold"
+              className="w-full sm:w-[300px] mt-4 font-semibold"
               style={{
                 background:
                   "linear-gradient(90deg, var(--coral-400), var(--coral-500))",
@@ -255,9 +255,9 @@ export const SignIn = () => {
             </Button>
           </div>
 
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+          <div className="items-center justify-center gap-4 hidden">
             {/* Login google button */}
-            <div className="mt-8 relative w-full sm:w-auto hidden sm:block">
+            <div className="mt-8 relative w-full sm:w-auto hidden">
               <Button
                 variant="bordered"
                 className="flex items-center justify-center gap-2 w-full px-4 sm:px-8 py-1 rounded-[8px] border border-zinc-200 dark:border-zinc-700 hover:bg-zinc-100 dark:hover:bg-zinc-800 dark:bg-slate-700 text-foreground"
@@ -278,7 +278,7 @@ export const SignIn = () => {
               </div>
             </div>
             {/* Login facebook button */}
-            <div className="mt-8 relative w-full sm:w-auto hidden sm:block">
+            <div className="mt-8 relative w-full sm:w-auto hidden">
               <div>
                 <Button
                   variant="bordered"

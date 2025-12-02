@@ -264,24 +264,26 @@ export function IdentifyNumber() {
   };
 
   return (
-    <div className="w-full mx-auto p-6 bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-600 shadow-md">
+    <div className="w-full mx-auto p-3 sm:p-4 md:p-6 bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-600 shadow-md">
       {/* Persistent ID card missing warning */}
       {!formData.identifyNumber ? (
-        <div className="mb-4">
-          <Alert color="warning">
+        <div className="mb-3 sm:mb-4">
+          <Alert color="warning" className="text-xs sm:text-sm">
             Vui lòng cập nhật thông tin căn cước công dân để xác thực tài khoản.
           </Alert>
         </div>
       ) : null}
 
       {showAlert && alertMessage ? (
-        <div className="mb-4">
-          <Alert color={alertColor}>{alertMessage}</Alert>
+        <div className="mb-3 sm:mb-4">
+          <Alert color={alertColor} className="text-xs sm:text-sm">
+            {alertMessage}
+          </Alert>
         </div>
       ) : null}
-      <div className="flex items-start justify-between mb-4">
-        <div className="flex items-center gap-3">
-          <h2 className="text-xl font-semibold text-gray-900 dark:text-white">
+      <div className="flex flex-col sm:flex-row items-start justify-between mb-3 sm:mb-4 gap-3">
+        <div className="flex items-center justify-start gap-2 sm:gap-3">
+          <h2 className="text-base sm:text-lg md:text-xl font-semibold text-gray-900 dark:text-white">
             Thông Tin Căn Cước Công Dân
           </h2>
           {formData.identifyNumber ? (
@@ -294,38 +296,49 @@ export function IdentifyNumber() {
             </Chip>
           )}
         </div>
-        <div>
+        <div className="w-full sm:w-auto">
           {!editing ? (
             <div className="flex items-center gap-2">
               <Button
-                className="inline-flex items-center gap-2 px-4 py-2 rounded-lg shadow-sm bg-red-50 text-red-600 font-semibold dark:bg-red-900/20 dark:text-red-400"
+                className="inline-flex items-center gap-1 sm:gap-2 px-3 sm:px-4 py-2 rounded-lg shadow-sm bg-red-50 text-red-600 font-semibold dark:bg-red-900/20 dark:text-red-400 text-xs sm:text-sm"
                 variant="solid"
+                size="sm"
                 onClick={startEdit}
-                startContent={<Icon icon="mdi:pencil" className="w-4 h-4" />}
+                startContent={
+                  <Icon icon="mdi:pencil" className="w-3 h-3 sm:w-4 sm:h-4" />
+                }
               >
                 Chỉnh sửa
               </Button>
             </div>
           ) : (
-            <div className="flex gap-2">
+            <div className="flex flex-wrap gap-2">
               <Button
-                className="inline-flex items-center gap-2 px-3 py-2 rounded-lg shadow-sm bg-red-50 text-red-600 font-semibold dark:bg-red-900/20 dark:text-red-400"
+                className="inline-flex items-center gap-1 sm:gap-2 px-2 sm:px-3 py-2 rounded-lg shadow-sm bg-red-50 text-red-600 font-semibold dark:bg-red-900/20 dark:text-red-400 text-xs sm:text-sm"
                 variant="solid"
+                size="sm"
                 onClick={handleScan}
                 disabled={scanHook.isMutating}
                 startContent={
                   scanHook.isMutating ? (
-                    <Icon icon="mdi:loading" className="w-4 h-4 animate-spin" />
+                    <Icon
+                      icon="mdi:loading"
+                      className="w-3 h-3 sm:w-4 sm:h-4 animate-spin"
+                    />
                   ) : (
-                    <Icon icon="mdi:barcode-scan" className="w-4 h-4" />
+                    <Icon
+                      icon="mdi:barcode-scan"
+                      className="w-3 h-3 sm:w-4 sm:h-4"
+                    />
                   )
                 }
               >
-                {scanHook.isMutating ? "Đang quét..." : "Quét thông tin"}
+                {scanHook.isMutating ? "Đang quét..." : "Quét"}
               </Button>
               <Button
-                className="mr-2 bg-red-50 text-red-600 font-semibold dark:bg-red-900/20"
+                className="bg-red-50 text-red-600 font-semibold dark:bg-red-900/20 text-xs sm:text-sm"
                 variant="solid"
+                size="sm"
                 onClick={() => formik.submitForm()}
                 disabled={
                   createHook.isMutating ||
@@ -337,7 +350,7 @@ export function IdentifyNumber() {
                   <>
                     <Icon
                       icon="mdi:loading"
-                      className="w-4 h-4 mr-2 animate-spin"
+                      className="w-3 h-3 sm:w-4 sm:h-4 mr-1 sm:mr-2 animate-spin"
                     />
                     Đang lưu...
                   </>
@@ -346,9 +359,9 @@ export function IdentifyNumber() {
                 )}
               </Button>
               <Button
-                className="inline-flex items-center gap-2 px-4 py-2 rounded-lg shadow-sm
-                     bg-red-600 text-red-50 font-semibold"
+                className="inline-flex items-center gap-1 sm:gap-2 px-3 sm:px-4 py-2 rounded-lg shadow-sm bg-red-600 text-red-50 font-semibold text-xs sm:text-sm"
                 variant="bordered"
+                size="sm"
                 onClick={cancelEdit}
               >
                 Hủy
@@ -359,12 +372,12 @@ export function IdentifyNumber() {
       </div>
 
       {editing ? (
-        <div className="min-h-[55vh] flex flex-row gap-8">
+        <div className="min-h-[55vh] flex flex-col lg:flex-row gap-4 sm:gap-6 lg:gap-8">
           {/* Left Column - Image Upload (Front / Back) */}
-          <div className="flex flex-[0.4] flex-col justify-center">
-            <div className="w-full max-w-sm grid grid-cols-1 gap-4">
+          <div className="flex flex-1 lg:flex-[0.4] flex-col justify-center">
+            <div className="w-full max-w-sm grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-3 sm:gap-4">
               <div className="">
-                <div className=" text-sm font-medium text-gray-700 dark:text-gray-200">
+                <div className="text-xs sm:text-sm font-medium text-gray-700 dark:text-gray-200">
                   Ảnh CCCD - Mặt trước
                 </div>
                 <div className="relative w-full aspect-[16/9] bg-muted rounded-lg border-2 border-dashed border-border hover:border-red-300 hover:bg-red-50 hover:text-red-500 transition-colors cursor-pointer overflow-hidden group">
@@ -384,8 +397,11 @@ export function IdentifyNumber() {
                     </>
                   ) : (
                     <div className="absolute inset-0 flex flex-col items-center justify-center">
-                      <Icon icon="mdi-light:image" className="w-12 h-12 mb-2" />
-                      <span className="text-sm text-muted-foreground text-center px-4">
+                      <Icon
+                        icon="mdi-light:image"
+                        className="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 mb-2"
+                      />
+                      <span className="text-xs sm:text-sm text-muted-foreground text-center px-2 sm:px-4">
                         Nhấp để tải ảnh mặt trước
                       </span>
                     </div>
@@ -403,7 +419,7 @@ export function IdentifyNumber() {
               </div>
 
               <div className="">
-                <div className=" text-sm font-medium text-gray-700 dark:text-gray-200">
+                <div className="text-xs sm:text-sm font-medium text-gray-700 dark:text-gray-200">
                   Ảnh CCCD - Mặt sau
                 </div>
                 <div className="relative full aspect-[16/9] bg-muted rounded-lg border-2 border-dashed border-border hover:border-red-300 hover:bg-red-50 hover:text-red-500 transition-colors cursor-pointer overflow-hidden group">
@@ -423,8 +439,11 @@ export function IdentifyNumber() {
                     </>
                   ) : (
                     <div className="absolute inset-0 flex flex-col items-center justify-center">
-                      <Icon icon="mdi-light:image" className="w-12 h-12 mb-2" />
-                      <span className="text-sm text-muted-foreground text-center px-4">
+                      <Icon
+                        icon="mdi-light:image"
+                        className="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 mb-2"
+                      />
+                      <span className="text-xs sm:text-sm text-muted-foreground text-center px-2 sm:px-4">
                         Nhấp để tải ảnh mặt sau
                       </span>
                     </div>
@@ -456,8 +475,8 @@ export function IdentifyNumber() {
           </div>
 
           {/* Right Column - Form Inputs */}
-          <div className="flex flex-1 flex-col gap-4 justify-center">
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+          <div className="flex flex-1 flex-col gap-3 sm:gap-4 justify-center">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 md:gap-6">
               <div>
                 <Input
                   label="Số Căn Cước"
@@ -775,11 +794,11 @@ export function IdentifyNumber() {
           </div>
         </div>
       ) : (
-        <div className="min-h-[55vh] flex flex-row">
+        <div className="min-h-[55vh] flex flex-col">
           {/* Right Column - Form Inputs */}
 
-          <div className="flex flex-1 flex-col gap-6 justify-center">
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+          <div className="flex flex-1 flex-col gap-3 sm:gap-4 md:gap-6 justify-center">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 md:gap-6">
               <div>
                 <Input
                   label="Số Căn Cước"

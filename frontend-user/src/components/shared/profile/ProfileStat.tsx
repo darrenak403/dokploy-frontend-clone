@@ -60,24 +60,26 @@ const StatCard = ({
       className="w-full"
     >
       <Card className="bg-white dark:bg-slate-800 border border-gray-100 dark:border-gray-700 shadow-sm hover:shadow-md transition-all duration-300">
-        <CardBody className="p-6">
+        <CardBody className="p-3 sm:p-4 md:p-6">
           <div className="flex items-start justify-between">
             {/* Content */}
             <div className="flex-1">
-              <p className="text-sm font-medium text-gray-500 dark:text-gray-400 mb-2">
+              <p className="text-xs sm:text-sm font-medium text-gray-500 dark:text-gray-400 mb-1 sm:mb-2">
                 {title}
               </p>
-              <div className="flex items-baseline gap-2 mb-2">
-                <h3 className="text-3xl font-bold text-gray-900 dark:text-white">
+              <div className="flex items-baseline gap-1 sm:gap-2 mb-1 sm:mb-2">
+                <h3 className="text-xl sm:text-2xl md:text-3xl font-bold text-gray-900 dark:text-white">
                   {value}
                 </h3>
               </div>
               <div className="flex items-center gap-1">
                 <Icon
                   icon={getTrendIcon()}
-                  className={`w-4 h-4 ${getTrendColor()}`}
+                  className={`w-3 h-3 sm:w-4 sm:h-4 ${getTrendColor()}`}
                 />
-                <p className={`text-sm font-medium ${getTrendColor()}`}>
+                <p
+                  className={`text-xs sm:text-sm font-medium ${getTrendColor()}`}
+                >
                   {subtitle}
                 </p>
               </div>
@@ -85,9 +87,12 @@ const StatCard = ({
 
             {/* Icon */}
             <div
-              className={`flex items-center justify-center w-12 h-12 rounded-lg ${iconBgColor}`}
+              className={`flex items-center justify-center w-10 h-10 sm:w-12 sm:h-12 rounded-lg ${iconBgColor}`}
             >
-              <Icon icon={icon} className={`w-6 h-6 ${iconColor}`} />
+              <Icon
+                icon={icon}
+                className={`w-5 h-5 sm:w-6 sm:h-6 ${iconColor}`}
+              />
             </div>
           </div>
         </CardBody>
@@ -132,7 +137,7 @@ const ProfileStat = () => {
 
   return (
     <div className="w-full mx-auto">
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 md:gap-6">
         {stats.map((stat, index) => (
           <StatCard
             key={index}
