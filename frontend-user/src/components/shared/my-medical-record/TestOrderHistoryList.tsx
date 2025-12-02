@@ -175,14 +175,14 @@ const TestOrderHistoryList: React.FC<TestOrderHistoryListProps> = ({
   ]);
 
   return (
-    <div className="w-full bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 flex flex-col h-full">
+    <div className="w-full bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 flex flex-col h-full min-h-[800px] md:min-h-0">
       {/* Header */}
-      <div className="p-4 border-b border-divider dark:border-gray-700 flex-shrink-0">
-        <div className="flex flex-col sm:flex-row gap-4">
+      <div className="p-3 sm:p-4 border-b border-divider dark:border-gray-700 flex-shrink-0">
+        <div className="flex flex-col gap-3 sm:gap-4">
           {/* Search Input */}
           <Input
-            className="flex-1"
-            placeholder="Tìm kiếm theo mã đơn, loại xét nghiệm..."
+            className="w-full"
+            placeholder="Tìm kiếm mã đơn, SĐT..."
             value={searchQuery}
             onValueChange={setSearchQuery}
             startContent={
@@ -201,7 +201,7 @@ const TestOrderHistoryList: React.FC<TestOrderHistoryListProps> = ({
             }
             size="sm"
             variant="bordered"
-            className="w-full sm:w-40"
+            className="w-full"
           >
             <SelectItem key="all">Tất cả trạng thái</SelectItem>
             <SelectItem key="PENDING">Đang chờ</SelectItem>
@@ -212,8 +212,8 @@ const TestOrderHistoryList: React.FC<TestOrderHistoryListProps> = ({
         </div>
       </div>
 
-      {/* Table */}
-      <div className="flex-1 overflow-x-auto py-2">
+      {/* Table - Desktop & Tablet */}
+      <div className="hidden md:block flex-1 overflow-x-auto py-2">
         <Table
           aria-label="Lịch sử xét nghiệm"
           classNames={{
@@ -357,6 +357,152 @@ const TestOrderHistoryList: React.FC<TestOrderHistoryListProps> = ({
             ))}
           </TableBody>
         </Table>
+      </div>
+
+      {/* Card View - Mobile */}
+      <div className="md:hidden flex-1 overflow-y-auto p-3 space-y-3">
+        {!filteredTestOrders || filteredTestOrders.length === 0 ? (
+          <div className="text-center py-8">
+            <Icon
+              icon="mdi:test-tube"
+              className="mx-auto h-12 w-12 text-default-300 mb-4"
+            />
+            <h3 className="text-base font-medium text-foreground mb-2">
+              Chưa có lịch sử xét nghiệm
+            </h3>
+            <p className="text-sm text-default-500 px-4">
+              {searchQuery || statusFilter !== "all"
+                ? "Không tìm thấy kết quả phù hợp."
+                : "Bạn chưa có kết quả xét nghiệm nào."}
+            </p>
+          </div>
+        ) : (
+          filteredTestOrders.map((order, idx) => (
+            <div
+              key={order.id ?? idx}
+              className="bg-white dark:bg-gray-900 rounded-lg border border-gray-200 dark:border-gray-700 p-4 shadow-sm"
+            >
+              {/* Header */}
+              <div className="flex items-start justify-between mb-3">
+                <div className="flex-1">
+                  <span className="font-mono text-sm font-bold text-[var(--coral-500)] block mb-1">
+                    {order.accessionNumber || "-"}
+                  </span>
+                  <span className="text-xs text-gray-500 dark:text-gray-400">
+                    {order.createdAt
+                      ? String(order.createdAt).split(" ")[0]
+                      : "-"}
+                  </span>
+                </div>
+                <div className="flex flex-col gap-1 items-end">
+                  <Chip
+                    color={getStatusColor(order.status || "-")}
+                    size="sm"
+                    variant="flat"
+                    className="font-medium"
+                  >
+                    {getStatusText(order.status || "-")}
+                  </Chip>
+                  <Chip
+                    color={getStatusPriorityColor(order.priority || "-")}
+                    size="sm"
+                    variant="flat"
+                    className="font-medium"
+                  >
+                    {getPriorityText(order.priority || "-")}
+                  </Chip>
+                </div>
+              </div>
+
+              {/* Info Grid */}
+              <div className="space-y-2 mb-3">
+                <div className="flex items-center gap-2 text-sm">
+                  <Icon
+                    icon="mdi:doctor"
+                    className="w-4 h-4 text-gray-400 flex-shrink-0"
+                  />
+                  <span className="text-gray-600 dark:text-gray-400 text-xs">
+                    Bác sĩ:
+                  </span>
+                  <span className="font-medium text-gray-900 dark:text-white text-xs">
+                    {order.runBy || "-"}
+                  </span>
+                </div>
+                <div className="flex items-center gap-2 text-sm">
+                  <Icon
+                    icon="mdi:phone"
+                    className="w-4 h-4 text-gray-400 flex-shrink-0"
+                  />
+                  <span className="text-gray-600 dark:text-gray-400 text-xs">
+                    SĐT:
+                  </span>
+                  <span className="font-medium text-gray-900 dark:text-white text-xs">
+                    {order.phone || "-"}
+                  </span>
+                </div>
+                <div className="flex items-center gap-2 text-sm">
+                  <Icon
+                    icon="mdi:test-tube"
+                    className="w-4 h-4 text-gray-400 flex-shrink-0"
+                  />
+                  <span className="text-gray-600 dark:text-gray-400 text-xs">
+                    Thiết bị:
+                  </span>
+                  <span className="font-medium text-gray-900 dark:text-white text-xs">
+                    {order.instrumentName || "-"}
+                  </span>
+                </div>
+              </div>
+
+              {/* Action Buttons */}
+              <div className="flex gap-2 pt-3 border-t border-gray-200 dark:border-gray-700">
+                {order.status === "COMPLETED" ||
+                order.status === "REVIEWED" ||
+                order.status === "AI_REVIEWED" ? (
+                  <>
+                    <Button
+                      size="sm"
+                      color="primary"
+                      variant="flat"
+                      className="flex-1"
+                      startContent={<Icon icon="mdi:eye" className="h-4 w-4" />}
+                      onPress={() => {
+                        if (order.accessionNumber && order.id)
+                          handleViewTestResultDetail(
+                            order.id,
+                            order.accessionNumber
+                          );
+                      }}
+                    >
+                      Xem
+                    </Button>
+                    <Button
+                      size="sm"
+                      color="success"
+                      variant="flat"
+                      className="flex-1"
+                      startContent={
+                        <Icon icon="mdi:download" className="h-4 w-4" />
+                      }
+                      onPress={() => {
+                        if (order.accessionNumber && order.id)
+                          startDownload(order.id, order.accessionNumber);
+                      }}
+                    >
+                      Tải về
+                    </Button>
+                  </>
+                ) : (
+                  <div className="w-full text-center py-2">
+                    <Chip size="sm" variant="flat" color="default">
+                      Chưa có kết quả
+                    </Chip>
+                  </div>
+                )}
+              </div>
+            </div>
+          ))
+        )}
       </div>
     </div>
   );
