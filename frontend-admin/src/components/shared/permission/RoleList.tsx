@@ -177,7 +177,7 @@ const RoleList: React.FC<RoleListProps> = () => {
   }
 
   return (
-    <div className="p-6 space-y-4">
+    <div className="h-full flex flex-col bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700">
       {/* Alert */}
       <AnimatePresence>
         {showAlert && (
@@ -186,86 +186,129 @@ const RoleList: React.FC<RoleListProps> = () => {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: -20, scale: 0.95 }}
             transition={{ duration: 0.4 }}
-            className="fixed top-20 right-4 z-[999] w-auto max-w-sm"
+            className="fixed top-20 right-4 z-[999] w-auto max-w-[90vw] sm:max-w-sm"
           >
             <Alert
               color={alertColor}
               title={alertMessage}
               variant="flat"
-              className="shadow-lg"
+              className="shadow-lg bg-background border border-gray-200 dark:border-gray-700"
             />
           </motion.div>
         )}
       </AnimatePresence>
 
-      <div className="flex items-center gap-2 mb-4">
-        <Icon
-          icon="mdi:account-group"
-          className="w-6 h-6 text-gray-600 dark:text-gray-400"
-        />
-        <h2 className="text-xl font-bold text-gray-900 dark:text-white">
-          Danh sách vai trò
-        </h2>
+      {/* Header */}
+      <div className="flex-shrink-0 p-3 sm:p-4 border-b border-gray-200 dark:border-gray-700">
+        <div className="flex items-center gap-2">
+          <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-lg bg-gray-100 dark:bg-gray-800 flex items-center justify-center">
+            <Icon
+              icon="mdi:account-group"
+              className="w-4 h-4 sm:w-5 sm:h-5 text-gray-600 dark:text-gray-400"
+            />
+          </div>
+          <div>
+            <h2 className="text-base sm:text-lg font-bold text-gray-900 dark:text-white">
+              Danh sách vai trò
+            </h2>
+            <p className="text-xs text-gray-500 dark:text-gray-400">
+              {roles.length} vai trò
+            </p>
+          </div>
+        </div>
       </div>
 
-      <div className="space-y-4">
-        {roles.map((role) => (
-          <Card
-            key={role.id}
-            className={`border-2 transition-all shadow-md ${
-              draggedOverRoleId === role.id
-                ? "border-blue-500 bg-blue-50 dark:bg-blue-950/20"
-                : "border-gray-200 dark:border-gray-700"
-            }`}
-            onDragOver={(e) => handleDragOver(e, role.id)}
-            onDragLeave={handleDragLeave}
-            onDrop={(e) => handleDrop(e, role.id)}
-          >
-            <CardBody className="p-4">
-              <div className="flex items-start justify-between mb-3">
-                <div>
-                  <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
-                    {role.roleName}
-                  </h3>
-                  <p className="text-sm text-gray-500 dark:text-gray-400">
-                    {role.roleCode}
-                  </p>
-                </div>
-              </div>
-
-              <div className="space-y-2">
-                {role.permissions && role.permissions.length > 0 ? (
-                  <div className="flex flex-wrap gap-2">
-                    {role.permissions.map((permission) => (
-                      <div
-                        key={permission.id}
-                        className="flex items-center gap-2 px-3 py-1.5 bg-blue-100 dark:bg-blue-900/30 rounded-lg text-sm"
-                      >
-                        <span className="text-gray-900 dark:text-white">
-                          {permission.name}
-                        </span>
-                        <button
-                          type="button"
-                          onClick={() =>
-                            handleRemovePermission(role.id, permission.id)
-                          }
-                          className="text-red-600 hover:text-red-800 dark:text-red-400 dark:hover:text-red-300"
-                          disabled={isMutating}
-                        >
-                          <Icon icon="mdi:close" className="w-4 h-4" />
-                        </button>
-                      </div>
-                    ))}
+      {/* Roles List */}
+      <div className="flex-1 overflow-auto p-3 sm:p-4">
+        <div className="space-y-3 sm:space-y-4">
+          {roles.map((role) => (
+            <Card
+              key={role.id}
+              className={`border-2 transition-all ${
+                draggedOverRoleId === role.id
+                  ? "border-blue-500 bg-blue-50 dark:bg-blue-950/20 shadow-lg"
+                  : "border-gray-200 dark:border-gray-700 hover:border-blue-300 dark:hover:border-blue-700 hover:shadow-md"
+              }`}
+              onDragOver={(e) => handleDragOver(e, role.id)}
+              onDragLeave={handleDragLeave}
+              onDrop={(e) => handleDrop(e, role.id)}
+            >
+              <CardBody className="p-3 sm:p-4">
+                {/* Role Header */}
+                <div className="flex items-start justify-between mb-3 pb-3 border-b border-gray-200 dark:border-gray-700">
+                  <div className="flex-1">
+                    <h3 className="text-base sm:text-lg font-semibold text-gray-900 dark:text-white">
+                      {role.roleName}
+                    </h3>
+                    <p className="text-xs sm:text-sm text-gray-500 dark:text-gray-400 mt-0.5">
+                      {role.roleCode}
+                    </p>
                   </div>
-                ) : (
-                  <p className="text-sm text-gray-500 dark:text-gray-400 italic">
-                    Chưa có quyền nào
-                  </p>
-                )}
-              </div>
-            </CardBody>
-          </Card>
-        ))}
+                  {draggedOverRoleId === role.id && (
+                    <div className="flex items-center gap-2 px-2 py-1 bg-blue-100 dark:bg-blue-900/30 rounded-lg">
+                      <Icon
+                        icon="mdi:arrow-down"
+                        className="w-4 h-4 text-blue-600 dark:text-blue-400 animate-bounce"
+                      />
+                      <span className="text-xs font-medium text-blue-600 dark:text-blue-400">
+                        Thả vào đây
+                      </span>
+                    </div>
+                  )}
+                </div>
+
+                {/* Permissions */}
+                <div>
+                  <div className="flex items-center gap-2 mb-2">
+                    <Icon
+                      icon="mdi:shield-key"
+                      className="w-4 h-4 text-gray-400"
+                    />
+                    <span className="text-xs font-medium text-gray-600 dark:text-gray-400">
+                      Quyền ({role.permissions?.length || 0})
+                    </span>
+                  </div>
+
+                  {role.permissions && role.permissions.length > 0 ? (
+                    <div className="flex flex-wrap gap-2">
+                      {role.permissions.map((permission) => (
+                        <div
+                          key={permission.id}
+                          className="group flex items-center gap-1.5 px-2.5 py-1.5 bg-blue-100 dark:bg-blue-900/30 rounded-lg text-xs sm:text-sm hover:shadow-md transition-all"
+                        >
+                          <Icon
+                            icon="mdi:key"
+                            className="w-3 h-3 text-gray-900 dark:text-white"
+                          />
+                          <span className="font-medium text-gray-900 dark:text-white">
+                            {permission.name}
+                          </span>
+                          <button
+                            type="button"
+                            onClick={() =>
+                              handleRemovePermission(role.id, permission.id)
+                            }
+                            className="ml-1 w-5 h-5 flex items-center justify-center rounded-md text-red-600 hover:bg-red-100 dark:text-red-400 dark:hover:bg-red-950/30 transition-colors opacity-0 group-hover:opacity-100"
+                            disabled={isMutating}
+                          >
+                            <Icon icon="mdi:close" className="w-3.5 h-3.5" />
+                          </button>
+                        </div>
+                      ))}
+                    </div>
+                  ) : (
+                    <div className="flex items-center gap-2 px-3 py-2 bg-gray-50 dark:bg-gray-900/30 rounded-lg border border-dashed border-gray-300 dark:border-gray-700">
+                      <Icon icon="mdi:drag" className="w-4 h-4 text-gray-400" />
+                      <p className="text-xs sm:text-sm text-gray-500 dark:text-gray-400 italic">
+                        Kéo quyền vào đây để gán cho vai trò này
+                      </p>
+                    </div>
+                  )}
+                </div>
+              </CardBody>
+            </Card>
+          ))}
+        </div>
       </div>
     </div>
   );

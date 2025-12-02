@@ -101,77 +101,118 @@ const PermissionList: React.FC = () => {
   };
 
   return (
-    <div className="p-6 space-y-4 bg-white dark:bg-gray-800 rounded-lg shadow-md h-full">
-      <div className="flex items-center justify-between">
-        <div className="flex items-center gap-2 mb-4">
-          <Icon
-            icon="mdi:key-variant"
-            className="w-6 h-6 text-gray-600 dark:text-gray-400"
-          />
-          <h2 className="text-xl font-bold text-gray-900 dark:text-white">
-            Danh sách quyền
-          </h2>
+    <div className="h-full flex flex-col bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700">
+      {/* Header */}
+      <div className="flex-shrink-0 p-3 sm:p-4 border-b border-gray-200 dark:border-gray-700">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+          <div className="flex items-center gap-2">
+            <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-lg bg-gray-100 dark:bg-gray-800 flex items-center justify-center">
+              <Icon
+                icon="mdi:key-variant"
+                className="w-4 h-4 sm:w-5 sm:h-5 text-gray-600 dark:text-gray-400"
+              />
+            </div>
+            <div>
+              <h2 className="text-base sm:text-lg font-bold text-gray-900 dark:text-white">
+                Danh sách quyền
+              </h2>
+              <p className="text-xs text-gray-500 dark:text-gray-400">
+                {filteredPermissions.length} quyền
+              </p>
+            </div>
+          </div>
+          <Button
+            variant="solid"
+            size="sm"
+            className="w-full sm:w-auto bg-black text-white hover:bg-gray-900 dark:bg-gray-700 dark:hover:bg-gray-600"
+            onPress={() => handleAddPermission()}
+          >
+            <Icon icon="mdi:plus" className="w-4 h-4" />
+            <span>Thêm quyền</span>
+          </Button>
         </div>
-        <Button
-          variant="solid"
-          size="sm"
-          className="mb-4 bg-black text-white hover:bg-gray-900 dark:bg-gray-700 dark:hover:bg-gray-600"
-          onPress={() => handleAddPermission()}
-        >
-          Thêm quyền
-        </Button>
       </div>
 
-      <Input
-        placeholder="Tìm kiếm quyền..."
-        value={searchText}
-        onValueChange={setSearchText}
-        startContent={
-          <Icon icon="mdi:magnify" className="w-4 h-4 text-gray-400" />
-        }
-        className="mb-4"
-      />
+      {/* Search */}
+      <div className="flex-shrink-0 p-3 sm:p-4 border-b border-gray-200 dark:border-gray-700">
+        <Input
+          placeholder="Tìm kiếm quyền..."
+          value={searchText}
+          onValueChange={setSearchText}
+          startContent={
+            <Icon icon="mdi:magnify" className="w-4 h-4 text-gray-400" />
+          }
+          size="sm"
+          variant="bordered"
+          classNames={{
+            input: "text-sm",
+            inputWrapper: "h-10",
+          }}
+        />
+      </div>
 
-      <div className="space-y-2">
+      {/* List */}
+      <div className="flex-1 overflow-auto p-3 sm:p-4">
         {filteredPermissions.length > 0 ? (
-          filteredPermissions.map((permission) => (
-            <Card
-              key={permission.id}
-              className={`cursor-move border-2 transition-all shadow-md hover:shadow-md ${
-                draggedPermission?.id === permission.id
-                  ? "opacity-50 border-blue-500"
-                  : "border-gray-200 dark:border-gray-700 hover:border-blue-300 dark:hover:border-blue-700"
-              }`}
-              draggable
-              onDragStart={(e) => handleDragStart(e, permission)}
-              onDragEnd={handleDragEnd}
-            >
-              <CardBody className="p-3">
-                <div className="flex items-start justify-between">
-                  <div className="flex-1">
-                    <h4 className="font-semibold text-gray-900 dark:text-white text-sm">
-                      {permission.name}
-                    </h4>
-                    <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
-                      {permission.description}
-                    </p>
+          <div className="space-y-3">
+            {filteredPermissions.map((permission) => (
+              <Card
+                key={permission.id}
+                className={`cursor-move border transition-all hover:shadow-md ${
+                  draggedPermission?.id === permission.id
+                    ? "opacity-50 border-blue-500 shadow-lg"
+                    : "border-gray-200 dark:border-gray-700 hover:border-blue-300 dark:hover:border-blue-700"
+                }`}
+                draggable
+                onDragStart={(e) => handleDragStart(e, permission)}
+                onDragEnd={handleDragEnd}
+              >
+                <CardBody className="p-3 sm:p-4">
+                  <div className="flex items-start gap-3">
+                    {/* Drag Icon */}
+                    <div className="flex items-center justify-center w-8 h-8 rounded-lg bg-gray-100 dark:bg-gray-800 flex-shrink-0">
+                      <Icon
+                        icon="mdi:drag"
+                        className="w-4 h-4 text-gray-400 dark:text-gray-500"
+                      />
+                    </div>
+
+                    {/* Content */}
+                    <div className="flex-1 min-w-0">
+                      <h4 className="font-semibold text-gray-900 dark:text-white text-sm sm:text-base mb-1">
+                        {permission.name}
+                      </h4>
+                      <p className="text-xs sm:text-sm text-gray-500 dark:text-gray-400 line-clamp-2">
+                        {permission.description}
+                      </p>
+                    </div>
+
+                    {/* Delete Button */}
+                    <button
+                      type="button"
+                      onClick={() => handleDeletePermission(permission.id)}
+                      className="flex-shrink-0 w-8 h-8 flex items-center justify-center rounded-lg text-red-600 hover:bg-red-50 dark:text-red-400 dark:hover:bg-red-950/20 transition-colors"
+                    >
+                      <Icon icon="mdi:delete-outline" className="w-4 h-4" />
+                    </button>
                   </div>
-                  <Icon
-                    icon="mdi:drag"
-                    className="w-4 h-4 text-gray-400 dark:text-gray-500 ml-2 flex-shrink-0"
-                  />
-                  <Icon
-                    icon="si:bin-duotone"
-                    className="w-4 h-4 text-red-400 dark:text-gray-500 ml-2 flex-shrink-0 cursor-pointer"
-                    onClick={() => handleDeletePermission(permission.id)}
-                  />
-                </div>
-              </CardBody>
-            </Card>
-          ))
+                </CardBody>
+              </Card>
+            ))}
+          </div>
         ) : (
-          <div className="text-center py-8 text-gray-500 dark:text-gray-400">
-            {searchText ? "Không tìm thấy quyền nào" : "Chưa có quyền nào"}
+          <div className="flex flex-col items-center justify-center h-full min-h-[200px] text-center">
+            <div className="w-16 h-16 rounded-full bg-gray-100 dark:bg-gray-800 flex items-center justify-center mb-4">
+              <Icon icon="mdi:key-variant" className="w-8 h-8 text-gray-400" />
+            </div>
+            <h3 className="text-base font-medium text-gray-900 dark:text-white mb-1">
+              {searchText ? "Không tìm thấy quyền nào" : "Chưa có quyền nào"}
+            </h3>
+            <p className="text-sm text-gray-500 dark:text-gray-400">
+              {searchText
+                ? "Thử tìm kiếm với từ khóa khác"
+                : "Nhấn 'Thêm quyền' để bắt đầu"}
+            </p>
           </div>
         )}
       </div>

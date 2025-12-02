@@ -16,18 +16,23 @@ const PermissionPage = () => {
     : [];
 
   return (
-    <div className="h-full flex flex-col gap-3 sm:gap-4 md:gap-6">
-      <MainTitle />
+    <div className="w-full h-full flex flex-col">
+      <div className="flex-shrink-0">
+        <MainTitle />
+      </div>
 
-      <PermissionStats />
+      <div className="flex-shrink-0 px-4 sm:px-6 py-3 sm:py-4">
+        <PermissionStats />
+      </div>
 
-      <div className="flex-1 min-h-0 grid grid-cols-1 lg:grid-cols-2 gap-3 sm:gap-4 md:gap-6">
-        <div className="border border-gray-200 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-800 overflow-auto">
-          <RoleList allPermissions={allPermissions} />
-        </div>
-
-        <div className="border border-gray-200 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-800 overflow-auto">
-          <PermissionList />
+      <div className="flex-1 min-h-0 px-4 sm:px-6 pb-4">
+        <div className="h-full grid grid-cols-1 lg:grid-cols-2 gap-3 sm:gap-4">
+          <div className="h-full min-h-[600px] lg:min-h-0">
+            <PermissionList />
+          </div>
+          <div className="h-full min-h-[450px] lg:min-h-0">
+            <RoleList allPermissions={allPermissions} />
+          </div>
         </div>
       </div>
     </div>
