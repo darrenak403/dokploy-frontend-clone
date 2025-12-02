@@ -112,6 +112,12 @@ export const SignIn = () => {
         response.data
       ) {
         console.log("Google OAuth URL from backend:", response.data?.data);
+
+        // Parse URL to check redirect_uri
+        const url = new URL(response.data?.data);
+        const redirectUri = url.searchParams.get("redirect_uri");
+        console.log("Redirect URI in OAuth URL:", redirectUri);
+
         window.location.href = response.data?.data;
       } else {
         throw new Error(
