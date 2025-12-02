@@ -54,13 +54,21 @@ export const Header = () => {
   return (
     <Navbar className="bg-white dark:bg-slate-900 border-b border-gray-200 dark:border-gray-700 text-gray-800 dark:text-white">
       <NavbarBrand className="flex items-center gap-2">
-        <Link href="/" className="flex items-center gap-2  text-black-500">
-          <Image src={LabMS_Logo} alt="Auth Image" width={50} quality={100} />
-          <p className="font-bold text-inherit">LabMS</p>
+        <Link href="/" className="flex items-center gap-2 text-black-500">
+          <Image
+            src={LabMS_Logo}
+            alt="Auth Image"
+            width={50}
+            quality={100}
+            className="w-8 sm:w-10 md:w-12"
+          />
+          <p className="font-bold text-inherit text-sm sm:text-base md:text-lg">
+            LabMS
+          </p>
         </Link>
       </NavbarBrand>
 
-      <NavbarContent className="hidden sm:flex gap-5" justify="center">
+      <NavbarContent className="hidden sm:flex gap-3 md:gap-5" justify="center">
         <NavbarItem className="relative">
           <Link
             href="/service"
@@ -72,7 +80,7 @@ export const Header = () => {
                 router.push("/profile");
               }
             }}
-            className="font-[600] text-lg text-foreground hover:text-[var(--coral-600)] hover:font-bold transition-colors after:absolute after:-bottom-1 after:left-0 after:h-[2px] hover:after:scale-x-100 after:scale-x-0 after:w-full after:bg-red-200 after:transition-all after:duration-300"
+            className="font-[600] text-sm md:text-base lg:text-lg text-foreground hover:text-[var(--coral-600)] hover:font-bold transition-colors after:absolute after:-bottom-1 after:left-0 after:h-[2px] hover:after:scale-x-100 after:scale-x-0 after:w-full after:bg-red-200 after:transition-all after:duration-300"
           >
             Dịch vụ
           </Link>
@@ -88,7 +96,7 @@ export const Header = () => {
                 router.push("/profile");
               }
             }}
-            className="font-[600] text-lg text-foreground hover:text-[var(--coral-600)] hover:font-bold transition-colors after:absolute after:-bottom-1 after:left-0 after:h-[2px] hover:after:scale-x-100 after:scale-x-0 after:w-full after:bg-red-200 after:transition-all after:duration-300"
+            className="font-[600] text-sm md:text-base lg:text-lg text-foreground hover:text-[var(--coral-600)] hover:font-bold transition-colors after:absolute after:-bottom-1 after:left-0 after:h-[2px] hover:after:scale-x-100 after:scale-x-0 after:w-full after:bg-red-200 after:transition-all after:duration-300"
           >
             Khách hàng
           </Link>
@@ -104,14 +112,18 @@ export const Header = () => {
                 router.push("/profile");
               }
             }}
-            className="font-[600] text-lg text-foreground hover:text-[var(--coral-600)] hover:font-bold transition-colors after:absolute after:-bottom-1 after:left-0 after:h-[2px] hover:after:scale-x-100 after:scale-x-0 after:w-full after:bg-red-200 after:transition-all after:duration-300"
+            className="font-[600] text-sm md:text-base lg:text-lg text-foreground hover:text-[var(--coral-600)] hover:font-bold transition-colors after:absolute after:-bottom-1 after:left-0 after:h-[2px] hover:after:scale-x-100 after:scale-x-0 after:w-full after:bg-red-200 after:transition-all after:duration-300"
           >
             Tích hợp
           </Link>
         </NavbarItem>
       </NavbarContent>
 
-      <NavbarContent as="div" className="items-center gap-3" justify="end">
+      <NavbarContent
+        as="div"
+        className="items-center gap-2 sm:gap-3"
+        justify="end"
+      >
         {isLoggedIn ? (
           <>
             <NavbarItem className="flex-shrink-0">
@@ -175,14 +187,15 @@ export const Header = () => {
             <NavbarItem className="flex-shrink-0 w-auto">
               <ThemeToggle />
             </NavbarItem>
-            <NavbarItem>
+            <NavbarItem className="hidden sm:block">
               <Link
                 href="/signin"
                 prefetch={true}
                 onMouseEnter={() => router.prefetch("/signin")}
               >
                 <Button
-                  className="text-xs opacity-100"
+                  className="text-xs sm:text-sm opacity-100"
+                  size="sm"
                   style={{
                     background:
                       "linear-gradient(90deg, var(--coral-500), var(--coral-600))",
@@ -194,14 +207,15 @@ export const Header = () => {
                 </Button>
               </Link>
             </NavbarItem>
-            <NavbarItem>
+            <NavbarItem className="hidden sm:block">
               <Link
                 href="/signup"
                 prefetch={true}
                 onMouseEnter={() => router.prefetch("/signup")}
               >
                 <Button
-                  className="text-xs opacity-100"
+                  className="text-xs sm:text-sm opacity-100"
+                  size="sm"
                   variant="bordered"
                   style={{
                     borderColor: "var(--coral-500)",

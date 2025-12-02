@@ -5,11 +5,11 @@ import { Icon } from "@iconify/react";
 const TestOrderHistoryCurrentlySkeleton: React.FC = () => {
   return (
     <div className="grid md:grid-cols-2 gap-4">
-      <div className="p-4 rounded-lg border border-gray-200 bg-white flex items-center justify-center">
+      <div className="p-4 rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 flex items-center justify-center">
         <div className="text-center">
           <Icon
             icon="mdi:clipboard-text-outline"
-            className="w-8 h-8 mx-auto mb-2 text-zinc-500"
+            className="w-8 h-8 mx-auto mb-2 text-zinc-500 dark:text-zinc-400"
           />
           <p className="text-lg font-medium text-zinc-700 dark:text-zinc-300">
             Chưa có thông tin
@@ -19,11 +19,11 @@ const TestOrderHistoryCurrentlySkeleton: React.FC = () => {
           </p>
         </div>
       </div>
-      <div className="p-4 rounded-lg border border-gray-200 bg-white flex items-center justify-center">
+      <div className="p-4 rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 flex items-center justify-center">
         <div className="text-center">
           <Icon
             icon="mdi:information-outline"
-            className="w-8 h-8 mx-auto mb-2 text-zinc-500"
+            className="w-8 h-8 mx-auto mb-2 text-zinc-500 dark:text-zinc-400"
           />
           <p className="text-lg font-medium text-zinc-700 dark:text-zinc-300">
             Chưa có thông tin

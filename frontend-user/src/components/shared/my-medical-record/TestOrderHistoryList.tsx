@@ -175,9 +175,9 @@ const TestOrderHistoryList: React.FC<TestOrderHistoryListProps> = ({
   ]);
 
   return (
-    <div className="w-full bg-white rounded-lg border border-gray-200 flex flex-col h-full">
+    <div className="w-full bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 flex flex-col h-full">
       {/* Header */}
-      <div className="p-4 border-b border-divider flex-shrink-0">
+      <div className="p-4 border-b border-divider dark:border-gray-700 flex-shrink-0">
         <div className="flex flex-col sm:flex-row gap-4">
           {/* Search Input */}
           <Input
@@ -253,7 +253,7 @@ const TestOrderHistoryList: React.FC<TestOrderHistoryListProps> = ({
             {(filteredTestOrders ?? []).map((order, idx) => (
               <TableRow
                 key={order.id ?? idx}
-                className="h-full min-h-0 border-b border-zinc-200/50"
+                className="h-full min-h-0 border-b border-zinc-200/50 dark:border-gray-700"
               >
                 <TableCell>
                   <span className="font-mono text-sm font-semibold text-[var(--coral-500)]">
@@ -262,23 +262,27 @@ const TestOrderHistoryList: React.FC<TestOrderHistoryListProps> = ({
                 </TableCell>
                 <TableCell>
                   <div className="flex flex-col">
-                    <span className="font-medium">{order.runBy || "-"}</span>
+                    <span className="font-medium text-gray-900 dark:text-white">
+                      {order.runBy || "-"}
+                    </span>
                   </div>
                 </TableCell>
                 <TableCell>
                   <div className="flex flex-col">
-                    <span className="font-medium">{order.phone || "-"}</span>
+                    <span className="font-medium text-gray-900 dark:text-white">
+                      {order.phone || "-"}
+                    </span>
                   </div>
                 </TableCell>
                 <TableCell>
                   <div className="flex flex-col">
-                    <span className="font-medium">
+                    <span className="font-medium text-gray-900 dark:text-white">
                       {order.instrumentName || "-"}
                     </span>
                   </div>
                 </TableCell>
                 <TableCell>
-                  <span className="text-sm">
+                  <span className="text-sm text-gray-900 dark:text-white">
                     {order.createdAt
                       ? String(order.createdAt).split(" ")[0]
                       : "-"}
