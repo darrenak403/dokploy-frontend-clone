@@ -70,7 +70,10 @@ const InitialOptions: React.FC<InitialOptionsProps> = ({
           >
             {/* Icon */}
             <div className="w-12 h-12 min-w-[48px] bg-red-50 dark:bg-red-900/20 rounded-xl flex items-center justify-center">
-              <Icon icon={option.icon} className="text-2xl text-red-500 dark:text-red-400" />
+              <Icon
+                icon={option.icon}
+                className="text-2xl text-red-500 dark:text-red-400"
+              />
             </div>
 
             {/* Content */}
