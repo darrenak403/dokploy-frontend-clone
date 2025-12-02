@@ -2,11 +2,17 @@
 import React, { useEffect, useMemo, useState } from "react";
 
 import {
+  Avatar,
+  Button,
   Card,
   CardBody,
   Chip,
   User as HeroUser,
   Input,
+  Modal,
+  ModalBody,
+  ModalContent,
+  ModalHeader,
   Select,
   SelectItem,
   Spinner,
@@ -17,6 +23,7 @@ import {
   TableHeader,
   TableRow,
   Tooltip,
+  useDisclosure,
 } from "@heroui/react";
 import { Icon } from "@iconify/react";
 
@@ -36,6 +43,8 @@ const AccountList: React.FC = () => {
   const { openWithUser } = useUpdateUserDiscloresureSingleton();
   const [rawQuery, setRawQuery] = useState("");
   const [searchQuery, setSearchQuery] = useState("");
+  const [showFilters, setShowFilters] = useState(false);
+
   useEffect(() => {
     const id = setTimeout(() => setSearchQuery(rawQuery), 250);
     return () => clearTimeout(id);
@@ -95,31 +104,61 @@ const AccountList: React.FC = () => {
     <Card className="w-full shadow-none border border-gray-200 flex flex-col h-full">
       <CardBody className="p-0 flex flex-col h-full">
         {/* Header with Search and Filters */}
-        <div className="p-4 border-b border-divider flex-shrink-0">
-          <div className="flex flex-col sm:flex-row gap-4">
-            {/* Search Input */}
-            <Input
-              className="flex-1"
-              placeholder="Tìm kiếm theo tên, ID, email hoặc điện thoại..."
-              value={rawQuery}
-              onValueChange={setRawQuery}
-              startContent={
-                <Icon icon="mdi:magnify" className="h-4 w-4 text-default-400" />
-              }
-              size="sm"
-              variant="bordered"
-            />
+        <div className="p-3 sm:p-4 border-b border-divider flex-shrink-0">
+          {/* Search Input - Always visible */}
+          <Input
+            className="w-full mb-3"
+            placeholder="Tìm kiếm..."
+            value={rawQuery}
+            onValueChange={setRawQuery}
+            startContent={
+              <Icon icon="mdi:magnify" className="h-4 w-4 text-default-400" />
+            }
+            size="sm"
+            variant="bordered"
+          />
 
+          {/* Filters Toggle Button - Mobile */}
+          <div className="flex gap-2 lg:hidden">
+            <button
+              onClick={() => setShowFilters(!showFilters)}
+              className="flex items-center gap-2 px-3 py-2 text-sm rounded-lg border border-gray-300 dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
+            >
+              <Icon icon="mdi:filter-variant" className="h-4 w-4" />
+              <span>Lọc</span>
+              {(userFilter !== "all" || roleFilter !== "all") && (
+                <span className="w-2 h-2 rounded-full bg-blue-500" />
+              )}
+            </button>
+            {(userFilter !== "all" || roleFilter !== "all") && (
+              <button
+                onClick={() => {
+                  setUserFilter("all");
+                  setRoleFilter("all");
+                }}
+                className="px-3 py-2 text-sm text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-950/20 rounded-lg transition-colors"
+              >
+                Xóa bộ lọc
+              </button>
+            )}
+          </div>
+
+          {/* Filters - Desktop always visible, Mobile collapsible */}
+          <div
+            className={`${
+              showFilters ? "flex" : "hidden"
+            } lg:flex flex-col sm:flex-row gap-3 mt-3 lg:mt-0`}
+          >
             {/* User Filter */}
             <Select
-              placeholder="All Users"
+              placeholder="Trạng thái"
               selectedKeys={new Set([userFilter])}
               onSelectionChange={(keys) =>
                 setUserFilter(Array.from(keys)[0] as string)
               }
               size="sm"
               variant="bordered"
-              className="w-full sm:w-40"
+              className="w-full sm:w-auto sm:min-w-[160px]"
             >
               <SelectItem key="all">Tất cả tài khoản</SelectItem>
               <SelectItem key="active">Đang hoạt động</SelectItem>
@@ -135,7 +174,7 @@ const AccountList: React.FC = () => {
               }
               size="sm"
               variant="bordered"
-              className="w-full sm:w-40"
+              className="w-full sm:w-auto sm:min-w-[160px]"
             >
               <SelectItem key="all">Tất cả vai trò</SelectItem>
               <SelectItem key="role_admin">Quản trị viên</SelectItem>
@@ -148,7 +187,8 @@ const AccountList: React.FC = () => {
           </div>
         </div>
 
-        <div className="flex-1 min-h-[500px] overflow-auto">
+        {/* Desktop Table View - Hidden on Mobile */}
+        <div className="hidden lg:block flex-1 min-h-[300px] sm:min-h-[400px] lg:min-h-[500px] overflow-auto">
           <div className="overflow-x-auto">
             <Table
               aria-label="User records table"
@@ -359,6 +399,162 @@ const AccountList: React.FC = () => {
               </TableBody>
             </Table>
           </div>
+        </div>
+
+        {/* Mobile Card View - Visible only on Mobile */}
+        <div className="lg:hidden flex-1 overflow-auto">
+          {isLoading ? (
+            <div className="flex items-center justify-center h-full min-h-[300px]">
+              <Spinner color="primary" size="lg" />
+            </div>
+          ) : filteredUsers.length === 0 ? (
+            <div className="text-center py-12 px-4">
+              <Icon
+                icon="mdi:account-search"
+                className="mx-auto h-16 w-16 text-default-300 mb-4"
+              />
+              <h3 className="text-lg font-medium text-foreground mb-2">
+                Không tìm thấy tài khoản
+              </h3>
+              <p className="text-sm text-default-500">
+                Vui lòng điều chỉnh tìm kiếm hoặc bộ lọc.
+              </p>
+            </div>
+          ) : (
+            <div className="p-3 space-y-3">
+              {filteredUsers.map((item) => {
+                const isActive = !(item.banned === 1 || item.banned === true);
+                return (
+                  <Card
+                    key={item.id}
+                    className="shadow-sm border border-gray-200 dark:border-gray-700 hover:shadow-md transition-shadow"
+                  >
+                    <CardBody className="p-4">
+                      {/* User Header */}
+                      {/* User Header */}
+                      <div className="flex items-start gap-3 mb-3">
+                        <div className="relative">
+                          <HeroUser
+                            avatarProps={{
+                              radius: "lg",
+                              src: item.avatarUrl ?? undefined,
+                              className: "w-12 h-12",
+                            }}
+                            name=""
+                            classNames={{
+                              base: "justify-start",
+                            }}
+                          />
+                          {isActive && (
+                            <span className="absolute right-0 bottom-0 w-3 h-3 rounded-full ring-2 ring-white dark:ring-gray-800 bg-emerald-500" />
+                          )}
+                        </div>
+                        <div className="flex-1 min-w-0">
+                          <h3 className="font-semibold text-base text-foreground truncate">
+                            {item.fullName || "Chưa có tên"}
+                          </h3>
+                          <p className="text-xs text-default-500 truncate">
+                            {item.email || "-"}
+                          </p>
+                          <div className="flex gap-2 mt-1">
+                            <Chip
+                              size="sm"
+                              variant="flat"
+                              color={isActive ? "success" : "danger"}
+                              className="text-[10px] h-5"
+                            >
+                              {isActive ? "Hoạt động" : "Ngừng"}
+                            </Chip>
+                            <Chip
+                              size="sm"
+                              variant="flat"
+                              color="primary"
+                              className="text-[10px] h-5"
+                            >
+                              {genderRoleLabel(item.role)}
+                            </Chip>
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* User Details Grid */}
+                      <div className="space-y-2 mb-3">
+                        <div className="flex items-center gap-2 text-sm w-full">
+                          <Icon
+                            icon="mdi:gender-male-female"
+                            className="h-4 w-4 text-default-400 flex-shrink-0"
+                          />
+                          <span className="text-default-700 flex-1">
+                            {getGenderLabel(item.gender) || "-"}
+                          </span>
+                        </div>
+                        <div className="flex items-center gap-2 text-sm w-full">
+                          <Icon
+                            icon="mdi:cake-variant"
+                            className="h-4 w-4 text-default-400 flex-shrink-0"
+                          />
+                          <span className="text-default-700 flex-1">
+                            {item.dateOfBirth || "-"}
+                          </span>
+                        </div>
+                        <div className="flex items-center gap-2 text-sm w-full">
+                          <Icon
+                            icon="mdi:phone"
+                            className="h-4 w-4 text-default-400 flex-shrink-0"
+                          />
+                          <span className="text-default-700 flex-1">
+                            {item.phone || "-"}
+                          </span>
+                        </div>
+                        <div className="flex items-start gap-2 text-sm w-full">
+                          <Icon
+                            icon="mdi:map-marker"
+                            className="h-4 w-4 text-default-400 flex-shrink-0 mt-0.5"
+                          />
+                          <span className="text-default-700 flex-1 line-clamp-2">
+                            {item.address || "-"}
+                          </span>
+                        </div>
+                      </div>
+
+                      {/* Action Buttons */}
+                      <div className="flex gap-2 pt-3 border-t border-divider">
+                        <button
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            openWithUserId(String(item.id));
+                          }}
+                          className="flex-1 flex items-center justify-center gap-2 px-3 py-2 text-sm font-medium text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-950/20 hover:bg-blue-100 dark:hover:bg-blue-950/30 rounded-lg transition-colors"
+                        >
+                          <Icon icon="mdi:eye" className="h-4 w-4" />
+                          <span>Xem</span>
+                        </button>
+                        <button
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            openWithUser(item);
+                          }}
+                          className="flex-1 flex items-center justify-center gap-2 px-3 py-2 text-sm font-medium text-green-600 dark:text-green-400 bg-green-50 dark:bg-green-950/20 hover:bg-green-100 dark:hover:bg-green-950/30 rounded-lg transition-colors"
+                        >
+                          <Icon icon="mdi:pencil" className="h-4 w-4" />
+                          <span>Sửa</span>
+                        </button>
+                        <button
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            // Handle ban action
+                          }}
+                          className="px-3 py-2 text-sm font-medium text-red-600 dark:text-red-400 bg-red-50 dark:bg-red-950/20 hover:bg-red-100 dark:hover:bg-red-950/30 rounded-lg transition-colors"
+                        >
+                          <Icon icon="mdi:block" className="h-4 w-4" />
+                        </button>
+                      </div>
+                    </CardBody>
+                  </Card>
+                );
+              })}
+            </div>
+          )}
         </div>
       </CardBody>
     </Card>

@@ -15,7 +15,8 @@ export default function LayoutContent({
     pathname === "/signup" ||
     pathname === "/forgot-password" ||
     pathname === "/forgot-password/reset" ||
-    pathname.startsWith("/auth/");
+    pathname.startsWith("/auth/") ||
+    pathname.startsWith("/iam/auth/social/callback/google");
 
   const isServicePage = pathname.startsWith("/service");
 

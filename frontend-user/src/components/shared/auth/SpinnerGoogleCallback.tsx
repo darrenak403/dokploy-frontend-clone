@@ -150,7 +150,7 @@ const SpinnerGoogleCallback = () => {
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, y: -20, scale: 0.95 }}
               transition={{ duration: 0.4 }}
-              className="fixed top-4 right-4 z-[999] w-auto max-w-[calc(100vw-2rem)] sm:max-w-sm"
+              className="fixed top-40 right-4 z-[999] w-auto max-w-[calc(100vw-2rem)] sm:max-w-sm"
             >
               <Alert
                 color={alertColor}

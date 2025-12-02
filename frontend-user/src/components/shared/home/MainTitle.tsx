@@ -110,19 +110,22 @@ export function MainTitle() {
           <Button
             ref={primaryRef as any}
             size="lg"
-            className=" px-8 py-3 bg-gradient-to-b from-[var(--coral-500)] to-[var(--coral-600)] text-white"
+            className="px-15 py-3 bg-gradient-to-b from-[var(--coral-500)] to-[var(--coral-600)] text-white"
             onPress={() => {
               router.push("/service");
             }}
           >
-            Bắt đầu ngay
+            Xem dịch vụ
           </Button>
           <Button
             ref={secondaryRef as any}
             size="lg"
-            className="border border-[var(--coral-600)] text-[var(--coral-500)] bg-transparent px-8 py-3 "
+            className="border border-[var(--coral-600)] text-[var(--coral-500)] bg-transparent px-13 py-3 "
+            onPress={() => {
+              router.push("/profile");
+            }}
           >
-            Xem demo
+            Hồ sơ cá nhân
           </Button>
         </div>
 

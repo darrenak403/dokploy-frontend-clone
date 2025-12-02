@@ -481,7 +481,7 @@ const TestOrderList: React.FC = () => {
                                       icon="material-symbols:send-outline-rounded"
                                       className="h-4 w-4"
                                     />
-                                    <span>Nhận kết quả xét nghiệm</span>
+                                    <span>Gửi kết quả xét nghiệm</span>
                                   </div>
                                 </DropdownItem>
                               ) : null}
