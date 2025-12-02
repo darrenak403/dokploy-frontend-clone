@@ -114,7 +114,7 @@ const ChatForm: React.FC<ChatFormProps> = ({
       />
 
       <button type="submit">
-        <Icon icon="iconamoon:send-light" className="iconify" />
+        <Icon icon="iconamoon:send-light" className="iconify-submit" />
       </button>
     </form>
   );

@@ -2,19 +2,27 @@
 
 /* Icon styling for buttons */
 #chatbot-toggler .iconify {
-  width: 34px;
-  height: 34px;
+  width: 24px;
+  height: 24px;
   color: #fff;
 }
 
 .chat-header button .iconify {
-  width: 34px;
-  height: 34px;
+  width: 24px;
+  height: 24px;
 }
 
 .chat-form button .iconify {
-  width: 34px;
-  height: 34px;
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+  pointer-events: none;
+  display: block;
+}
+
+.iconify-submit {
+  width: 34px !important;
+  height: 34px !important;
   flex-shrink: 0;
   pointer-events: none;
   display: block;
@@ -22,8 +30,13 @@
 
 @media (min-width: 640px) {
   .chat-form button .iconify {
-    width: 34px;
-    height: 34px;
+    width: 24px;
+    height: 24px;
+  }
+
+  .iconify-submit {
+    width: 34px !important;
+    height: 34px !important;
   }
 }
 
