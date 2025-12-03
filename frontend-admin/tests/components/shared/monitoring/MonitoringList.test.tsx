@@ -99,9 +99,9 @@ describe("MonitoringList Component", () => {
 
     render(<MonitoringList />);
 
-    expect(screen.getByText("User Service")).toBeInTheDocument();
-    expect(screen.getByText("Order Service")).toBeInTheDocument();
-    expect(screen.getByText("Payment Service")).toBeInTheDocument();
+    expect(screen.getAllByText("User Service")[0]).toBeInTheDocument();
+    expect(screen.getAllByText("Order Service")[0]).toBeInTheDocument();
+    expect(screen.getAllByText("Payment Service")[0]).toBeInTheDocument();
   });
 
   it("should display correct count of activities", () => {
@@ -130,14 +130,12 @@ describe("MonitoringList Component", () => {
 
     render(<MonitoringList />);
 
-    const searchInput = screen.getByPlaceholderText(
-      "Tìm theo thực thể, dịch vụ, người thực hiện..."
-    );
+    const searchInput = screen.getByPlaceholderText("Tìm kiếm...");
     await user.type(searchInput, "User");
 
     await waitFor(() => {
-      expect(screen.getByText("User Service")).toBeInTheDocument();
-      expect(screen.queryByText("Payment Service")).not.toBeInTheDocument();
+      expect(screen.getAllByText("User Service")[0]).toBeInTheDocument();
+      expect(screen.queryAllByText("Payment Service").length).toBe(0);
     });
   });
 
@@ -167,13 +165,14 @@ describe("MonitoringList Component", () => {
 
     render(<MonitoringList />);
 
+    // Desktop table columns
     expect(screen.getByText("Thời gian")).toBeInTheDocument();
-    expect(screen.getByText("Dịch vụ")).toBeInTheDocument();
-    expect(screen.getByText("Hành động")).toBeInTheDocument();
-    expect(screen.getByText("Thực thể")).toBeInTheDocument();
-    expect(screen.getByText("Người thực hiện")).toBeInTheDocument();
-    expect(screen.getByText("Trạng thái")).toBeInTheDocument();
-    expect(screen.getByText("Thông điệp")).toBeInTheDocument();
+    expect(screen.getAllByText("Dịch vụ")[0]).toBeInTheDocument();
+    expect(screen.getAllByText("Hành động")[0]).toBeInTheDocument();
+    expect(screen.getAllByText("Thực thể")[0]).toBeInTheDocument();
+    expect(screen.getAllByText("Người thực hiện")[0]).toBeInTheDocument();
+    expect(screen.getAllByText("Trạng thái")[0]).toBeInTheDocument();
+    expect(screen.getAllByText("Nội dung")[0]).toBeInTheDocument();
   });
 
   it("should display entity ID when available", () => {
@@ -187,9 +186,9 @@ describe("MonitoringList Component", () => {
 
     render(<MonitoringList />);
 
-    expect(screen.getByText("ID: 123")).toBeInTheDocument();
-    expect(screen.getByText("ID: 456")).toBeInTheDocument();
-    expect(screen.getByText("ID: 789")).toBeInTheDocument();
+    expect(screen.getAllByText("ID: 123")[0]).toBeInTheDocument();
+    expect(screen.getAllByText("ID: 456")[0]).toBeInTheDocument();
+    expect(screen.getAllByText("ID: 789")[0]).toBeInTheDocument();
   });
 
   it("should show empty state when no data matches filters", async () => {
@@ -204,13 +203,13 @@ describe("MonitoringList Component", () => {
 
     render(<MonitoringList />);
 
-    const searchInput = screen.getByPlaceholderText(
-      "Tìm theo thực thể, dịch vụ, người thực hiện..."
-    );
+    const searchInput = screen.getByPlaceholderText("Tìm kiếm...");
     await user.type(searchInput, "NonExistentService");
 
     await waitFor(() => {
-      expect(screen.getByText("Không có dữ liệu giám sát")).toBeInTheDocument();
+      expect(
+        screen.getAllByText("Không có dữ liệu giám sát")[0]
+      ).toBeInTheDocument();
     });
   });
 
@@ -225,9 +224,7 @@ describe("MonitoringList Component", () => {
 
     render(<MonitoringList />);
 
-    const searchInput = screen.queryByPlaceholderText(
-      "Tìm theo thực thể, dịch vụ, người thực hiện..."
-    );
+    const searchInput = screen.queryByPlaceholderText("Tìm kiếm...");
     if (searchInput) {
       expect(searchInput).toBeDisabled();
     }
@@ -262,6 +259,8 @@ describe("MonitoringList Component", () => {
     render(<MonitoringList />);
 
     expect(screen.getByText(/Hiển thị 0 \/ 0 hoạt động/)).toBeInTheDocument();
-    expect(screen.getByText("Không có dữ liệu giám sát")).toBeInTheDocument();
+    expect(
+      screen.getAllByText("Không có dữ liệu giám sát")[0]
+    ).toBeInTheDocument();
   });
 });

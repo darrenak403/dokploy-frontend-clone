@@ -1,6 +1,5 @@
 "use client";
 // import { useState } from "react";
-
 import ProtectedRoute from "@/libs/ProtectedRoute";
 
 // import { Sidebar } from "@/components/shared/profile/Sidebar";
