@@ -33,7 +33,7 @@ jobs:
           context: ./frontend-user
           file: ./frontend-user/Dockerfile
           push: true
-          tags: datdevv/frontend-user:latest
+          tags: ngothanhdatak/frontend-user:latest
 
       # =============================
       # Build & Push Frontend Admin
@@ -44,4 +44,4 @@ jobs:
           context: ./frontend-admin
           file: ./frontend-admin/Dockerfile
           push: true
-          tags: datdevv/admin-frontend:latest
+          tags: ngothanhdatak/admin-frontend:latest
