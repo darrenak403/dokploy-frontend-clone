@@ -86,7 +86,7 @@ export const SignIn = () => {
       } catch (error) {
         console.log(error);
         setAlertColor("danger");
-        setAlertMessage("Đăng nhập thất bại. ");
+        setAlertMessage("Đăng nhập thất bại!");
         setShowAlert(true);
         setTimeout(() => {
           setShowAlert(false);
