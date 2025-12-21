@@ -3,7 +3,7 @@ services:
     build:
       context: ./frontend-user
       args:
-        NEXT_PUBLIC_API_BASE_URL: /api
+        NEXT_PUBLIC_API_BASE_URL: https://api.darrenak.id.vn/v1/api
         NEXT_PUBLIC_SECRET: ${NEXT_PUBLIC_SECRET:-1a9733d7738894c5}
     container_name: frontend-user
     environment:
@@ -21,7 +21,7 @@ services:
     build:
       context: ./frontend-admin
       args:
-        NEXT_PUBLIC_API_BASE_URL: /api
+        NEXT_PUBLIC_API_BASE_URL: https://api.darrenak.id.vn/v1/api
         NEXT_PUBLIC_SECRET: ${NEXT_PUBLIC_SECRET:-1a9733d7738894c5}
     container_name: frontend-admin
     environment:
